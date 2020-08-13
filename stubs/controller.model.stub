@@ -1,0 +1,132 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class {{ class }} extends Controller
+{
+    protected $baseViewPath = '{{ modelVariable }}';
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        if ($request->wantsJson()) {
+            //
+        }
+
+        return view($this->baseViewPath . '.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{ model }} ${{ modelVariable }})
+    {
+        return view($this->baseViewPath . '.show')
+            ->with('model', ${{ modelVariable }});
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function edit({{ model }} ${{ modelVariable }})
+    {
+        return view($this->baseViewPath . '.edit')
+            ->with('model', ${{ modelVariable }});
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    {
+        $attributes = $request->validate([
+
+        ]);
+
+        ${{ modelVariable }}->update($attributes);
+
+        if ($request->wantsJson()) {
+            return ${{ modelVariable }};
+        }
+
+        return back()
+            ->with('status', [
+                'type' => 'success',
+                'text' => 'gespeichert.',
+            ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    {
+        if ($isDeletable = ${{ modelVariable }}->isDeletable()) {
+            ${{ modelVariable }}->delete();
+        }
+
+        if ($request->wantsJson()) {
+            return [
+                'deleted' => $isDeletable,
+            ];
+        }
+
+        if ($isDeletable) {
+            $status = [
+                'type' => 'success',
+                'text' => 'gelöscht.',
+            ];
+        }
+        else {
+            $status = [
+                'type' => 'danger',
+                'text' => 'kann nicht gelöscht werden.',
+            ];
+        }
+
+        return redirect(route($this->baseViewPath . '.index'))
+            ->with('status', $status);
+    }
+}
