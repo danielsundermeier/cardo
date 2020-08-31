@@ -1,14 +1,16 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers\Courses;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
+use App\Models\Courses\Course;
+use App\Models\Partners\Partner;
+use App\User;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class CourseController extends Controller
 {
-    protected $baseViewPath = '{{ modelVariable }}';
+    protected $baseViewPath = 'course';
 
     /**
      * Display a listing of the resource.
@@ -18,7 +20,11 @@ class {{ class }} extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            //
+            return Course::with([
+                    'instructor'
+                ])
+                ->orderBy('name', 'ASC')
+                ->paginate();
         }
 
         return view($this->baseViewPath . '.index');
@@ -42,53 +48,63 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Course::create($request->validate([
+            'name' => 'required|string',
+        ]));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Courses\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show(Course $course)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $course->load([
+                'instructor',
+            ]));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Courses\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit(Course $course)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $course)
+            ->with('days', Course::DAYS)
+            ->with('partners', Partner::staff()->whereNotNull('user_id')->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Courses\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, Course $course)
     {
         $attributes = $request->validate([
-
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'partner_id' => 'required|integer|exists:partners,id',
+            'day' => 'required|integer',
+            'time_formatted' => 'required|date_format:"H:i"',
         ]);
 
-        ${{ modelVariable }}->update($attributes);
+        $course->update($attributes);
 
         if ($request->wantsJson()) {
-            return ${{ modelVariable }};
+            return $course;
         }
 
-        return back()
+        return redirect($course->path)
             ->with('status', [
                 'type' => 'success',
                 'text' => 'Datensatz gespeichert.',
@@ -98,13 +114,13 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Courses\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    public function destroy(Request $request, Course $course)
     {
-        if ($isDeletable = ${{ modelVariable }}->isDeletable()) {
-            ${{ modelVariable }}->delete();
+        if ($isDeletable = $course->isDeletable()) {
+            $course->delete();
         }
 
         if ($request->wantsJson()) {

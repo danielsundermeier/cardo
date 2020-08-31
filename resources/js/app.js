@@ -1,6 +1,18 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.Bus = new Vue();
+
+import Flash from './plugins/flash.js';
+
+Vue.use(Flash);
+
+Vue.component('flash-message', require('./components/partials/flashmessage.vue').default);
+
+Vue.component('courses-table', require('./components/courses/table.vue').default);
+Vue.component('partner-table', require('./components/partner/table.vue').default);
+
+
 $(document).ready( function () {
     const app = new Vue({
         el: '#app',

@@ -1,14 +1,14 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers\Partners;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
+use App\Models\Partners\Partner;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class ClientController extends Controller
 {
-    protected $baseViewPath = '{{ modelVariable }}';
+    protected $baseViewPath = 'client';
 
     /**
      * Display a listing of the resource.
@@ -18,7 +18,12 @@ class {{ class }} extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            //
+            return Partner::client()->with([
+
+                ])
+                ->orderBy('firstname', 'ASC')
+                ->orderBy('lastname', 'ASC')
+                ->paginate();
         }
 
         return view($this->baseViewPath . '.index');
@@ -42,53 +47,58 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Partner::create([
+            'firstname' => 'Neuer',
+            'lastname' => 'Kunde',
+            'is_client' => true,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $client
      * @return \Illuminate\Http\Response
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show(Partner $client)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $client);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit(Partner $client)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $client);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, Partner $client)
     {
         $attributes = $request->validate([
-
+            'firstname' => 'nullable|string',
+            'lastname' => 'nullable|string',
         ]);
 
-        ${{ modelVariable }}->update($attributes);
+        $client->update($attributes);
 
         if ($request->wantsJson()) {
-            return ${{ modelVariable }};
+            return $client;
         }
 
-        return back()
+        return redirect($client->path)
             ->with('status', [
                 'type' => 'success',
                 'text' => 'Datensatz gespeichert.',
@@ -98,13 +108,13 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    public function destroy(Request $request, Partner $client)
     {
-        if ($isDeletable = ${{ modelVariable }}->isDeletable()) {
-            ${{ modelVariable }}->delete();
+        if ($isDeletable = $client->isDeletable()) {
+            $client->delete();
         }
 
         if ($request->wantsJson()) {

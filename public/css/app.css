@@ -663,6 +663,9 @@ pre code {
 }
 
 .no-gutters > .col,
+.no-gutters > .col-info,
+.no-gutters > .col-value,
+.no-gutters > .col-label,
 .no-gutters > [class*=col-] {
   padding-right: 0;
   padding-left: 0;
@@ -725,6 +728,9 @@ pre code {
 .col-sm-2,
 .col-sm-1,
 .col,
+.col-info,
+.col-value,
+.col-label,
 .col-auto,
 .col-12,
 .col-11,
@@ -744,7 +750,10 @@ pre code {
   padding-left: 15px;
 }
 
-.col {
+.col,
+.col-info,
+.col-value,
+.col-label {
   flex-basis: 0;
   flex-grow: 1;
   min-width: 0;
@@ -2319,6 +2328,9 @@ textarea.form-control {
 }
 
 .form-row > .col,
+.form-row > .col-info,
+.form-row > .col-value,
+.form-row > .col-label,
 .form-row > [class*=col-] {
   padding-right: 5px;
   padding-left: 5px;
@@ -7277,7 +7289,8 @@ button.bg-dark:focus {
 }
 
 @media (min-width: 768px) {
-  .d-md-none {
+  .d-md-none,
+  .col-info {
     display: none !important;
   }
 
@@ -7327,7 +7340,8 @@ button.bg-dark:focus {
     display: inline-block !important;
   }
 
-  .d-lg-block {
+  .d-lg-block,
+  .col-info {
     display: block !important;
   }
 
@@ -17125,5 +17139,12 @@ ul {
 
 .pointer {
   cursor: pointer;
+}
+
+.text-overflow-ellipsis,
+.col-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 

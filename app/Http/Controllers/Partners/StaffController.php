@@ -1,14 +1,14 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers\Partners;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
+use App\Models\Partners\Partner;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class StaffController extends Controller
 {
-    protected $baseViewPath = '{{ modelVariable }}';
+    protected $baseViewPath = 'staff';
 
     /**
      * Display a listing of the resource.
@@ -18,7 +18,12 @@ class {{ class }} extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            //
+            return Partner::staff()->with([
+
+                ])
+                ->orderBy('firstname', 'ASC')
+                ->orderBy('lastname', 'ASC')
+                ->paginate();
         }
 
         return view($this->baseViewPath . '.index');
@@ -42,53 +47,58 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Partner::create([
+            'firstname' => 'Neuer',
+            'lastname' => 'Mitarbeiter',
+            'is_staff' => true,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $staff
      * @return \Illuminate\Http\Response
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show(Partner $staff)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $staff);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $staff
      * @return \Illuminate\Http\Response
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit(Partner $staff)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $staff);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, Partner $staff)
     {
         $attributes = $request->validate([
-
+            'firstname' => 'nullable|string',
+            'lastname' => 'nullable|string',
         ]);
 
-        ${{ modelVariable }}->update($attributes);
+        $staff->update($attributes);
 
         if ($request->wantsJson()) {
-            return ${{ modelVariable }};
+            return $staff;
         }
 
-        return back()
+        return redirect($staff->path)
             ->with('status', [
                 'type' => 'success',
                 'text' => 'Datensatz gespeichert.',
@@ -98,13 +108,13 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $staff
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    public function destroy(Request $request, Partner $staff)
     {
-        if ($isDeletable = ${{ modelVariable }}->isDeletable()) {
-            ${{ modelVariable }}->delete();
+        if ($isDeletable = $staff->isDeletable()) {
+            $staff->delete();
         }
 
         if ($request->wantsJson()) {

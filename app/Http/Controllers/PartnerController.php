@@ -1,12 +1,11 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Models\Partners\Partner;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class PartnerController extends Controller
 {
     protected $baseViewPath = '{{ modelVariable }}';
 
@@ -48,44 +47,44 @@ class {{ class }} extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show(Partner $partner)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $partner);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit(Partner $partner)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $partner);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, Partner $partner)
     {
         $attributes = $request->validate([
 
         ]);
 
-        ${{ modelVariable }}->update($attributes);
+        $partner->update($attributes);
 
         if ($request->wantsJson()) {
-            return ${{ modelVariable }};
+            return $partner;
         }
 
         return back()
@@ -98,13 +97,13 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    public function destroy(Request $request, Partner $partner)
     {
-        if ($isDeletable = ${{ modelVariable }}->isDeletable()) {
-            ${{ modelVariable }}->delete();
+        if ($isDeletable = $partner->isDeletable()) {
+            $partner->delete();
         }
 
         if ($request->wantsJson()) {

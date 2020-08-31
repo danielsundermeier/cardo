@@ -26,15 +26,15 @@
                 <a class="navbar-brand" href="/home">Cardo</a>
             </div>
             <ul class="col">
-                <a href="/home"><li>Kurse</li></a>
-                <a href="/article"><li>Kunden</li></a>
-                <a href="/order"><li>Produkte</li></a>
-                <a href="/item"><li>Personal</li></a>
+                <a href="/course"><li>Kurse</li></a>
+                <a href="/client"><li>Kunden</li></a>
+                <a href="/product"><li>Produkte</li></a>
+                <a href="/staff"><li>Personal</li></a>
                 <a href="" data-toggle="collapse" data-target="#nav-buchhaltung"><li class="d-flex align-items-center justify-content-between line-height-base">Buchhaltung<i class="fas fa-caret-right"></i></li></a>
                 <ul id="nav-buchhaltung" class="collapse">
-                    <a href="{{ url('/einnahmen') }}"><li>Einnahmen</li></a>
-                    <a href="{{ url('/ausgaben') }}"><li>Ausgaben</li></a>
-                    <a href="{{ url('/rechnungen') }}"><li>Rechnungen</li></a>
+                    <a href="/bookkeeping/revenue"><li>Einnahmen</li></a>
+                    <a href="/bookkeeping/expense"><li>Ausgaben</li></a>
+                    <a href="/bookkeeping/invoice"><li>Rechnungen</li></a>
                 </ul>
             </ul>
             <div class="px-3 text-white text-center"><p><a href="" target="_blank">Link</a></p></div>
@@ -79,7 +79,11 @@
                 @yield('content')
             </div>
 
+
         </div>
+
+        <flash-message :initial-message="{{ session()->has('status') ? json_encode(session('status')) : 'null' }}"></flash-message>
+
     </div>
 </body>
 </html>
