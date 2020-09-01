@@ -28,6 +28,7 @@
             <ul class="col">
                 <a href="/course"><li>Kurse</li></a>
                 <a href="/client"><li>Kunden</li></a>
+                <a href="/supplier"><li>Lieferanten</li></a>
                 <a href="/product"><li>Produkte</li></a>
                 <a href="/staff"><li>Personal</li></a>
                 <a href="" data-toggle="collapse" data-target="#nav-buchhaltung"><li class="d-flex align-items-center justify-content-between line-height-base">Buchhaltung<i class="fas fa-caret-right"></i></li></a>
