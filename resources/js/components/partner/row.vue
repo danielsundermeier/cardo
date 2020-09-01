@@ -4,7 +4,7 @@
         <td class="align-middle pointer" @click="link"></td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
-                <a :href="item.edit_path" type="button" class="btn btn-secondary" title="Bearbeiten" @click="link"><i class="fas fa-edit"></i></a>
+                <a :href="path + '/edit'" type="button" class="btn btn-secondary" title="Bearbeiten" @click="link"><i class="fas fa-edit"></i></a>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-trash"></i></button>
             </div>
         </td>

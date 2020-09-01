@@ -2,8 +2,8 @@
 
 @section('content')
 
-<h1>Mitarbeiter</h1>
+<h1>Personal</h1>
 
-<partner-table uri="staff"></partner-table>
+<partner-table uri="{{ $base_view_path }}"></partner-table>
 
 @endsection

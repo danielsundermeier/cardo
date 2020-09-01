@@ -3,12 +3,12 @@
 @section('content')
 
     <div class="d-flex mb-1">
-        <h2 class="col mb-0"><a class="text-body" href="/staff">Mitarbeiter</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
+        <h2 class="col mb-0"><a class="text-body" href="/{{ $base_view_path }}">Personal</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
         <div class="d-flex align-items-center">
-            <a href="{{ $model->path }}" class="btn btn-secondary ml-1">Übersicht</a>
+            <a href="{{ route($base_view_path . '.show', [$base_view_path => $model->id]) }}" class="btn btn-secondary ml-1">Übersicht</a>
         </div>
     </div>
-    <form action="{{ $model->path }}" method="POST">
+    <form action="{{ route($base_view_path . '.show', [$base_view_path => $model->id]) }}" method="POST">
         @csrf
         @method('PUT')
 

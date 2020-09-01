@@ -2484,7 +2484,7 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var component = this;
       axios.post(component.uri, component.form).then(function (response) {
-        location.href = response.data.path;
+        location.href = component.uri + '/' + response.data.id;
       })["catch"](function (error) {
         component.errors = error.response.data.errors; // Vue.error('Interaktion konnte nicht erstellt werden!');
       });
@@ -39228,7 +39228,7 @@ var render = function() {
             {
               staticClass: "btn btn-secondary",
               attrs: {
-                href: _vm.item.edit_path,
+                href: _vm.path + "/edit",
                 type: "button",
                 title: "Bearbeiten"
               },

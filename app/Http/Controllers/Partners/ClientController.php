@@ -26,7 +26,8 @@ class ClientController extends Controller
                 ->paginate();
         }
 
-        return view($this->baseViewPath . '.index');
+        return view($this->baseViewPath . '.index')
+            ->with('base_view_path', $this->baseViewPath);
     }
 
     /**
@@ -63,7 +64,8 @@ class ClientController extends Controller
     public function show(Partner $client)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $client);
+            ->with('model', $client)
+            ->with('base_view_path', $this->baseViewPath);
     }
 
     /**
@@ -75,7 +77,8 @@ class ClientController extends Controller
     public function edit(Partner $client)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $client);
+            ->with('model', $client)
+            ->with('base_view_path', $this->baseViewPath);
     }
 
     /**
@@ -98,7 +101,7 @@ class ClientController extends Controller
             return $client;
         }
 
-        return redirect($client->path)
+        return redirect(route($this->baseViewPath . '.show', [$this->baseViewPath => $client->id]))
             ->with('status', [
                 'type' => 'success',
                 'text' => 'Datensatz gespeichert.',

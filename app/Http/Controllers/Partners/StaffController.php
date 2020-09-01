@@ -26,7 +26,8 @@ class StaffController extends Controller
                 ->paginate();
         }
 
-        return view($this->baseViewPath . '.index');
+        return view($this->baseViewPath . '.index')
+            ->with('base_view_path', $this->baseViewPath);
     }
 
     /**
@@ -63,7 +64,8 @@ class StaffController extends Controller
     public function show(Partner $staff)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $staff);
+            ->with('model', $staff)
+            ->with('base_view_path', $this->baseViewPath);
     }
 
     /**
@@ -75,7 +77,8 @@ class StaffController extends Controller
     public function edit(Partner $staff)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $staff);
+            ->with('model', $staff)
+            ->with('base_view_path', $this->baseViewPath);
     }
 
     /**
@@ -98,7 +101,7 @@ class StaffController extends Controller
             return $staff;
         }
 
-        return redirect($staff->path)
+        return redirect(route($this->baseViewPath . '.show', [$this->baseViewPath => $staff->id]))
             ->with('status', [
                 'type' => 'success',
                 'text' => 'Datensatz gespeichert.',
