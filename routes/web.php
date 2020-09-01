@@ -23,7 +23,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/course', 'Courses\CourseController');
     Route::resource('/client', 'Partners\ClientController');
+    Route::resource('/item', 'Items\ItemController');
     Route::resource('/staff', 'Partners\StaffController');
     Route::resource('/supplier', 'Partners\SupplierController');
+    Route::resource('/unit', 'Items\UnitController');
+
 
 });

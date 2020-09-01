@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Items;
 
-use App\Models\Partners\Partner;
+use App\Http\Controllers\Controller;
+use App\Models\Items\Unit;
 use Illuminate\Http\Request;
 
-class PartnerController extends Controller
+class UnitController extends Controller
 {
-    protected $baseViewPath = '{{ modelVariable }}';
+    protected $baseViewPath = 'unit';
 
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class PartnerController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            //
+            return Unit::get();
         }
 
         return view($this->baseViewPath . '.index');
@@ -41,50 +42,54 @@ class PartnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Unit::create($request->validate([
+            'name' => 'required|string',
+            'abbreviation' => 'required|string',
+        ]));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Partners\Partner  $partner
+     * @param  \App\Models\Items\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show(Partner $partner)
+    public function show(Unit $unit)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $partner);
+            ->with('model', $unit);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Partners\Partner  $partner
+     * @param  \App\Models\Items\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Partner $partner)
+    public function edit(Unit $unit)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $partner);
+            ->with('model', $unit);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Partners\Partner  $partner
+     * @param  \App\Models\Items\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Partner $partner)
+    public function update(Request $request, Unit $unit)
     {
         $attributes = $request->validate([
-
+            'name' => 'required|string',
+            'abbreviation' => 'required|string',
         ]);
 
-        $partner->update($attributes);
+        $unit->update($attributes);
 
         if ($request->wantsJson()) {
-            return $partner;
+            return $unit;
         }
 
         return back()
@@ -97,13 +102,13 @@ class PartnerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Partners\Partner  $partner
+     * @param  \App\Models\Items\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Partner $partner)
+    public function destroy(Request $request, Unit $unit)
     {
-        if ($isDeletable = $partner->isDeletable()) {
-            $partner->delete();
+        if ($isDeletable = $unit->isDeletable()) {
+            $unit->delete();
         }
 
         if ($request->wantsJson()) {
