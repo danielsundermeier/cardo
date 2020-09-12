@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Partner extends Model
 {
+    const UPDATE_RULES = [
+
+    ];
+
     public $appends = [
         'edit_path',
         'is_deletable',
@@ -15,11 +19,26 @@ class Partner extends Model
     ];
 
     protected $fillable = [
+        'address',
+        'bankname',
+        'bic',
+        'city',
+        'company_name',
+        'country',
+        'email',
+        'faxnumber',
         'firstname',
+        'iban',
         'lastname',
+        'mobilenumber',
+        'number',
+        'phonenumber',
+        'postcode',
+        'website',
         'is_client',
         'ist_staff',
         'is_supplier',
+        'user_id',
     ];
 
     public function isDeletable() : bool

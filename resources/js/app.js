@@ -12,6 +12,7 @@ Vue.component('flash-message', require('./components/partials/flashmessage.vue')
 Vue.component('courses-table', require('./components/courses/table.vue').default);
 Vue.component('item-table', require('./components/item/table.vue').default);
 Vue.component('partner-table', require('./components/partner/table.vue').default);
+Vue.component('receipt-table', require('./components/receipt/table.vue').default);
 Vue.component('unit-table', require('./components/unit/table.vue').default);
 
 

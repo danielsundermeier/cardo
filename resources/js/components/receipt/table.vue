@@ -1,24 +1,19 @@
 <template>
     <div>
         <div class="row">
-            <div class="col d-flex align-items-start mb-1 mb-sm-0">
-                <div class="form-group mb-0 mr-1">
-
-                </div>
+            <div class="col">
                 <button class="btn btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
             </div>
             <div class="col-auto d-flex">
                 <div class="form-group" style="margin-bottom: 0;">
                     <filter-search v-model="filter.searchtext" @input="fetch()"></filter-search>
                 </div>
-                <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show" v-if="false"><i class="fas fa-filter"></i></button>
+                <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show"><i class="fas fa-filter"></i></button>
             </div>
         </div>
 
         <form v-if="filter.show" id="filter" class="mt-1">
             <div  class="form-row">
-
-
 
             </div>
         </form>
@@ -28,34 +23,57 @@
                 <span style="font-size: 48px;">
                     <i class="fas fa-spinner fa-spin"></i><br />
                 </span>
-                Lade Daten
+                Lade Daten..
             </center>
         </div>
         <div class="table-responsive mt-3" v-else-if="items.length">
             <table class="table table-hover table-striped bg-white">
                 <thead>
                     <tr>
-                        <th width="20%">Name</th>
-                        <th width="75%"></th>
-                        <th class="text-right" width="5%">Aktion</th>
+                        <th width="5%">
+                            <label class="form-checkbox" for="checkall"></label>
+                            <input id="checkall" type="checkbox" v-model="selectAll">
+                        </th>
+                        <th width="10%">Datum</th>
+                        <th width="10%">#</th>
+                        <th width="10%">Partner</th>
+                        <th class="text-right" width="20%">Netto</th>
+                        <th class="text-right" width="20%">Brutto</th>
+                        <th class="text-right" width="10%">Aktion</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <row :item="item" :key="item.id" :uri="uri" v-for="(item, index) in items" @deleted="remove(index)" @updated="updated(index, $event)"></row>
+                    <template v-for="(invoice, index) in items">
+                        <row :item="invoice" :key="invoice.id" :uri="uri" :selected="(selected.indexOf(invoice.id) == -1) ? false : true" @deleted="remove(index)" @input="toggleSelected"></row>
+                    </template>
                 </tbody>
+                <tfoot v-show="selected.length > 0">
+                    <tr>
+                        <td class="align-middle text-center">{{ selected.length }} ausgewählt</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="align-middle" colspan="2">
+                            <select class="form-control" v-model="action">
+                                <option value="0">Aktion</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div class="alert alert-dark mt-3" v-else><center>Keine Daten vorhanden</center></div>
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center" v-show="paginate.lastPage > 1">
+            <ul class="pagination" v-show="paginate.lastPage > 1">
                 <li class="page-item" v-show="paginate.prevPageUrl">
-                    <a class="page-link" href="#" @click.prevent="filter.page--">zurück</a>
+                    <a class="page-link" href="#" @click.prevent="page--">Previous</a>
                 </li>
 
-                <li class="page-item" v-for="(n, i) in pages" v-bind:class="{ active: (n == filter.page) }"><a class="page-link" href="#" @click.prevent="filter.page = n">{{ n }}</a></li>
+                <li class="page-item" v-for="n in paginate.lastPage" v-bind:class="{ active: (n == page) }"><a class="page-link" href="#" @click.prevent="page = n">{{ n }}</a></li>
 
                 <li class="page-item" v-show="paginate.nextPageUrl">
-                    <a class="page-link" href="#" @click.prevent="filter.page++">weiter</a>
+                    <a class="page-link" href="#" @click.prevent="page++">Next</a>
                 </li>
             </ul>
         </nav>
@@ -69,8 +87,8 @@
     export default {
 
         components: {
-            filterSearch,
             row,
+            filterSearch,
         },
 
         props: {
@@ -91,19 +109,17 @@
                 },
                 filter: {
                     page: 1,
+                    show: false,
                     searchtext: '',
                 },
-                form: {
-
-                },
                 selected: [],
-                errors: {},
             };
         },
 
         mounted() {
 
             this.fetch();
+            // this.setInitialFilters();
 
         },
 
@@ -130,32 +146,17 @@
                     }
                 },
             },
-            pages() {
-                var pages = [];
-                for (var i = 1; i <= this.paginate.lastPage; i++) {
-                    if (this.showPageButton(i)) {
-                        const lastItem = pages[pages.length - 1];
-                        if (lastItem < (i - 1) && lastItem != '...') {
-                            pages.push('...');
-                        }
-                        pages.push(i);
-                    }
-                }
-
-                return pages;
-            },
         },
 
         methods: {
             create() {
                 var component = this;
-                axios.post(component.uri, component.form)
+                axios.post(component.uri)
                     .then(function (response) {
-                        location.href = component.uri + '/' + response.data.id;
+                        location.href = response.data.path;
                     })
                     .catch( function (error) {
-                        component.errors = error.response.data.errors;
-                        // Vue.error('Interaktion konnte nicht erstellt werden!');
+                        Vue.error('Datensatz konnte nicht erstellt werden!');
                 });
             },
             fetch() {
@@ -173,27 +174,22 @@
                         component.isLoading = false;
                     })
                     .catch(function (error) {
-                        Vue.error('Datensätze konnten nicht geladen werden');
+                        Vue.error('Datensätze konnten nicht geladen werden!');
                         console.log(error);
                     });
-            },
-            updated(index, item) {
-                Vue.set(this.items, index, item);
-            },
-            showPageButton(page) {
-                if (page == 1 || page == this.paginate.lastPage) {
-                    return true;
-                }
-
-                if (page <= this.filter.page + 2 && page >= this.filter.page - 2) {
-                    return true;
-                }
-
-                return false;
             },
             remove(index) {
                 this.items.splice(index, 1);
                 Vue.success('Datensatz gelöscht.');
+            },
+            toggleSelected (id) {
+                var index = this.selected.indexOf(id);
+                if (index == -1) {
+                    this.selected.push(id);
+                }
+                else {
+                    this.selected.splice(index, 1);
+                }
             },
         },
     };

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Partners;
 
 use App\Http\Controllers\Controller;
 use App\Models\Partners\Partner;
+use App\User;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -76,9 +77,10 @@ class StaffController extends Controller
      */
     public function edit(Partner $staff)
     {
-        return view($this->baseViewPath . '.edit')
+        return view('partner.edit')
             ->with('model', $staff)
-            ->with('base_view_path', $this->baseViewPath);
+            ->with('base_view_path', $this->baseViewPath)
+            ->with('users', User::orderBy('name', 'ASC')->get());
     }
 
     /**
@@ -91,9 +93,27 @@ class StaffController extends Controller
     public function update(Request $request, Partner $staff)
     {
         $attributes = $request->validate([
-            'firstname' => 'nullable|string',
-            'lastname' => 'nullable|string',
+            'address' => 'nullable|string|max:255',
+            'bankname' => 'nullable|string|max:255',
+            'bic' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'company_name' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'email' => 'nullable|string||max:255',
+            'faxnumber' => 'nullable|string|max:255',
+            'firstname' => 'nullable|string|max:255',
+            'iban' => 'nullable|string|max:255',
+            'lastname' => 'nullable|string|max:255',
+            'mobilenumber' => 'nullable|string|max:255',
+            'phonenumber' => 'nullable|string|max:255',
+            'postcode' => 'nullable|string|max:255',
+            'user_id' => 'nullable|integer',
+            'website' => 'nullable|string|max:255',
         ]);
+
+        $attributes['is_client'] = $request->has('is_client');
+        $attributes['is_staff'] = $request->has('is_staff');
+        $attributes['is_supplier'] = $request->has('is_supplier');
 
         $staff->update($attributes);
 

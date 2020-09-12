@@ -18,8 +18,22 @@ class CreatePartnersTable extends Migration
 
             $table->unsignedBigInteger('user_id')->nullable();
 
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('country')->nullable();
+            $table->string('email')->nullable();
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
+            $table->string('number')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('phonenumber')->nullable();
+            $table->string('mobilenumber')->nullable();
+            $table->string('faxnumber')->nullable();
+            $table->string('bankname')->nullable();
+            $table->string('bic')->nullable();
+            $table->string('iban')->nullable();
+            $table->string('website')->nullable();
 
             $table->boolean('is_client')->default(false);
             $table->boolean('is_staff')->default(false);
