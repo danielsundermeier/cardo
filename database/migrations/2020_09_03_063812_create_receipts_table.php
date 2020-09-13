@@ -31,6 +31,12 @@ class CreateReceiptsTable extends Migration
             $table->integer('gross')->default(0);
             $table->integer('outstanding')->default(0);
 
+            $table->text('address')->nullable();
+            $table->text('text_above')->nullable();
+            $table->text('text_below')->nullable();
+            $table->text('text')->nullable();
+            $table->string('subject')->nullable();
+
             $table->timestamps();
 
             $table->foreign('partner_id')->references('id')->on('partners');

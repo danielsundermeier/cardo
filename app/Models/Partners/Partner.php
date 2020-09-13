@@ -12,6 +12,7 @@ class Partner extends Model
     ];
 
     public $appends = [
+        'billing_address',
         'edit_path',
         'is_deletable',
         'name',
@@ -90,6 +91,11 @@ class Partner extends Model
     public function getNameAttribute() : string
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function getBillingAddressAttribute()
+    {
+        return $this->name . "\n" . $this->address . "\n" .  $this->postcode . ' ' . $this->city . ($this->country ? "\n" . $this->country : '');
     }
 
     public function scopeStaff(Builder $query, $value = true) : Builder

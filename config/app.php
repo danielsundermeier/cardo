@@ -229,4 +229,6 @@ return [
 
     ],
 
+    'show_tax' => false,
+
 ];

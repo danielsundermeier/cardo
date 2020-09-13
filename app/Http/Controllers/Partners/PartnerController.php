@@ -1,31 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Receipts;
+namespace App\Http\Controllers\Partners;
 
 use App\Http\Controllers\Controller;
-use App\Models\Items\Item;
-use App\Models\Receipts\Line;
-use App\Models\Receipts\Receipt;
+use App\Models\Partners\Partner;
 use Illuminate\Http\Request;
 
-class LineController extends Controller
+class PartnerController extends Controller
 {
-    protected $baseViewPath = 'receipt.line';
+    protected $baseViewPath = '{{ modelVariable }}';
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Receipt $receipt)
+    public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return $receipt->lines()
-                ->with([
-                    'item',
-                    'unit',
-                ])
-                ->get();
+            //
         }
 
         return view($this->baseViewPath . '.index');
@@ -47,75 +40,51 @@ class LineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Receipt $receipt)
+    public function store(Request $request)
     {
-        $attributes = $request->validate([
-            'item_id' => 'required',
-        ]);
-
-        $line = $receipt->addLine(Item::findOrFail($attributes['item_id']));
-
-        $receipt->cache();
-
-        if ($request->wantsJson()) {
-            return $line->load([
-                'item',
-                'unit',
-            ]);
-        }
-
-        return back()->with('status', 'Artikel hinzugefügt!');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Receipts\Line  $line
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function show(Line $line)
+    public function show(Partner $partner)
     {
-        //
+        return $partner->append('billing_address');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Receipts\Line  $line
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function edit(Line $line)
+    public function edit(Partner $partner)
     {
-        //
+        return view($this->baseViewPath . '.edit')
+            ->with('model', $partner);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Receipts\Line  $line
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Receipt $receipt, Line $line)
+    public function update(Request $request, Partner $partner)
     {
         $attributes = $request->validate([
-            'description' => 'nullable|string',
-            'discount' => 'required|numeric',
-            'name' => 'required',
-            'quantity' => 'required|numeric',
-            'tax' => 'required|numeric',
-            'unit_price' => 'required|numeric',
-            'unit_id' => 'required|integer'
+
         ]);
 
-        $line->update($attributes);
-        $receipt->cache();
+        $partner->update($attributes);
 
         if ($request->wantsJson()) {
-            return $line->load([
-                'item',
-                'unit',
-            ]);
+            return $partner;
         }
 
         return back()
@@ -128,14 +97,13 @@ class LineController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Receipts\Line  $line
+     * @param  \App\Models\Partners\Partner  $partner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Receipt $receipt, Line $line)
+    public function destroy(Request $request, Partner $partner)
     {
-        if ($isDeletable = $line->isDeletable()) {
-            $line->delete();
-            $receipt->cache();
+        if ($isDeletable = $partner->isDeletable()) {
+            $partner->delete();
         }
 
         if ($request->wantsJson()) {

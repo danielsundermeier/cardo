@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Receipts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Items\Item;
+use App\Models\Items\Unit;
+use App\Models\Partners\Partner;
 use App\Models\Receipts\Invoice;
 use App\Models\Receipts\Receipt;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -19,7 +23,10 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return Invoice::orderBy('number', 'DESC')
+            return Invoice::with([
+                'partner'
+            ])
+                ->orderBy('number', 'DESC')
                 ->paginate();
         }
 
@@ -44,50 +51,74 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $partner = $request->has('partner_id') ? Partner::find($request->input('partner_id')) : Partner::client()->first();
+
+        $invoice = Invoice::create([
+            'address' => $partner->billing_address,
+            'partner_id' => $partner->id,
+            'date_due' => now()->add(14, 'days'),
+        ]);
+
+        if ($request->wantsJson()) {
+            return $invoice;
+        }
+
+        return redirect($invoice->path);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Receipts\Receipt  $receipt
+     * @param  \App\Models\Receipts\Receipt  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function show(Receipt $receipt)
+    public function show(Receipt $invoice)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $receipt);
+            ->with('model', $invoice->load([
+                'partner',
+            ]));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Receipts\Receipt  $receipt
+     * @param  \App\Models\Receipts\Receipt  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Receipt $receipt)
+    public function edit(Receipt $invoice)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $receipt);
+            ->with('model', $invoice)
+            ->with('partners', Partner::client()->get())
+            ->with('units', Unit::all())
+            ->with('items', Item::all());
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Receipts\Receipt  $receipt
+     * @param  \App\Models\Receipts\Receipt  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Receipt $receipt)
+    public function update(Request $request, Receipt $invoice)
     {
         $attributes = $request->validate([
-
+            'address' => 'nullable|string',
+            'partner_id' => 'required',
+            'number' => 'required|integer',
+            'date_formatted' => 'date_format:d.m.Y',
         ]);
 
-        $receipt->update($attributes);
+        $attributes['date'] = Carbon::createFromFormat('d.m.Y', $attributes['date_formatted'])->startOfDay();
+        $attributes['date_due'] = Carbon::createFromFormat('d.m.Y', $attributes['date_formatted'])->startOfDay()->addDays(14);
+
+        $invoice->update($attributes);
+        $invoice->cache();
 
         if ($request->wantsJson()) {
-            return $receipt;
+            return $invoice;
         }
 
         return back()
@@ -100,13 +131,13 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Receipts\Receipt  $receipt
+     * @param  \App\Models\Receipts\Receipt  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Receipt $receipt)
+    public function destroy(Request $request, Receipt $invoice)
     {
-        if ($isDeletable = $receipt->isDeletable()) {
-            $receipt->delete();
+        if ($isDeletable = $invoice->isDeletable()) {
+            $invoice->delete();
         }
 
         if ($request->wantsJson()) {

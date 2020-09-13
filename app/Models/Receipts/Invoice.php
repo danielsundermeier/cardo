@@ -8,4 +8,9 @@ use Parental\HasParent;
 class Invoice extends Receipt
 {
     use HasParent;
+
+    protected function baseRoute() : string
+    {
+        return 'invoice';
+    }
 }

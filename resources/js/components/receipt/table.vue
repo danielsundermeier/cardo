@@ -56,7 +56,7 @@
                         <td></td>
                         <td class="align-middle" colspan="2">
                             <select class="form-control" v-model="action">
-                                <option value="0">Aktion</option>
+                                <option :value="0">Aktion</option>
                             </select>
                         </td>
                     </tr>
@@ -100,6 +100,7 @@
 
         data () {
             return {
+                action: 0,
                 items: [],
                 isLoading: true,
                 paginate: {

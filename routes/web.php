@@ -24,10 +24,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/course', 'Courses\CourseController');
     Route::resource('/client', 'Partners\ClientController');
     Route::resource('/bookkeeping/invoice', 'Receipts\InvoiceController');
+    Route::resource('/bookkeeping/receipt.line', 'Receipts\LineController');
     Route::resource('/item', 'Items\ItemController');
+    Route::resource('/partner', 'Partners\PartnerController');
     Route::resource('/staff', 'Partners\StaffController');
     Route::resource('/supplier', 'Partners\SupplierController');
     Route::resource('/unit', 'Items\UnitController');
 
-
+    Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
+    Route::get('/bookkeeping/receipt/{receipt}/download', 'Receipts\PdfController@store');
 });
