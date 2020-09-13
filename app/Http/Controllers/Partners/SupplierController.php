@@ -80,6 +80,7 @@ class SupplierController extends Controller
         return view('partner.edit')
             ->with('model', $supplier)
             ->with('base_view_path', $this->baseViewPath)
+            ->with('title', 'Lieferanten')
             ->with('users', User::orderBy('name', 'ASC')->get());
     }
 

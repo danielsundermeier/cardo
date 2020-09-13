@@ -35,6 +35,11 @@ class CreatePartnersTable extends Migration
             $table->string('iban')->nullable();
             $table->string('website')->nullable();
 
+            $table->string('job')->nullable();
+            $table->dateTime('birthday_at')->nullable();
+            $table->unsignedSmallInteger('height_in_cm')->nullable();
+            $table->text('medical_conditions')->nullable();
+
             $table->boolean('is_client')->default(false);
             $table->boolean('is_staff')->default(false);
             $table->boolean('is_supplier')->default(false);

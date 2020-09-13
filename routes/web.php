@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/bookkeeping/receipt.line', 'Receipts\LineController');
     Route::resource('/item', 'Items\ItemController');
     Route::resource('/partner', 'Partners\PartnerController');
+    Route::resource('/partner.healthdatas', 'Partners\HealthdataController');
     Route::resource('/staff', 'Partners\StaffController');
     Route::resource('/supplier', 'Partners\SupplierController');
     Route::resource('/unit', 'Items\UnitController');

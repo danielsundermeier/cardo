@@ -1,4 +1,4 @@
-<div class="card mb-5">
+<div class="card mb-3">
     <div class="card-header">Typ</div>
     <div class="card-body">
         <div class="form-group form-check">

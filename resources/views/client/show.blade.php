@@ -2,10 +2,6 @@
 
 @section('content')
 
-@extends('layouts.app')
-
-@section('content')
-
     <div class="d-flex mb-1">
         <h2 class="col mb-0"><a class="text-body" href="/{{ $base_view_path }}">Kunden</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
         <div class="d-flex align-items-center">
@@ -24,7 +20,7 @@
 
     <div class="row">
         <div class="col-12 col-md-6">
-            <div class="card mb-5">
+            <div class="card mb-3">
                 <div class="card-header">{{ $model->name }}</div>
                 <div class="card-body">
                     <div class="row">
@@ -38,9 +34,17 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-@endsection
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">Gesundheitsdaten</div>
+                <div class="card-body">
+                    <partner-healthdata-table :partner="{{ json_encode($model) }}"></partner-healthdata-table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

@@ -4,6 +4,7 @@ namespace App\Models\Partners;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Partner extends Model
 {
@@ -11,12 +12,16 @@ class Partner extends Model
 
     ];
 
-    public $appends = [
+    protected $appends = [
         'billing_address',
         'edit_path',
         'is_deletable',
         'name',
         'path',
+    ];
+
+    protected $dates = [
+        'birthday_at',
     ];
 
     protected $fillable = [
@@ -40,7 +45,21 @@ class Partner extends Model
         'ist_staff',
         'is_supplier',
         'user_id',
+        'job',
+        'birthday_at',
+        'height_in_cm',
+        'medical_conditions',
     ];
+
+    public function calculateBmi(float $weight_in_kg) : float {
+        if ($this->height_in_cm == 0 || $weight_in_kg == 0) {
+            return 0;
+        }
+
+        $height_in_m = $this->height_in_cm / 100;
+
+        return $weight_in_kg / ($height_in_m * $height_in_m);
+    }
 
     public function isDeletable() : bool
     {
@@ -88,6 +107,15 @@ class Partner extends Model
         return 'client';
     }
 
+    public function getBirthdayFormattedAttribute() : string
+    {
+        if (is_null($this->attributes['birthday_at'])) {
+            return '';
+        }
+
+        return $this->birthday_at->format('d.m.Y');
+    }
+
     public function getNameAttribute() : string
     {
         return $this->firstname . ' ' . $this->lastname;
@@ -96,6 +124,11 @@ class Partner extends Model
     public function getBillingAddressAttribute()
     {
         return $this->name . "\n" . $this->address . "\n" .  $this->postcode . ' ' . $this->city . ($this->country ? "\n" . $this->country : '');
+    }
+
+    public function healthdatas() : HasMany
+    {
+        return $this->hasMany(\App\Partners\Healthdata::class, 'partner_id');
     }
 
     public function scopeStaff(Builder $query, $value = true) : Builder

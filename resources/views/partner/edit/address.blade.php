@@ -1,4 +1,4 @@
-<div class="card mb-5">
+<div class="card mb-3">
     <div class="card-header">Allgemein</div>
     <div class="card-body">
 
@@ -36,6 +36,16 @@
             <label for="firstname">Vorname</label>
             <input type="text" class="form-control {{ ($errors->has('firstname') ? 'is-invalid' : '') }}" id="firstname" name="firstname" value="{{ old('firstname') ?? $model->firstname }}">
             @error('firstname')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="birthday_formatted">Geburtstag</label>
+            <input type="text" class="form-control {{ ($errors->has('birthday_formatted') ? 'is-invalid' : '') }}" id="birthday_formatted" name="birthday_formatted" value="{{ old('birthday_formatted') ?? $model->birthday_formatted }}">
+            @error('birthday_formatted')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

@@ -80,6 +80,7 @@ class StaffController extends Controller
         return view('partner.edit')
             ->with('model', $staff)
             ->with('base_view_path', $this->baseViewPath)
+            ->with('title', 'Personal')
             ->with('users', User::orderBy('name', 'ASC')->get());
     }
 

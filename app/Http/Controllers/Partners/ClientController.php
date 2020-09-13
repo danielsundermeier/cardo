@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Partners;
 use App\Http\Controllers\Controller;
 use App\Models\Partners\Partner;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -80,6 +81,7 @@ class ClientController extends Controller
         return view('partner.edit')
             ->with('model', $client)
             ->with('base_view_path', $this->baseViewPath)
+            ->with('title', 'Kunden')
             ->with('users', User::orderBy('name', 'ASC')->get());
     }
 
@@ -110,8 +112,13 @@ class ClientController extends Controller
             'postcode' => 'nullable|string|max:255',
             'user_id' => 'nullable|integer',
             'website' => 'nullable|string|max:255',
+            'job' => 'nullable|string|max:255',
+            'birthday_formatted' => 'nullable|date_format:d.m.Y',
+            'height_in_cm' => 'nullable|integer',
+            'medical_conditions' => 'nullable|string',
         ]);
 
+        $attributes['birthday_at'] = is_null($attributes['birthday_formatted']) ? null : Carbon::createFromFormat('d.m.Y', $attributes['birthday_formatted'])->startOfDay();
         $attributes['is_client'] = $request->has('is_client');
         $attributes['is_staff'] = $request->has('is_staff');
         $attributes['is_supplier'] = $request->has('is_supplier');
