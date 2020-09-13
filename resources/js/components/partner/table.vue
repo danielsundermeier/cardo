@@ -35,9 +35,10 @@
             <table class="table table-hover table-striped bg-white">
                 <thead>
                     <tr>
+                        <th width="20%">Nummer</th>
                         <th width="20%">Name</th>
-                        <th width="75%"></th>
-                        <th class="text-right" width="5%">Aktion</th>
+                        <th width="50%"></th>
+                        <th class="text-right" width="10%">Aktion</th>
                     </tr>
                 </thead>
                 <tbody>

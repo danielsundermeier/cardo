@@ -39,8 +39,8 @@
                 <thead>
                     <tr>
                         <th width="20%">Name</th>
-                        <th width="75%">Leiter</th>
-                        <th class="text-right" width="5%">Aktion</th>
+                        <th width="70%">Leiter</th>
+                        <th class="text-right" width="10%">Aktion</th>
                     </tr>
                 </thead>
                 <tbody>

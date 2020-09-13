@@ -106,6 +106,7 @@ class StaffController extends Controller
             'lastname' => 'nullable|string|max:255',
             'mobilenumber' => 'nullable|string|max:255',
             'phonenumber' => 'nullable|string|max:255',
+            'number' => 'nullable|string|max:255',
             'postcode' => 'nullable|string|max:255',
             'user_id' => 'nullable|integer',
             'website' => 'nullable|string|max:255',

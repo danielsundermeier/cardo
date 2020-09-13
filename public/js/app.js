@@ -2654,6 +2654,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -2703,6 +2704,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./row.vue */ "./resources/js/components/partner/row.vue");
 /* harmony import */ var _filter_search_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../filter/search.vue */ "./resources/js/components/filter/search.vue");
+//
 //
 //
 //
@@ -40363,9 +40365,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { width: "20%" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "75%" } }, [_vm._v("Leiter")]),
+        _c("th", { attrs: { width: "70%" } }, [_vm._v("Leiter")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "5%" } }, [
+        _c("th", { staticClass: "text-right", attrs: { width: "10%" } }, [
           _vm._v("Aktion")
         ])
       ])
@@ -40857,9 +40859,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { width: "20%" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "75%" } }),
+        _c("th", { attrs: { width: "70%" } }),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "5%" } }, [
+        _c("th", { staticClass: "text-right", attrs: { width: "10%" } }, [
           _vm._v("Aktion")
         ])
       ])
@@ -40942,6 +40944,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+      _vm._v(_vm._s(_vm.item.number))
+    ]),
+    _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
       _vm._v(_vm._s(_vm.item.name))
     ]),
@@ -41218,11 +41224,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { attrs: { width: "20%" } }, [_vm._v("Nummer")]),
+        _vm._v(" "),
         _c("th", { attrs: { width: "20%" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "75%" } }),
+        _c("th", { attrs: { width: "50%" } }),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "5%" } }, [
+        _c("th", { staticClass: "text-right", attrs: { width: "10%" } }, [
           _vm._v("Aktion")
         ])
       ])

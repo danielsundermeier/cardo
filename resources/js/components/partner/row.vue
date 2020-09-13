@@ -1,5 +1,6 @@
 <template>
     <tr>
+        <td class="align-middle pointer" @click="link">{{ item.number }}</td>
         <td class="align-middle pointer" @click="link">{{ item.name }}</td>
         <td class="align-middle pointer" @click="link"></td>
         <td class="align-middle text-right">

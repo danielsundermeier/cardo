@@ -1,6 +1,17 @@
 <div class="card mb-5">
     <div class="card-header">Allgemein</div>
     <div class="card-body">
+
+        <div class="form-group">
+            <label for="number">Nummer</label>
+            <input type="text" class="form-control {{ ($errors->has('number') ? 'is-invalid' : '') }}" id="number" name="number" value="{{ old('number') ?? $model->number }}">
+            @error('number')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+
         <div class="form-group">
             <label for="company_name">Firma</label>
             <input type="text" class="form-control {{ ($errors->has('company_name') ? 'is-invalid' : '') }}" id="company_name" name="company_name" value="{{ old('company_name') ?? $model->company_name }}">

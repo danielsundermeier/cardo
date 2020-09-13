@@ -105,6 +105,7 @@ class ClientController extends Controller
             'iban' => 'nullable|string|max:255',
             'lastname' => 'nullable|string|max:255',
             'mobilenumber' => 'nullable|string|max:255',
+            'number' => 'nullable|string|max:255',
             'phonenumber' => 'nullable|string|max:255',
             'postcode' => 'nullable|string|max:255',
             'user_id' => 'nullable|integer',
