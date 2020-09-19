@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('deploy', 'DeploymentController@store');
 
-Auth::routes();
+Auth::routes([
+    'register' => false
+]);
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('/', 'HomeController@index');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/course', 'Courses\CourseController');
     Route::resource('course.date', 'Courses\DateController');

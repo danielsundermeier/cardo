@@ -25,11 +25,19 @@ class UserSeeder extends Seeder
             'is_staff' => true,
         ]);
 
-        factory(\App\Models\Partners\Partner::class, 1)->create([
+        $user = User::create([
+            'email' => 'info@cardo-gesundheit.de',
+            'password' => Hash::make('cardo-gesundheit'),
+            'name' => 'Jule',
+        ]);
+
+        $user->partner()->create([
+            'firstname' => 'Juliette',
+            'lastname' => 'Rolf',
             'is_staff' => true,
         ]);
 
-        factory(\App\Models\Partners\Partner::class, 1)->create([
+        factory(\App\Models\Partners\Partner::class, 5)->create([
             'is_staff' => false,
             'is_client' => true,
         ]);
