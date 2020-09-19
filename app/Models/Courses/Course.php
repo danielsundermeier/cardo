@@ -5,6 +5,8 @@ namespace App\Models\Courses;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Arr;
 
 class Course extends Model
@@ -50,7 +52,7 @@ class Course extends Model
 
         static::creating(function($model)
         {
-            if (! $model->user_id) {
+            if (! $model->partner_id) {
                 $model->partner_id = auth()->user()->partner->id;
             }
 
@@ -62,7 +64,7 @@ class Course extends Model
 
     public function isDeletable() : bool
     {
-        return true;
+        return ! $this->dates()->exists();
     }
 
     public function getIsDeletableAttribute()
@@ -106,8 +108,23 @@ class Course extends Model
         return 'course';
     }
 
+    public function dates() : HasMany
+    {
+        return $this->hasMany(\App\Models\Courses\Date::class, 'course_id');
+    }
+
     public function instructor() : BelongsTo
     {
         return $this->belongsTo(\App\Models\Partners\Partner::class, 'partner_id');
+    }
+
+    public function item() : HasOne
+    {
+        return $this->hasOne(\App\Models\Items\Item::class, 'course_id');
+    }
+
+    public function participants() : HasMany
+    {
+        return $this->hasMany(\App\Models\Courses\Participant::class, 'course_id');
     }
 }

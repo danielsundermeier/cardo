@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Courses\Course;
+use App\Models\Items\Item;
+use App\Models\Items\Unit;
+use App\Models\Partners\Partner;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,5 +16,23 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserSeeder::class);
+
+        $partner = Partner::first();
+
+        $unit = Unit::create([
+            'name' => 'Stück',
+            'abbreviation' => 'stk',
+        ]);
+
+        $course = Course::create([
+            'name' => 'Kurs A',
+            'partner_id' => $partner->id,
+        ]);
+
+        Item::create([
+            'course_id' => $course->id,
+            'unit_id' => $unit->id,
+            'name' => 'Produkt A',
+        ]);
     }
 }

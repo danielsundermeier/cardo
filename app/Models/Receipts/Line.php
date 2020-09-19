@@ -2,6 +2,7 @@
 
 namespace App\Models\Receipts;
 
+use App\Models\Courses\Participant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -31,6 +32,24 @@ class Line extends Model
         'unit_price',
         'partner_id',
     ];
+
+    public function cache()
+    {
+        if (is_null($this->item->course_id)) {
+            return;
+        }
+
+        $participant = Participant::firstWhere([
+            'course_id' => $this->item->course_id,
+            'partner_id' => $this->partner_id,
+        ]);
+        if (is_null($participant)) {
+            return;
+        }
+
+        $participant->cache()
+            ->save();
+    }
 
     public function isDeletable() : bool
     {

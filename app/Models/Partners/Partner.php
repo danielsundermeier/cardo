@@ -2,8 +2,11 @@
 
 namespace App\Models\Partners;
 
+use App\Models\Courses\Course;
+use App\Models\Courses\Participant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Partner extends Model
@@ -66,7 +69,19 @@ class Partner extends Model
         return true;
     }
 
-    public function getIsDeletableAttribute()
+    public function courses() : BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'course_participant', 'partner_id', 'course_id')
+            ->using(Participant::class)
+            ->withPivot([
+                'open_participations_count',
+                'participations_count',
+            ])
+            ->withTimestamps()
+            ->as('participation');
+    }
+
+    public function getIsDeletableAttribute() : bool
     {
         return $this->isDeletable();
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Receipts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Courses\Participant;
+use App\Models\Courses\Participation;
 use App\Models\Items\Item;
 use App\Models\Items\Unit;
 use App\Models\Partners\Partner;
@@ -137,6 +139,11 @@ class InvoiceController extends Controller
     public function destroy(Request $request, Receipt $invoice)
     {
         if ($isDeletable = $invoice->isDeletable()) {
+            $invoice->load('lines.item');
+            foreach ($invoice->lines as $key => $line) {
+                $line->delete();
+                $line->cache();
+            }
             $invoice->delete();
         }
 

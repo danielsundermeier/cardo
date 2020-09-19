@@ -22,6 +22,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/course', 'Courses\CourseController');
+    Route::resource('course.date', 'Courses\DateController');
+    Route::resource('course.participant', 'Courses\ParticipantController');
+    Route::resource('date.participation', 'Courses\Dates\ParticipationController');
     Route::resource('/client', 'Partners\ClientController');
     Route::resource('/bookkeeping/invoice', 'Receipts\InvoiceController');
     Route::resource('/bookkeeping/receipt.line', 'Receipts\LineController');

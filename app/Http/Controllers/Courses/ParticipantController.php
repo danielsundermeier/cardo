@@ -1,30 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Items;
+namespace App\Http\Controllers\Courses;
 
 use App\Http\Controllers\Controller;
 use App\Models\Courses\Course;
+use App\Models\Courses\Participant;
 use App\Models\Items\Item;
-use App\Models\Items\Unit;
+use App\Models\Receipts\Invoice;
+use App\Models\Receipts\Receipt;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ParticipantController extends Controller
 {
-    protected $baseViewPath = 'item';
+    protected $baseViewPath = 'course.participant';
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Course $course)
     {
         if ($request->wantsJson()) {
-            return Item::with([
-                    'unit',
+            return $course->participants()
+                ->with([
+                    'partner'
                 ])
-                ->orderBy('name', 'ASC')
-                ->paginate();
+                ->get();
         }
 
         return view($this->baseViewPath . '.index');
@@ -46,66 +48,73 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Course $course)
     {
         $attributes = $request->validate([
-            'name' => 'required|string',
+            'partner_id' => 'required|integer|exists:partners,id',
         ]);
 
-        $attributes['unit_id'] = Unit::first()->id;
+        $invoice = Invoice::create($attributes);
+        $invoice->addLine($course->item, [
+            'quantity' => 10,
+        ]);
+        $invoice->cache();
 
-        return Item::create($attributes);
+        $participant = Participant::firstOrCreate([
+            'course_id' => $course->id,
+            'partner_id' => $attributes['partner_id'],
+        ]);
+        $participant->cache();
+
+        return $participant->load([
+            'partner',
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(Participant $participant)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $item);
+            ->with('model', $participant);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit(Participant $participant)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $item)
-            ->with('units', Unit::orderBy('name', 'ASC')->get())
-            ->with('courses', Course::orderBy('name', 'ASC')->get());
+            ->with('model', $participant);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, Participant $participant)
     {
         $attributes = $request->validate([
-            'name' => 'required|string',
-            'unit_id' => 'required|int|exists:units,id',
-            'unit_price_formatted' => 'required|formatted_number',
-            'course_id' => 'nullable|int|exists:courses,id',
+
         ]);
 
-        $item->update($attributes);
+        $participant->update($attributes);
 
         if ($request->wantsJson()) {
-            return $item;
+            return $participant;
         }
 
-        return redirect($item->path)
+        return back()
             ->with('status', [
                 'type' => 'success',
                 'text' => 'Datensatz gespeichert.',
@@ -115,13 +124,13 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Item $item)
+    public function destroy(Request $request, Participant $participant)
     {
-        if ($isDeletable = $item->isDeletable()) {
-            $item->delete();
+        if ($isDeletable = $participant->isDeletable()) {
+            $participant->delete();
         }
 
         if ($request->wantsJson()) {

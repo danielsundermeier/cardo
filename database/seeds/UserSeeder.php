@@ -31,6 +31,7 @@ class UserSeeder extends Seeder
 
         factory(\App\Models\Partners\Partner::class, 1)->create([
             'is_staff' => false,
+            'is_client' => true,
         ]);
     }
 }

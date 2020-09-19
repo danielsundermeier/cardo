@@ -138,6 +138,7 @@ class LineController extends Controller
     {
         if ($isDeletable = $line->isDeletable()) {
             $line->delete();
+            $line->cache();
             $receipt->cache();
         }
 

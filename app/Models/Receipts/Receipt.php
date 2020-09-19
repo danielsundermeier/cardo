@@ -133,6 +133,11 @@ class Receipt extends Model
 
     public function cache() {
 
+        $this->load('lines.item');
+        foreach ($this->lines as $key => $line) {
+            $line->cache();
+        }
+
         $this->calculateTax();
 
         $this->update();

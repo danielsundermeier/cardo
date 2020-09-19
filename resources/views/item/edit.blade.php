@@ -33,7 +33,17 @@
                                     <option value="{{ $unit->id}}" {{ $model->unit_id == $unit->id ? 'selected="selected"' : '' }}>{{ $unit->name }} ({{ $unit->abbreviation }})</option>
                                 @endforeach
                             </select>
-                            @error('unit_id'))
+                            @error('unit_id')
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="unit_price_formatted">Preis/Einheit</label>
+                            <input type="text" class="form-control {{ ($errors->has('unit_price_formatted') ? 'is-invalid' : '') }}" id="unit_price_formatted" name="unit_price_formatted" value="{{ $model->unit_price_formatted }}">
+                            @error('unit_price_formatted')
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </div>
@@ -48,7 +58,7 @@
                                     <option value="{{ $course->id}}" {{ $model->course_id == $course->id ? 'selected="selected"' : '' }}>{{ $course->name }}</option>
                                 @endforeach
                             </select>
-                            @error('course_id'))
+                            @error('course_id')
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </div>

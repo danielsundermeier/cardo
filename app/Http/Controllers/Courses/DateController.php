@@ -1,33 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Items;
+namespace App\Http\Controllers\Courses;
 
 use App\Http\Controllers\Controller;
 use App\Models\Courses\Course;
-use App\Models\Items\Item;
-use App\Models\Items\Unit;
+use App\Models\Courses\Date;
+use App\Models\Partners\Partner;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class DateController extends Controller
 {
-    protected $baseViewPath = 'item';
+    protected $baseViewPath = 'course.date';
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Course $course)
     {
         if ($request->wantsJson()) {
-            return Item::with([
-                    'unit',
-                ])
-                ->orderBy('name', 'ASC')
-                ->paginate();
+            return $course->dates()
+            ->with([
+                'instructor',
+            ])
+            ->orderBy('at', 'DESC')
+            ->paginate();
         }
-
-        return view($this->baseViewPath . '.index');
     }
 
     /**
@@ -46,66 +45,72 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Course $course)
     {
         $attributes = $request->validate([
-            'name' => 'required|string',
+            'at_formatted' => 'required|date_format:"d.m.Y"'
         ]);
 
-        $attributes['unit_id'] = Unit::first()->id;
+        $attributes['staff_id'] = $course->partner_id;
 
-        return Item::create($attributes);
+        return $course->dates()
+            ->create($attributes)
+            ->load([
+                'instructor',
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Date  $date
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(Course $course, Date $date)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $item);
+            ->with('model', $date)
+            ->with('parent', $course->load([
+                'item',
+            ]))
+            ->with('partners', Partner::client()->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Date  $date
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit(Course $course, Date $date)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $item)
-            ->with('units', Unit::orderBy('name', 'ASC')->get())
-            ->with('courses', Course::orderBy('name', 'ASC')->get());
+            ->with('model', $date)
+            ->with('parent', $course)
+            ->with('partners', Partner::staff()->whereNotNull('user_id')->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Date  $date
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, Course $course, Date $date)
     {
         $attributes = $request->validate([
-            'name' => 'required|string',
-            'unit_id' => 'required|int|exists:units,id',
-            'unit_price_formatted' => 'required|formatted_number',
-            'course_id' => 'nullable|int|exists:courses,id',
+            'at_formatted' => 'required|date_format:"d.m.Y"',
+            'staff_id' => 'required|integer|exists:partners,id',
         ]);
 
-        $item->update($attributes);
+        $date->update($attributes);
 
         if ($request->wantsJson()) {
-            return $item;
+            return $date;
         }
 
-        return redirect($item->path)
+        return redirect($date->path)
             ->with('status', [
                 'type' => 'success',
                 'text' => 'Datensatz gespeichert.',
@@ -115,13 +120,13 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Items\Item  $item
+     * @param  \App\Models\Courses\Date  $date
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Item $item)
+    public function destroy(Request $request, Course $course, Date $date)
     {
-        if ($isDeletable = $item->isDeletable()) {
-            $item->delete();
+        if ($isDeletable = $date->isDeletable()) {
+            $date->delete();
         }
 
         if ($request->wantsJson()) {

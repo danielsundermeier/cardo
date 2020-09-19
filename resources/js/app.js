@@ -48,6 +48,9 @@ Vue.use(Flash);
 Vue.component('flash-message', require('./components/partials/flashmessage.vue').default);
 
 Vue.component('courses-table', require('./components/courses/table.vue').default);
+Vue.component('courses-participant-table', require('./components/courses/participant/table.vue').default);
+Vue.component('courses-date-table', require('./components/courses/date/table.vue').default);
+Vue.component('courses-date-participation-table', require('./components/courses/date/participation/table.vue').default);
 Vue.component('item-table', require('./components/item/table.vue').default);
 Vue.component('partner-table', require('./components/partner/table.vue').default);
 Vue.component('partner-healthdata-table', require('./components/partner/healthdata/table.vue').default);

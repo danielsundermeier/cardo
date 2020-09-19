@@ -64,7 +64,8 @@ class CourseController extends Controller
         return view($this->baseViewPath . '.show')
             ->with('model', $course->load([
                 'instructor',
-            ]));
+            ]))
+            ->with('partners', Partner::client()->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }
 
     /**

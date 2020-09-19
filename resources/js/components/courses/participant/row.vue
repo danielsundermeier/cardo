@@ -1,0 +1,47 @@
+<template>
+    <tr>
+        <td class="align-middle">{{ item.partner.name }}</td>
+        <td class="align-middle text-right">{{ item.open_participations_count }}</td>
+        <td class="align-middle text-right">
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="false"><i class="fas fa-fw fa-trash"></i></button>
+                <button type="button" class="btn btn-secondary" title="10er Karte kaufen" @click="create">+10</button>
+            </div>
+        </td>
+    </tr>
+</template>
+
+<script>
+    export default {
+
+        props: [ 'item', 'uri' ],
+
+        data () {
+            return {
+                id: this.item.id,
+                errors: {},
+                form: {
+                    partner_id: this.item.partner_id,
+                },
+            };
+        },
+
+        methods: {
+            create() {
+                var component = this;
+                axios.post(component.uri, component.form)
+                    .then( function (response) {
+                        component.errors = {};
+                        component.$emit('updated', response.data);
+                    })
+                    .catch(function (error) {
+                        component.errors = error.response.data.errors;
+                });
+            },
+            destroy() {
+                axios.delete(this.uri + '/' + this.id);
+                this.$emit('deleted', this.id);
+            },
+        },
+    };
+</script>
