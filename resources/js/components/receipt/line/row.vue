@@ -6,6 +6,11 @@
             <div class="invalid-feedback" v-text="'name' in errors ? errors.name[0] : ''"></div>
             <textarea class="form-control" :class="'description' in errors ? 'is-invalid' : ''" v-model="form.description" rows="3"></textarea>
             <div class="invalid-feedback" v-text="'description' in errors ? errors.description[0] : ''"></div>
+            <select class="form-control" :class="'partner_id' in errors ? 'is-invalid' : ''" v-model="form.partner_id" v-show="item.item.course_id">
+                <option :value="null">Kein Teilnehmer</option>
+                <option :value="partner.id" v-for="partner in partners">{{ partner.name }}</option>
+            </select>
+            <div class="invalid-feedback" v-text="'partner_id' in errors ? errors.partner_id[0] : ''"></div>
         </td>
         <td class="align-middle pointer">
             <number-input v-model="form.quantity" :error="'quantity' in errors ? errors.quantity[0] : ''"></number-input>
@@ -45,6 +50,7 @@
         <td class="align-middle pointer" @click="edit = true">
             {{ item.name }}
             <div class="text-muted whitespace-pre" v-show="item.description" v-html="item.description"></div>
+            <div class="text-muted" v-if="item.partner_id">Teilnehmer {{ item.partner.name }}</div>
         </td>
         <td class="align-middle pointer text-right" @click="edit = true">{{ item.quantity.format(2, ',', '.') }}</td>
         <td class="align-middle pointer" @click="edit = true">{{ item.unit ? item.unit.name : '' }}</td>
@@ -79,7 +85,8 @@
             'selected',
             'units',
             'company',
-            'showTax'
+            'showTax',
+            'partners',
         ],
 
         data () {
@@ -94,6 +101,7 @@
                     tax: this.item.tax,
                     unit_id: this.item.unit_id,
                     unit_price: Number(this.item.unit_price),
+                    partner_id: this.item.partner_id,
                 },
                 errors: {},
                 uri: '/bookkeeping/receipt/' + this.item.receipt_id + '/line/' + this.item.id,

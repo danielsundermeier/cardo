@@ -118,7 +118,11 @@ class Partner extends Model
 
     public function getNameAttribute() : string
     {
-        return $this->firstname . ' ' . $this->lastname;
+        if (is_null($this->company_name)) {
+            return $this->firstname . ' ' . $this->lastname;
+        }
+
+        return $this->company_name;
     }
 
     public function getBillingAddressAttribute()

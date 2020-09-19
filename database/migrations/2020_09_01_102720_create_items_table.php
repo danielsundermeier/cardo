@@ -17,11 +17,16 @@ class CreateItemsTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('course_id')->nullable();
+
             $table->string('name');
+
+            $table->unsignedSmallInteger('course_count')->nullable();
 
             $table->timestamps();
 
             $table->foreign('unit_id')->references('id')->on('units');
+            $table->foreign('course_id')->references('id')->on('courses');
 
         });
     }

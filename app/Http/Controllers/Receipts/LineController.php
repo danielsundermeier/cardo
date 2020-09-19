@@ -23,6 +23,7 @@ class LineController extends Controller
             return $receipt->lines()
                 ->with([
                     'item',
+                    'partner',
                     'unit',
                 ])
                 ->get();
@@ -105,7 +106,8 @@ class LineController extends Controller
             'quantity' => 'required|numeric',
             'tax' => 'required|numeric',
             'unit_price' => 'required|numeric',
-            'unit_id' => 'required|integer'
+            'unit_id' => 'required|integer|exists:units,id',
+            'partner_id' => 'nullable|integer|exists:partners,id'
         ]);
 
         $line->update($attributes);
@@ -114,6 +116,7 @@ class LineController extends Controller
         if ($request->wantsJson()) {
             return $line->load([
                 'item',
+                'partner',
                 'unit',
             ]);
         }

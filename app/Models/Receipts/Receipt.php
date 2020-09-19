@@ -96,6 +96,7 @@ class Receipt extends Model
             'receipt_id' => $this->id,
             'item_id' => $item->id,
             'unit_id' => $item->unit_id,
+            'partner_id' => ($item->course_id ? $this->partner_id : null),
             'name' => $item->name,
             'description' => $item->description,
             'quantity' => $attributes['quantity'] ?? 1,

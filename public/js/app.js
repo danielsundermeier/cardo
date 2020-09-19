@@ -3267,6 +3267,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3274,7 +3280,7 @@ __webpack_require__.r(__webpack_exports__);
     currencyInput: _form_input_currency_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     numberInput: _form_input_number_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['item', 'selected', 'units', 'company', 'showTax'],
+  props: ['item', 'selected', 'units', 'company', 'showTax', 'partners'],
   data: function data() {
     return {
       id: this.item.id,
@@ -3286,7 +3292,8 @@ __webpack_require__.r(__webpack_exports__);
         quantity: Number(this.item.quantity),
         tax: this.item.tax,
         unit_id: this.item.unit_id,
-        unit_price: Number(this.item.unit_price)
+        unit_price: Number(this.item.unit_price),
+        partner_id: this.item.partner_id
       },
       errors: {},
       uri: '/bookkeeping/receipt/' + this.item.receipt_id + '/line/' + this.item.id,
@@ -3451,7 +3458,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     row: _row_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['model', 'options', 'units', 'showTax'],
+  props: ['model', 'options', 'units', 'showTax', 'partners', 'selectedPartnerId'],
   data: function data() {
     return {
       id: this.model.id,
@@ -42128,6 +42135,66 @@ var render = function() {
                 "description" in _vm.errors ? _vm.errors.description[0] : ""
               )
             }
+          }),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.partner_id,
+                  expression: "form.partner_id"
+                },
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.item.item.course_id,
+                  expression: "item.item.course_id"
+                }
+              ],
+              staticClass: "form-control",
+              class: "partner_id" in _vm.errors ? "is-invalid" : "",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form,
+                    "partner_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { domProps: { value: null } }, [
+                _vm._v("Kein Teilnehmer")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.partners, function(partner) {
+                return _c("option", { domProps: { value: partner.id } }, [
+                  _vm._v(_vm._s(partner.name))
+                ])
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "invalid-feedback",
+            domProps: {
+              textContent: _vm._s(
+                "partner_id" in _vm.errors ? _vm.errors.partner_id[0] : ""
+              )
+            }
           })
         ]),
         _vm._v(" "),
@@ -42373,7 +42440,13 @@ var render = function() {
               ],
               staticClass: "text-muted whitespace-pre",
               domProps: { innerHTML: _vm._s(_vm.item.description) }
-            })
+            }),
+            _vm._v(" "),
+            _vm.item.partner_id
+              ? _c("div", { staticClass: "text-muted" }, [
+                  _vm._v("Teilnehmer " + _vm._s(_vm.item.partner.name))
+                ])
+              : _vm._e()
           ]
         ),
         _vm._v(" "),
@@ -42738,6 +42811,7 @@ var render = function() {
                         item: item,
                         selected:
                           _vm.selected.indexOf(item.id) == -1 ? false : true,
+                        partners: _vm.partners,
                         units: _vm.units
                       },
                       on: {

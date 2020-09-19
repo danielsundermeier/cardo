@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Items;
 
 use App\Http\Controllers\Controller;
+use App\Models\Courses\Course;
 use App\Models\Items\Item;
 use App\Models\Items\Unit;
 use Illuminate\Http\Request;
@@ -78,7 +79,8 @@ class ItemController extends Controller
     {
         return view($this->baseViewPath . '.edit')
             ->with('model', $item)
-            ->with('units', Unit::orderBy('name', 'ASC')->get());
+            ->with('units', Unit::orderBy('name', 'ASC')->get())
+            ->with('courses', Course::orderBy('name', 'ASC')->get());
     }
 
     /**
@@ -93,6 +95,7 @@ class ItemController extends Controller
         $attributes = $request->validate([
             'name' => 'required|string',
             'unit_id' => 'required|int|exists:units,id',
+            'course_id' => 'nullable|int|exists:courses,id',
         ]);
 
         $item->update($attributes);

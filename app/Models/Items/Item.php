@@ -2,6 +2,7 @@
 
 namespace App\Models\Items;
 
+use App\Models\Courses\Course;
 use App\Models\Items\Unit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +21,7 @@ class Item extends Model
 
     protected $fillable = [
         'name',
+        'course_id',
         'unit_id',
     ];
 
@@ -71,5 +73,10 @@ class Item extends Model
     public function unit() : BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function course() : BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'course_id');
     }
 }

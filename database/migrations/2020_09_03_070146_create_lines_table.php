@@ -19,6 +19,7 @@ class CreateLinesTable extends Migration
             $table->unsignedBigInteger('receipt_id');
             $table->unsignedBigInteger('item_id')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
+            $table->unsignedBigInteger('partner_id')->nullable();
 
             $table->decimal('quantity', 12, 4)->default(0);
             $table->decimal('unit_price', 15, 6)->default(0);
@@ -34,6 +35,7 @@ class CreateLinesTable extends Migration
             $table->foreign('receipt_id')->references('id')->on('receipts')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('unit_id')->references('id')->on('units');
+            $table->foreign('partner_id')->references('id')->on('partners');
         });
     }
 

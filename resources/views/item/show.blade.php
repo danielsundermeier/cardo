@@ -37,6 +37,12 @@
                                 <div class="col-label"><b>Einheit</b></div>
                                 <div class="col-value">{{ $model->unit->name }} ({{ $model->unit->abbreviation }})</div>
                             </div>
+                            @if ($model->course_id)
+                                <div class="row">
+                                    <div class="col-label"><b>Verknüpfter Kurs</b></div>
+                                    <div class="col-value">{{ $model->course->name }}</div>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="col-lg-6">

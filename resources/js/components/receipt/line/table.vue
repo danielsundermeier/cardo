@@ -42,7 +42,7 @@
                 </thead>
                 <tbody>
                     <template>
-                        <row :show-tax="showTax" :item="item" :key="item.id" :selected="(selected.indexOf(item.id) == -1) ? false : true" :units="units" v-for="(item, index) in items" @deleted="remove(index)" @updated="updated(index, $event)" @input="toggleSelected"></row>
+                        <row :show-tax="showTax" :item="item" :key="item.id" :selected="(selected.indexOf(item.id) == -1) ? false : true" :partners="partners" :units="units" v-for="(item, index) in items" @deleted="remove(index)" @updated="updated(index, $event)" @input="toggleSelected"></row>
                     </template>
                 </tbody>
                 <tfoot>
@@ -121,6 +121,8 @@
             'options',
             'units',
             'showTax',
+            'partners',
+            'selectedPartnerId',
         ],
 
         data () {

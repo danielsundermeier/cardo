@@ -29,6 +29,7 @@ class Line extends Model
         'tax',
         'unit_id',
         'unit_price',
+        'partner_id',
     ];
 
     public function isDeletable() : bool
@@ -77,6 +78,11 @@ class Line extends Model
     public function item() : BelongsTo
     {
         return $this->belongsTo(\App\Models\Items\Item::class, 'item_id');
+    }
+
+    public function partner() : BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Partners\Partner::class, 'partner_id');
     }
 
     public function unit() : BelongsTo
