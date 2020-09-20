@@ -30,16 +30,16 @@
             <table class="table table-hover table-striped bg-white">
                 <thead>
                     <tr>
-                        <th width="5%">
+                        <th width="50">
                             <label class="form-checkbox" for="checkall"></label>
                             <input id="checkall" type="checkbox" v-model="selectAll">
                         </th>
-                        <th width="10%">Datum</th>
-                        <th width="10%">#</th>
-                        <th width="10%">Partner</th>
-                        <th class="text-right" width="20%">Netto</th>
-                        <th class="text-right" width="20%">Brutto</th>
-                        <th class="text-right" width="10%">Aktion</th>
+                        <th width="125">Datum</th>
+                        <th width="100">#</th>
+                        <th width="100%">Partner</th>
+                        <th class="text-right" width="75">Netto</th>
+                        <th class="text-right" width="75">Brutto</th>
+                        <th class="text-right" width="100">Aktion</th>
                     </tr>
                 </thead>
                 <tbody>

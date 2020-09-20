@@ -20,12 +20,18 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            return Partner::client()->with([
-
+            $partners = Partner::client()->with([
+                    'participants.course'
                 ])
                 ->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC')
                 ->paginate();
+
+            foreach ($partners as $key => $partner) {
+                $partner->courses_string = $partner->participants->implode('course.link', ', ');
+            }
+
+            return $partners;
         }
 
         return view($this->baseViewPath . '.index')

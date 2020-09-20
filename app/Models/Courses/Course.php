@@ -89,6 +89,11 @@ class Course extends Model
         Arr::forget($this->attributes, 'time_formatted');
     }
 
+    public function getLinkAttribute() : string
+    {
+        return '<a href="' . $this->path . '" target="_blank">' . $this->name . '</a>';
+    }
+
     public function getPathAttribute()
     {
         return $this->path('show');

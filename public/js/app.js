@@ -3241,7 +3241,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -3290,7 +3289,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./row.vue */ "./resources/js/components/item/row.vue");
 /* harmony import */ var _filter_search_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../filter/search.vue */ "./resources/js/components/filter/search.vue");
-//
 //
 //
 //
@@ -42840,8 +42838,6 @@ var render = function() {
       _vm._v(_vm._s(_vm.item.name))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }),
-    _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
       _c(
         "div",
@@ -43155,11 +43151,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Name")]),
+        _c("th", { attrs: { width: "100%" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "70%" } }),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "10%" } }, [
+        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
           _vm._v("Aktion")
         ])
       ])
@@ -43707,7 +43701,13 @@ var render = function() {
       _vm._v(_vm._s(_vm.item.name))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }),
+    _c("td", { staticClass: "align-middle pointer" }, [
+      _vm.uri == "client"
+        ? _c("span", {
+            domProps: { innerHTML: _vm._s(_vm.item.courses_string) }
+          })
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
       _c(
@@ -43834,7 +43834,25 @@ var render = function() {
             "table",
             { staticClass: "table table-hover table-striped bg-white" },
             [
-              _vm._m(0),
+              _c("thead", [
+                _c("tr", [
+                  _c("th", { attrs: { width: "25%" } }, [_vm._v("Nummer")]),
+                  _vm._v(" "),
+                  _c("th", { attrs: { width: "25%" } }, [_vm._v("Name")]),
+                  _vm._v(" "),
+                  _c("th", { attrs: { width: "50%" } }, [
+                    _vm.uri == "client"
+                      ? _c("span", [_vm._v("Kurse")])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    { staticClass: "text-right", attrs: { width: "100" } },
+                    [_vm._v("Aktion")]
+                  )
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -43972,26 +43990,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Nummer")]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", { attrs: { width: "50%" } }),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "10%" } }, [
-          _vm._v("Aktion")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -45297,7 +45296,7 @@ var render = function() {
             [
               _c("thead", [
                 _c("tr", [
-                  _c("th", { attrs: { width: "5%" } }, [
+                  _c("th", { attrs: { width: "50" } }, [
                     _c("label", {
                       staticClass: "form-checkbox",
                       attrs: { for: "checkall" }
@@ -45342,27 +45341,27 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "10%" } }, [_vm._v("Datum")]),
+                  _c("th", { attrs: { width: "125" } }, [_vm._v("Datum")]),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "10%" } }, [_vm._v("#")]),
+                  _c("th", { attrs: { width: "100" } }, [_vm._v("#")]),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "10%" } }, [_vm._v("Partner")]),
+                  _c("th", { attrs: { width: "100%" } }, [_vm._v("Partner")]),
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "20%" } },
+                    { staticClass: "text-right", attrs: { width: "75" } },
                     [_vm._v("Netto")]
                   ),
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "20%" } },
+                    { staticClass: "text-right", attrs: { width: "75" } },
                     [_vm._v("Brutto")]
                   ),
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "10%" } },
+                    { staticClass: "text-right", attrs: { width: "100" } },
                     [_vm._v("Aktion")]
                   )
                 ])

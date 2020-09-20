@@ -2,7 +2,7 @@
     <tr>
         <td class="align-middle pointer" @click="link">{{ item.number }}</td>
         <td class="align-middle pointer" @click="link">{{ item.name }}</td>
-        <td class="align-middle pointer" @click="link"></td>
+        <td class="align-middle pointer"><span v-html="item.courses_string" v-if="uri == 'client'"></span></td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <a :href="path + '/edit'" type="button" class="btn btn-secondary" title="Bearbeiten" @click="link"><i class="fas fa-edit"></i></a>
