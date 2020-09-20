@@ -2002,6 +2002,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2019,6 +2024,10 @@ __webpack_require__.r(__webpack_exports__);
     partners: {
       type: Array,
       required: true
+    },
+    lastDate: {
+      type: Object,
+      required: false
     }
   },
   computed: {
@@ -2079,6 +2088,17 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           component.errors = error.response.data.errors;
         }
+      });
+    },
+    copy: function copy() {
+      var component = this;
+      axios.post(component.uri + '/copy', {
+        last_date_id: component.lastDate.id
+      }).then(function (response) {
+        component.errors = {};
+        component.items = response.data;
+      })["catch"](function (error) {
+        Vue.error('Teilnehmer konnten nicht kopiert werden.');
       });
     },
     fetch: function fetch() {
@@ -41154,7 +41174,31 @@ var render = function() {
       : _c(
           "div",
           { staticClass: "alert alert-dark mt-3" },
-          [_c("center", [_vm._v("Keine Daten vorhanden")])],
+          [
+            _c("center", [
+              _vm._v("\n            Keine Daten vorhanden\n            "),
+              _vm.lastDate
+                ? _c("div", { staticClass: "mt-3" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: { click: _vm.copy }
+                      },
+                      [
+                        _vm._v(
+                          "Teilnehmer vom " +
+                            _vm._s(_vm.lastDate.at_formatted) +
+                            " übernehmen (" +
+                            _vm._s(_vm.lastDate.participations_count) +
+                            ")"
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ])
+          ],
           1
         )
   ])

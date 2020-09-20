@@ -38,4 +38,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
     Route::get('/bookkeeping/receipt/{receipt}/download', 'Receipts\PdfController@store');
+
+    Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
 });

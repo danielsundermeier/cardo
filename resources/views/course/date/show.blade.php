@@ -46,7 +46,7 @@
             <div class="card mb-3">
                 <div class="card-header">Teilnehmer</div>
                 <div class="card-body">
-                    <courses-date-participation-table :model="{{ json_encode($model) }}" :parent="{{ json_encode($parent) }}" :partners="{{ json_encode($partners) }}"></courses-date-participation-table>
+                    <courses-date-participation-table :model="{{ json_encode($model) }}" :parent="{{ json_encode($parent) }}" :partners="{{ json_encode($partners) }}" :last-date="{{ json_encode($last_date) }}"></courses-date-participation-table>
                 </div>
             </div>
         </div>

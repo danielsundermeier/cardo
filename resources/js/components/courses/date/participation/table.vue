@@ -35,7 +35,12 @@
                 <row :item="item" :uri="uri" :key="item.id" v-for="(item, index) in items" @deleted="remove(index)" @updated="updated(index, $event)"></row>
             </tbody>
         </table>
-        <div class="alert alert-dark mt-3" v-else><center>Keine Daten vorhanden</center></div>
+        <div class="alert alert-dark mt-3" v-else>
+            <center>
+                Keine Daten vorhanden
+                <div class="mt-3" v-if="lastDate"><button class="btn btn-primary" @click="copy">Teilnehmer vom {{ lastDate.at_formatted }} übernehmen ({{ lastDate.participations_count }})</button></div>
+            </center>
+        </div>
     </div>
 </template>
 
@@ -58,7 +63,11 @@
             partners: {
                 type: Array,
                 required: true,
-            }
+            },
+            lastDate: {
+                type: Object,
+                required:false,
+            },
         },
 
         computed: {
@@ -131,6 +140,19 @@
                         else {
                             component.errors = error.response.data.errors;
                         }
+                });
+            },
+            copy() {
+                var component = this;
+                axios.post(component.uri + '/copy', {
+                    last_date_id: component.lastDate.id,
+                })
+                    .then(function (response) {
+                        component.errors = {};
+                        component.items = response.data;
+                })
+                    .catch(function (error) {
+                        Vue.error('Teilnehmer konnten nicht kopiert werden.');
                 });
             },
             fetch() {

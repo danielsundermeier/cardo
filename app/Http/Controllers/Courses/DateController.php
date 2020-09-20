@@ -73,6 +73,7 @@ class DateController extends Controller
             ->with('parent', $course->load([
                 'item',
             ]))
+            ->with('last_date', Date::withCount('participations')->where('id', '!=', $date->id)->where('course_id', $date->course_id)->where('at', '<', $date->at)->latest()->first())
             ->with('partners', Partner::client()->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }
 
