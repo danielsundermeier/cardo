@@ -26,6 +26,7 @@ class Course extends Model
         'is_deletable',
         'path',
         'time_formatted',
+        'day_formatted',
     ];
 
     protected $dates = [

@@ -52,7 +52,9 @@ class CourseController extends Controller
     {
         $course = Course::create($request->validate([
             'name' => 'required|string',
-        ]));
+        ]) + [
+            'day' => 0,
+        ]);
 
         $course->item()->create([
             'name' => $course->name,

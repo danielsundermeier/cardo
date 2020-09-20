@@ -154,7 +154,7 @@
                 var component = this;
                 axios.post(component.uri)
                     .then(function (response) {
-                        location.href = response.data.path;
+                        location.href = response.data.edit_path;
                     })
                     .catch( function (error) {
                         Vue.error('Datensatz konnte nicht erstellt werden!');

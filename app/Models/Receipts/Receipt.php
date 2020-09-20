@@ -15,6 +15,7 @@ class Receipt extends Model
     use HasChildren;
 
     protected $appends = [
+        'edit_path',
         'path',
         'date_formatted',
     ];

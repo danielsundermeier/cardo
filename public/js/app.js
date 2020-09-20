@@ -2827,6 +2827,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -3018,7 +3021,7 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var component = this;
       axios.post(component.uri, component.form).then(function (response) {
-        location.href = response.data.path;
+        location.href = response.data.edit_path;
       })["catch"](function (error) {
         component.errors = error.response.data.errors; // Vue.error('Interaktion konnte nicht erstellt werden!');
       });
@@ -3429,7 +3432,7 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var component = this;
       axios.post(component.uri, component.form).then(function (response) {
-        location.href = response.data.path;
+        location.href = response.data.edit_path;
       })["catch"](function (error) {
         component.errors = error.response.data.errors; // Vue.error('Interaktion konnte nicht erstellt werden!');
       });
@@ -3997,7 +4000,7 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var component = this;
       axios.post(component.uri, component.form).then(function (response) {
-        location.href = component.uri + '/' + response.data.id;
+        location.href = response.data.edit_path;
       })["catch"](function (error) {
         component.errors = error.response.data.errors; // Vue.error('Interaktion konnte nicht erstellt werden!');
       });
@@ -4707,7 +4710,7 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var component = this;
       axios.post(component.uri).then(function (response) {
-        location.href = response.data.path;
+        location.href = response.data.edit_path;
       })["catch"](function (error) {
         Vue.error('Datensatz konnte nicht erstellt werden!');
       });
@@ -42327,14 +42330,19 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", [
     _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
-      _vm._v(_vm._s(_vm.item.name))
+      _vm._v("\n        " + _vm._s(_vm.item.name) + "\n        "),
+      _c("div", { staticClass: "text-muted" }, [
+        _vm._v(
+          _vm._s(_vm.item.day_formatted) + " " + _vm._s(_vm.item.time_formatted)
+        )
+      ])
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
       _vm._v(_vm._s(_vm.item.instructor.name))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer" }, [
       _vm._v(_vm._s(_vm.item.item ? _vm.item.item.name : "-"))
     ]),
     _vm._v(" "),

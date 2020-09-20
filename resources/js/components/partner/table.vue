@@ -152,7 +152,7 @@
                 var component = this;
                 axios.post(component.uri, component.form)
                     .then(function (response) {
-                        location.href = component.uri + '/' + response.data.id;
+                        location.href = response.data.edit_path;
                     })
                     .catch( function (error) {
                         component.errors = error.response.data.errors;

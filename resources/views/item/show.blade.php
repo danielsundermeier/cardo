@@ -28,31 +28,23 @@
                 <div class="card-header">{{ $model->name }}</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-label"><b>Name</b></div>
-                                <div class="col-value">{{ $model->name }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-label"><b>Einheit</b></div>
-                                <div class="col-value">{{ $model->unit->name }} ({{ $model->unit->abbreviation }})</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-label"><b>Preis/Einheit</b></div>
-                                <div class="col-value">{{ $model->unit_price_formatted }} €</div>
-                            </div>
-                            @if ($model->course_id)
-                                <div class="row">
-                                    <div class="col-label"><b>Verknüpfter Kurs</b></div>
-                                    <div class="col-value"><a href="{{ $model->course->path }}" target="_blank">{{ $model->course->name }}</a></div>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="col-lg-6">
-
-                        </div>
+                        <div class="col-label"><b>Name</b></div>
+                        <div class="col-value">{{ $model->name }}</div>
                     </div>
+                    <div class="row">
+                        <div class="col-label"><b>Einheit</b></div>
+                        <div class="col-value">{{ $model->unit->name }} ({{ $model->unit->abbreviation }})</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-label"><b>Preis/Einheit</b></div>
+                        <div class="col-value">{{ $model->unit_price_formatted }} €</div>
+                    </div>
+                    @if ($model->course_id)
+                        <div class="row">
+                            <div class="col-label"><b>Verknüpfter Kurs</b></div>
+                            <div class="col-value"><a href="{{ $model->course->path }}" target="_blank">{{ $model->course->name }}</a></div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -1,6 +1,9 @@
 <template>
     <tr>
-        <td class="align-middle pointer" @click="link">{{ item.name }}</td>
+        <td class="align-middle pointer" @click="link">
+            {{ item.name }}
+            <div class="text-muted">{{ item.day_formatted }} {{ item.time_formatted }}</div>
+        </td>
         <td class="align-middle pointer" @click="link">{{ item.instructor.name }}</td>
         <td class="align-middle pointer">{{ item.item ? item.item.name : '-' }}</td>
         <td class="align-middle text-right">

@@ -17,7 +17,6 @@
                 <div class="card mb-5">
                     <div class="card-header">{{ $model->name }}</div>
                     <div class="card-body">
-                        {{ $errors }}
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name" value="{{ $model->name }}">
