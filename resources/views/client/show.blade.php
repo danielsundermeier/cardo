@@ -24,6 +24,35 @@
             @include('partner.show.address', ['model' => $model])
 
         </div>
+
+        <div class="col-12 col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">Kurse</div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Kurs</th>
+                                <th>Zeit</th>
+                                <th class="text-right">Offene Teilnahmen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($model->participants as $participant)
+                                <tr>
+                                    <td><a href="{{ $participant->course->path }}" target="_blank">{{ $participant->course->name }}</a></td>
+                                    <td>{{ $participant->course->day_formatted }} {{ $participant->course->time_formatted }}</td>
+                                    <td class="text-right">{{ $participant->open_participations_count }}</td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="2">Keine Kurse vorhanden</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <div class="row">

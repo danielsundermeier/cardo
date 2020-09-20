@@ -66,7 +66,9 @@ class ClientController extends Controller
     public function show(Partner $client)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $client)
+            ->with('model', $client->load([
+                'participants.course',
+            ]))
             ->with('base_view_path', $this->baseViewPath);
     }
 

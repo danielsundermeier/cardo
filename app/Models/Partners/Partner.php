@@ -154,6 +154,11 @@ class Partner extends Model
         return $this->hasMany(\App\Partners\Healthdata::class, 'partner_id');
     }
 
+    public function participants() : HasMany
+    {
+        return $this->hasMany(\App\Models\Courses\Participant::class, 'partner_id');
+    }
+
     public function scopeStaff(Builder $query, $value = true) : Builder
     {
         if (is_null($value)) {
