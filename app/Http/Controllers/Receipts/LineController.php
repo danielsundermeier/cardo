@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Receipts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Courses\Participant;
+use App\Models\Courses\Participation;
 use App\Models\Items\Item;
 use App\Models\Receipts\Line;
 use App\Models\Receipts\Receipt;
@@ -110,8 +112,20 @@ class LineController extends Controller
             'partner_id' => 'nullable|integer|exists:partners,id'
         ]);
 
+        if ($line->partner_id && $line->partner_id != $attributes['partner_id'] && $line->item->course_id) {
+            $participant = Participant::firstWhere([
+                'partner_id' => $line->partner_id,
+                'course_id' => $line->item->course_id,
+            ]);
+        }
+
         $line->update($attributes);
         $receipt->cache();
+
+        if (isset($participant)) {
+            $participant->cache()
+                ->save();
+        }
 
         if ($request->wantsJson()) {
             return $line->load([
