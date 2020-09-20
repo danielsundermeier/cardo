@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Partners;
 
 use App\Http\Controllers\Controller;
+use App\Models\Courses\Course;
 use App\Models\Partners\Partner;
 use App\User;
 use Carbon\Carbon;
@@ -75,7 +76,8 @@ class ClientController extends Controller
             ->with('model', $client->load([
                 'participants.course',
             ]))
-            ->with('base_view_path', $this->baseViewPath);
+            ->with('base_view_path', $this->baseViewPath)
+            ->with('courses', Course::all());
     }
 
     /**

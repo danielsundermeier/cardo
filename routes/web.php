@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/item', 'Items\ItemController');
     Route::resource('/partner', 'Partners\PartnerController');
     Route::resource('/partner.healthdatas', 'Partners\HealthdataController');
+    Route::resource('partner.participant', 'Partners\ParticipantController');
     Route::resource('/staff', 'Partners\StaffController');
     Route::resource('/supplier', 'Partners\SupplierController');
     Route::resource('/unit', 'Items\UnitController');
