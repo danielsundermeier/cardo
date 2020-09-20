@@ -1,8 +1,8 @@
 <template>
     <tr>
-        <td class="align-middle">{{ item.course.name }}</td>
-        <td class="align-middle">{{ item.course.day_formatted }} {{ item.course.time_formatted }}</td>
-        <td class="align-middle text-right">{{ item.open_participations_count }}</td>
+        <td class="align-middle pointer" @click="link">{{ item.course.name }}</td>
+        <td class="align-middle pointer" @click="link">{{ item.course.day_formatted }} {{ item.course.time_formatted }}</td>
+        <td class="align-middle text-right pointer" @click="link">{{ item.open_participations_count }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="10er Karte kaufen" @click="create">+10</button>
@@ -52,6 +52,9 @@
             destroy() {
                 axios.delete(this.uri + '/' + this.id);
                 this.$emit('deleted', this.id);
+            },
+            link () {
+                location.href = this.item.course.path;
             },
         },
     };

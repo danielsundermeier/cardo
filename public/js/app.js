@@ -3597,6 +3597,9 @@ __webpack_require__.r(__webpack_exports__);
     destroy: function destroy() {
       axios["delete"](this.uri + '/' + this.id);
       this.$emit('deleted', this.id);
+    },
+    link: function link() {
+      location.href = this.item.course.path;
     }
   }
 });
@@ -43449,11 +43452,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { staticClass: "align-middle" }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
       _vm._v(_vm._s(_vm.item.course.name))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle" }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
       _vm._v(
         _vm._s(_vm.item.course.day_formatted) +
           " " +
@@ -43461,9 +43464,14 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle text-right" }, [
-      _vm._v(_vm._s(_vm.item.open_participations_count))
-    ]),
+    _c(
+      "td",
+      {
+        staticClass: "align-middle text-right pointer",
+        on: { click: _vm.link }
+      },
+      [_vm._v(_vm._s(_vm.item.open_participations_count))]
+    ),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
       _c(
