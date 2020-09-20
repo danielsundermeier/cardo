@@ -37,4 +37,15 @@
 
     </div>
 
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">Kommentare</div>
+                <div class="card-body">
+                    <comments :model="{{ json_encode($model) }}"></comments>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection

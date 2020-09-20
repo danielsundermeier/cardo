@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Partners\Partner;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::bind('model', function ($id) {
+    $type = app()->request->route('type');
+
+    if (in_array($type, ['client', 'staff', 'supplier'])) {
+        return Partner::findOrFail($id);
+    }
+
+    return ucfirst($type)::findOrFail($id);
+});
 
 Route::post('deploy', 'DeploymentController@store');
 
@@ -38,6 +49,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
     Route::get('/bookkeeping/receipt/{receipt}/download', 'Receipts\PdfController@store');
+
+    Route::get('comment', 'Comments\CommentController@index');
+    Route::get('{type}/{model}/comment', 'Comments\CommentController@index');
+    Route::post('{type}/{model}/comment', 'Comments\CommentController@store');
 
     Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
 });
