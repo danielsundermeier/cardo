@@ -139,17 +139,17 @@ class DateController extends Controller
         if ($isDeletable) {
             $status = [
                 'type' => 'success',
-                'text' => 'gelöscht.',
+                'text' => 'Datensatz gelöscht.',
             ];
         }
         else {
             $status = [
                 'type' => 'danger',
-                'text' => 'kann nicht gelöscht werden.',
+                'text' => 'Datensatz kann nicht gelöscht werden.',
             ];
         }
 
-        return redirect(route($this->baseViewPath . '.index'))
+        return redirect($course->path)
             ->with('status', $status);
     }
 }
