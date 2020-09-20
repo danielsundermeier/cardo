@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Courses\Course;
 use App\Models\Items\Item;
 use App\Models\Items\Unit;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -77,10 +78,20 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
+        $courses = Course::select('courses.*')
+            ->where(function (Builder $query) use ($item) {
+                $query->doesntHave('item');
+                if ($item->course_id) {
+                    $query->orWhere('id', $item->course_id);
+                }
+            })
+            ->orderBy('name', 'ASC')
+            ->get();
+
         return view($this->baseViewPath . '.edit')
             ->with('model', $item)
             ->with('units', Unit::orderBy('name', 'ASC')->get())
-            ->with('courses', Course::orderBy('name', 'ASC')->get());
+            ->with('courses', $courses);
     }
 
     /**

@@ -2,6 +2,7 @@
     <tr>
         <td class="align-middle pointer" @click="link">{{ item.name }}</td>
         <td class="align-middle pointer" @click="link">{{ item.instructor.name }}</td>
+        <td class="align-middle pointer">{{ item.item ? item.item.name : '-' }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <a :href="item.edit_path" type="button" class="btn btn-secondary" title="Bearbeiten" @click="link"><i class="fas fa-edit"></i></a>

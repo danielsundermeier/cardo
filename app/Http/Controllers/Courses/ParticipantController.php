@@ -9,6 +9,7 @@ use App\Models\Items\Item;
 use App\Models\Receipts\Invoice;
 use App\Models\Receipts\Receipt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ParticipantController extends Controller
 {
@@ -52,13 +53,16 @@ class ParticipantController extends Controller
     {
         $attributes = $request->validate([
             'partner_id' => 'required|integer|exists:partners,id',
+            'create_invoice' => 'nullable|boolean',
         ]);
 
-        $invoice = Invoice::create($attributes);
-        $invoice->addLine($course->item, [
-            'quantity' => 10,
-        ]);
-        $invoice->cache();
+        if (Arr::get($attributes, 'create_invoice', false)) {
+            $invoice = Invoice::create($attributes);
+            $invoice->addLine($course->item, [
+                'quantity' => 10,
+            ]);
+            $invoice->cache();
+        }
 
         $participant = Participant::firstOrCreate([
             'course_id' => $course->id,
@@ -127,7 +131,7 @@ class ParticipantController extends Controller
      * @param  \App\Models\Courses\Participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Participant $participant)
+    public function destroy(Request $request, Course $course, Participant $participant)
     {
         if ($isDeletable = $participant->isDeletable()) {
             $participant->delete();

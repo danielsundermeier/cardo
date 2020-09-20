@@ -2631,7 +2631,8 @@ __webpack_require__.r(__webpack_exports__);
       id: this.item.id,
       errors: {},
       form: {
-        partner_id: this.item.partner_id
+        partner_id: this.item.partner_id,
+        create_invoice: true
       }
     };
   },
@@ -2715,10 +2716,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    parent: {
-      type: Object,
-      required: true
-    },
     partners: {
       type: Array,
       required: true
@@ -2756,6 +2753,7 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: true,
       filter: {},
       form: {
+        create_invoice: false,
         partner_id: null
       },
       errors: {}
@@ -2828,6 +2826,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -2876,6 +2875,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./row.vue */ "./resources/js/components/courses/row.vue");
 /* harmony import */ var _filter_search_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../filter/search.vue */ "./resources/js/components/filter/search.vue");
+//
 //
 //
 //
@@ -42102,10 +42102,6 @@ var render = function() {
         "div",
         { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
         [
-          false
-            ? undefined
-            : _vm._e(),
-          _vm._v(" "),
           _c(
             "button",
             {
@@ -42114,7 +42110,19 @@ var render = function() {
               on: { click: _vm.create }
             },
             [_vm._v("+10")]
-          )
+          ),
+          _vm._v(" "),
+          _vm.item.is_deletable
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", title: "Löschen" },
+                  on: { click: _vm.destroy }
+                },
+                [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+              )
+            : _vm._e()
         ]
       )
     ])
@@ -42324,6 +42332,10 @@ var render = function() {
     _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
       _vm._v(_vm._s(_vm.item.instructor.name))
+    ]),
+    _vm._v(" "),
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+      _vm._v(_vm._s(_vm.item.item ? _vm.item.item.name : "-"))
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
@@ -42639,11 +42651,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "20%" } }, [_vm._v("Name")]),
+        _c("th", { attrs: { width: "30%" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "70%" } }, [_vm._v("Leiter")]),
+        _c("th", { attrs: { width: "35%" } }, [_vm._v("Leiter")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "10%" } }, [
+        _c("th", { attrs: { width: "35%" } }, [_vm._v("Produkt")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
           _vm._v("Aktion")
         ])
       ])

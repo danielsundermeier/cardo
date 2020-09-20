@@ -4,8 +4,8 @@
         <td class="align-middle text-right">{{ item.open_participations_count }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="false"><i class="fas fa-fw fa-trash"></i></button>
                 <button type="button" class="btn btn-secondary" title="10er Karte kaufen" @click="create">+10</button>
+                <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-fw fa-trash"></i></button>
             </div>
         </td>
     </tr>
@@ -22,6 +22,7 @@
                 errors: {},
                 form: {
                     partner_id: this.item.partner_id,
+                    create_invoice: true,
                 },
             };
         },

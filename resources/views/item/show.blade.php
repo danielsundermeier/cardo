@@ -44,7 +44,7 @@
                             @if ($model->course_id)
                                 <div class="row">
                                     <div class="col-label"><b>Verknüpfter Kurs</b></div>
-                                    <div class="col-value">{{ $model->course->name }}</div>
+                                    <div class="col-value"><a href="{{ $model->course->path }}" target="_blank">{{ $model->course->name }}</a></div>
                                 </div>
                             @endif
                         </div>

@@ -51,10 +51,6 @@
                 type: Object,
                 required: true,
             },
-            parent: {
-                type: Object,
-                required: true,
-            },
             partners: {
                 type: Array,
                 required: true,
@@ -97,6 +93,7 @@
 
                 },
                 form: {
+                    create_invoice: false,
                     partner_id: null,
                 },
                 errors: {},

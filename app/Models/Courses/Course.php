@@ -64,7 +64,7 @@ class Course extends Model
 
     public function isDeletable() : bool
     {
-        return ! $this->dates()->exists();
+        return ! $this->dates()->exists() && ! $this->item()->exists();
     }
 
     public function getIsDeletableAttribute()

@@ -13,6 +13,10 @@ class Participant extends Pivot
 {
     public $incrementing = true;
 
+    protected $appends = [
+        'is_deletable',
+    ];
+
     protected $fillable = [
         'course_id',
         'open_participations_count',
@@ -32,7 +36,12 @@ class Participant extends Pivot
 
     public function isDeletable() : bool
     {
-        return true;
+        return ($this->participations_count == 0 && $this->open_participations_count == 0);
+    }
+
+    public function getIsDeletableAttribute() : bool
+    {
+        return $this->isDeletable();
     }
 
     public function course() : BelongsTo

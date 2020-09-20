@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Courses;
 
 use App\Http\Controllers\Controller;
 use App\Models\Courses\Course;
+use App\Models\Items\Unit;
 use App\Models\Partners\Partner;
 use App\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class CourseController extends Controller
     {
         if ($request->wantsJson()) {
             return Course::with([
-                    'instructor'
+                    'instructor',
+                    'item',
                 ])
                 ->orderBy('name', 'ASC')
                 ->paginate();
@@ -48,9 +50,18 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        return Course::create($request->validate([
+        $course = Course::create($request->validate([
             'name' => 'required|string',
         ]));
+
+        $course->item()->create([
+            'name' => $course->name,
+            'unit_id' => Unit::first()->id,
+        ]);
+
+        return $course->load([
+            'item'
+        ]);
     }
 
     /**
@@ -77,7 +88,7 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $course)
+            ->with('model', $course->load(['item']))
             ->with('days', Course::DAYS)
             ->with('partners', Partner::staff()->whereNotNull('user_id')->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }

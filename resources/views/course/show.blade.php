@@ -24,29 +24,48 @@
                 <div class="card-header">{{ $model->name }}</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-label"><b>Name</b></div>
-                                <div class="col-value">{{ $model->name }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-label"><b>Leiter</b></div>
-                                <div class="col-value">{{ $model->instructor->name }}</div>
-                            </div>
-                            <div>
-                                {!! nl2br($model->description) !!}
-                            </div>
-                        </div>
+                        <div class="col-label"><b>Name</b></div>
+                        <div class="col-value">{{ $model->name }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-label"><b>Leiter</b></div>
+                        <div class="col-value">{{ $model->instructor->name }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-label"><b>Zeit</b></div>
+                        <div class="col-value">{{ $model->day_formatted }} {{ $model->time_formatted }}</div>
+                    </div>
+                    <div>
+                        {!! nl2br($model->description) !!}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-label"><b>Zeit</b></div>
-                                <div class="col-value">{{ $model->day_formatted }} {{ $model->time_formatted }}</div>
+        <div class="col-12 col-md-6">
+            @if($model->item)
+                <div class="card mb-3">
+                    <div class="card-header">Produkt</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-label"><b>Name</b></div>
+                                    <div class="col-value"><a href="{{ $model->item->path }}" target="_blank">{{ $model->item->name }}</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label"><b>Preis</b></div>
+                                    <div class="col-value">{{ $model->item->unit_price_formatted }} €</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="alert alert-danger" role="alert">
+                    Mit diesem Kurs ist kein <a href="/item">Produkt</a> verknüpft!
+                </div>
+            @endif
         </div>
 
     </div>

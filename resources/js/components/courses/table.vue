@@ -38,9 +38,10 @@
             <table class="table table-hover table-striped bg-white">
                 <thead>
                     <tr>
-                        <th width="20%">Name</th>
-                        <th width="70%">Leiter</th>
-                        <th class="text-right" width="10%">Aktion</th>
+                        <th width="30%">Name</th>
+                        <th width="35%">Leiter</th>
+                        <th width="35%">Produkt</th>
+                        <th class="text-right" width="100">Aktion</th>
                     </tr>
                 </thead>
                 <tbody>
