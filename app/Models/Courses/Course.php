@@ -22,11 +22,11 @@ class Course extends Model
     ];
 
     protected $appends = [
+        'day_formatted',
         'edit_path',
         'is_deletable',
         'path',
         'time_formatted',
-        'day_formatted',
     ];
 
     protected $dates = [

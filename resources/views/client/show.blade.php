@@ -20,19 +20,9 @@
 
     <div class="row">
         <div class="col-12 col-md-6">
-            <div class="card mb-3">
-                <div class="card-header">{{ $model->name }}</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-label"><b>Name</b></div>
-                                <div class="col-value">{{ $model->name }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            @include('partner.show.address', ['model' => $model])
+
         </div>
     </div>
 

@@ -20,6 +20,7 @@ class Partner extends Model
 
     protected $appends = [
         'billing_address',
+        'birthday_formatted',
         'edit_path',
         'is_deletable',
         'name',

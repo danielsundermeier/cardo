@@ -16,10 +16,10 @@ class Date extends Model
     use HasPath;
 
     protected $appends = [
+        'at_formatted',
         'edit_path',
         'is_deletable',
         'path',
-        'at_formatted',
     ];
 
     protected $dates = [
