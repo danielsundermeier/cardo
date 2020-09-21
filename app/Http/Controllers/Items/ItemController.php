@@ -22,6 +22,7 @@ class ItemController extends Controller
     {
         if ($request->wantsJson()) {
             return Item::with([
+                    'course',
                     'unit',
                 ])
                 ->orderBy('name', 'ASC')

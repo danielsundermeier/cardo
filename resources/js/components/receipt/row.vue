@@ -4,14 +4,14 @@
             <label class="form-checkbox"></label>
             <input :checked="selected" type="checkbox" :value="id"  @change="$emit('input', id)" number>
         </td>
-        <td class="align-middle pointer" @click="link">{{ item.date_formatted }}</td>
-        <td class="align-middle pointer" @click="link">{{ item.name }}</td>
+        <td class="align-middle pointer" @click="show">{{ item.date_formatted }}</td>
+        <td class="align-middle pointer" @click="show">{{ item.name }}</td>
         <td class="align-middle"><a :href="'/kontakte/' + item.partner.id">{{ item.partner.name }}</a></td>
-        <td class="align-middle text-right pointer" @click="link">{{ (item.net / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
-        <td class="align-middle text-right pointer" @click="link">{{ (item.gross / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
+        <td class="align-middle text-right pointer" @click="show">{{ (item.net / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
+        <td class="align-middle text-right pointer" @click="show">{{ (item.gross / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="link"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy"><i class="fas fa-trash"></i></button>
             </div>
         </td>
@@ -43,7 +43,10 @@
                         }
                     });
             },
-            link () {
+            edit() {
+                location.href = this.item.edit_path;
+            },
+            show() {
                 location.href = this.item.path;
             },
         },

@@ -1,14 +1,14 @@
 <template>
     <tr>
-        <td class="align-middle pointer" @click="link">
+        <td class="align-middle pointer" @click="show">
             {{ item.name }}
             <div class="text-muted">{{ item.day_formatted }} {{ item.time_formatted }}</div>
         </td>
-        <td class="align-middle pointer" @click="link">{{ item.instructor.name }}</td>
+        <td class="align-middle pointer" @click="show">{{ item.instructor.name }}</td>
         <td class="align-middle pointer">{{ item.item ? item.item.name : '-' }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
-                <a :href="item.edit_path" type="button" class="btn btn-secondary" title="Bearbeiten" @click="link"><i class="fas fa-edit"></i></a>
+                <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-trash"></i></button>
             </div>
         </td>
@@ -54,7 +54,10 @@
                         }
                     });
             },
-            link () {
+            edit() {
+                location.href = this.item.edit_path;
+            },
+            show() {
                 location.href = this.item.path;
             },
         },

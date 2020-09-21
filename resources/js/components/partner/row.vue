@@ -1,11 +1,11 @@
 <template>
     <tr>
-        <td class="align-middle pointer" @click="link">{{ item.number }}</td>
-        <td class="align-middle pointer" @click="link">{{ item.name }}</td>
+        <td class="align-middle pointer" @click="show">{{ item.number }}</td>
+        <td class="align-middle pointer" @click="show">{{ item.name }}</td>
         <td class="align-middle pointer"><span v-html="item.courses_string" v-if="uri == 'client'"></span></td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
-                <a :href="path + '/edit'" type="button" class="btn btn-secondary" title="Bearbeiten" @click="link"><i class="fas fa-edit"></i></a>
+                <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-trash"></i></button>
             </div>
         </td>
@@ -34,14 +34,13 @@
         data () {
             return {
                 id: this.item.id,
-                path: '/' + this.uri + '/' + this.item.id
             };
         },
 
         methods: {
             destroy() {
                 var component = this;
-                axios.delete(component.path)
+                axios.delete(component.item.path)
                     .then(function (response) {
                         if (response.data.deleted) {
                             component.$emit("deleted", component.id);
@@ -52,8 +51,11 @@
                         }
                     });
             },
-            link () {
-                location.href = this.path;
+            edit() {
+                location.href = this.item.edit_path;
+            },
+            show() {
+                location.href = this.item.path;
             },
         },
     };

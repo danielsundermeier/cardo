@@ -2386,7 +2386,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    link: function link() {
+    edit: function edit() {
+      location.href = this.item.edit_path;
+    },
+    show: function show() {
       location.href = this.item.path;
     }
   }
@@ -2859,7 +2862,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    link: function link() {
+    edit: function edit() {
+      location.href = this.item.edit_path;
+    },
+    show: function show() {
       location.href = this.item.path;
     }
   }
@@ -3241,6 +3247,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -3289,6 +3296,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./row.vue */ "./resources/js/components/item/row.vue");
 /* harmony import */ var _filter_search_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../filter/search.vue */ "./resources/js/components/filter/search.vue");
+//
 //
 //
 //
@@ -3598,7 +3606,10 @@ __webpack_require__.r(__webpack_exports__);
       axios["delete"](this.uri + '/' + this.id);
       this.$emit('deleted', this.id);
     },
-    link: function link() {
+    edit: function edit() {
+      location.href = this.item.course.edit_path;
+    },
+    show: function show() {
       location.href = this.item.course.path;
     }
   }
@@ -4035,14 +4046,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      id: this.item.id,
-      path: '/' + this.uri + '/' + this.item.id
+      id: this.item.id
     };
   },
   methods: {
     destroy: function destroy() {
       var component = this;
-      axios["delete"](component.path).then(function (response) {
+      axios["delete"](component.item.path).then(function (response) {
         if (response.data.deleted) {
           component.$emit("deleted", component.id);
           Vue.success('Datensatz gelöscht.');
@@ -4051,8 +4061,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    link: function link() {
-      location.href = this.path;
+    edit: function edit() {
+      location.href = this.item.edit_path;
+    },
+    show: function show() {
+      location.href = this.item.path;
     }
   }
 });
@@ -4761,7 +4774,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    link: function link() {
+    edit: function edit() {
+      location.href = this.item.edit_path;
+    },
+    show: function show() {
       location.href = this.item.path;
     }
   }
@@ -41966,15 +41982,11 @@ var render = function() {
         { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
         [
           _c(
-            "a",
+            "button",
             {
               staticClass: "btn btn-secondary",
-              attrs: {
-                href: _vm.item.edit_path,
-                type: "button",
-                title: "Bearbeiten"
-              },
-              on: { click: _vm.link }
+              attrs: { type: "button", title: "Bearbeiten" },
+              on: { click: _vm.edit }
             },
             [_c("i", { staticClass: "fas fa-edit" })]
           ),
@@ -42543,7 +42555,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v("\n        " + _vm._s(_vm.item.name) + "\n        "),
       _c("div", { staticClass: "text-muted" }, [
         _vm._v(
@@ -42552,7 +42564,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.instructor.name))
     ]),
     _vm._v(" "),
@@ -42566,15 +42578,11 @@ var render = function() {
         { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
         [
           _c(
-            "a",
+            "button",
             {
               staticClass: "btn btn-secondary",
-              attrs: {
-                href: _vm.item.edit_path,
-                type: "button",
-                title: "Bearbeiten"
-              },
-              on: { click: _vm.link }
+              attrs: { type: "button", title: "Bearbeiten" },
+              on: { click: _vm.edit }
             },
             [_c("i", { staticClass: "fas fa-edit" })]
           ),
@@ -43054,6 +43062,10 @@ var render = function() {
       _vm._v(_vm._s(_vm.item.name))
     ]),
     _vm._v(" "),
+    _c("td", { staticClass: "align-middle pointer" }, [
+      _vm._v(_vm._s(_vm.item.course_id ? _vm.item.course.name : "-"))
+    ]),
+    _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
       _c(
         "div",
@@ -43367,7 +43379,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "100%" } }, [_vm._v("Name")]),
+        _c("th", { attrs: { width: "50%" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "50%" } }, [_vm._v("Kurs")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
           _vm._v("Aktion")
@@ -43452,11 +43466,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.course.name))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(
         _vm._s(_vm.item.course.day_formatted) +
           " " +
@@ -43468,7 +43482,7 @@ var render = function() {
       "td",
       {
         staticClass: "align-middle text-right pointer",
-        on: { click: _vm.link }
+        on: { click: _vm.show }
       },
       [_vm._v(_vm._s(_vm.item.open_participations_count))]
     ),
@@ -44161,11 +44175,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.number))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.name))
     ]),
     _vm._v(" "),
@@ -44183,15 +44197,11 @@ var render = function() {
         { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
         [
           _c(
-            "a",
+            "button",
             {
               staticClass: "btn btn-secondary",
-              attrs: {
-                href: _vm.path + "/edit",
-                type: "button",
-                title: "Bearbeiten"
-              },
-              on: { click: _vm.link }
+              attrs: { type: "button", title: "Bearbeiten" },
+              on: { click: _vm.edit }
             },
             [_c("i", { staticClass: "fas fa-edit" })]
           ),
@@ -45586,11 +45596,11 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.date_formatted))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.name))
     ]),
     _vm._v(" "),
@@ -45604,7 +45614,7 @@ var render = function() {
       "td",
       {
         staticClass: "align-middle text-right pointer",
-        on: { click: _vm.link }
+        on: { click: _vm.show }
       },
       [
         _vm._v(
@@ -45622,7 +45632,7 @@ var render = function() {
       "td",
       {
         staticClass: "align-middle text-right pointer",
-        on: { click: _vm.link }
+        on: { click: _vm.show }
       },
       [
         _vm._v(
@@ -45646,7 +45656,7 @@ var render = function() {
             {
               staticClass: "btn btn-secondary",
               attrs: { type: "button", title: "Bearbeiten" },
-              on: { click: _vm.link }
+              on: { click: _vm.edit }
             },
             [_c("i", { staticClass: "fas fa-edit" })]
           ),
