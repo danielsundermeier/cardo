@@ -3277,7 +3277,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    link: function link() {
+    edit: function edit() {
+      location.href = this.item.edit_path;
+    },
+    show: function show() {
       location.href = this.item.path;
     }
   }
@@ -43058,7 +43061,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.name))
     ]),
     _vm._v(" "),
@@ -43072,15 +43075,11 @@ var render = function() {
         { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
         [
           _c(
-            "a",
+            "button",
             {
               staticClass: "btn btn-secondary",
-              attrs: {
-                href: _vm.item.edit_path,
-                type: "button",
-                title: "Bearbeiten"
-              },
-              on: { click: _vm.link }
+              attrs: { type: "button", title: "Bearbeiten" },
+              on: { click: _vm.edit }
             },
             [_c("i", { staticClass: "fas fa-edit" })]
           ),
