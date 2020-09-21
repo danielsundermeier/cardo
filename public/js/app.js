@@ -41710,7 +41710,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", [
     _c("td", { staticClass: "align-middle" }, [
-      _vm._v(_vm._s(_vm.item.participant.partner.name))
+      _c(
+        "a",
+        {
+          attrs: { href: _vm.item.participant.partner.path, target: "_blank" }
+        },
+        [_vm._v(_vm._s(_vm.item.participant.partner.name))]
+      )
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
@@ -42319,7 +42325,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", [
     _c("td", { staticClass: "align-middle" }, [
-      _vm._v(_vm._s(_vm.item.partner.name))
+      _c("a", { attrs: { href: _vm.item.partner.path, target: "_blank" } }, [
+        _vm._v(_vm._s(_vm.item.partner.name))
+      ])
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [

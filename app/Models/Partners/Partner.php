@@ -5,6 +5,7 @@ namespace App\Models\Partners;
 use App\Models\Courses\Course;
 use App\Models\Courses\Participant;
 use App\Traits\HasComments;
+use App\Traits\HasPath;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Partner extends Model
 {
-    use HasComments;
+    use HasComments, HasPath;
 
     const UPDATE_RULES = [
 
@@ -106,23 +107,16 @@ class Partner extends Model
         Arr::forget($this->attributes, 'time_formatted');
     }
 
-    public function getPathAttribute()
+    protected function getBaseRouteAttribute() : string
     {
-        return $this->path('show');
-    }
+        if ($this->is_staff) {
+            return 'staff';
+        }
 
-    public function getEditPathAttribute()
-    {
-        return $this->path('edit');
-    }
+        if ($this->is_supplier) {
+            return 'supplier';
+        }
 
-    protected function path(string $action = '') : string
-    {
-        return ($this->id ? route($this->baseRoute() . '.' . $action, ['client' => $this->id]) : '');
-    }
-
-    protected function baseRoute() : string
-    {
         return 'client';
     }
 

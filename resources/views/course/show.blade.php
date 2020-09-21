@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div class="col-label"><b>Leiter</b></div>
-                        <div class="col-value">{{ $model->instructor->name }}</div>
+                        <div class="col-value"><a href="{{ $model->instructor->path }}" target="_blank">{{ $model->instructor->name }}</a></div>
                     </div>
                     <div class="row">
                         <div class="col-label"><b>Zeit</b></div>
