@@ -41,9 +41,9 @@
         <table class="table table-hover table-striped bg-white mt-3" v-else-if="items.length">
             <thead>
                 <tr>
-                    <th width="40%">Bezeichnung</th>
+                    <th width="50%">Bezeichnung</th>
                     <th width="50%">Abkürzung</th>
-                    <th class="text-right" width="10%">Aktion</th>
+                    <th class="text-right" width="100">Aktion</th>
                 </tr>
             </thead>
             <tbody>
