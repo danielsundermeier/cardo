@@ -74,18 +74,6 @@ class Partner extends Model
         return true;
     }
 
-    public function courses() : BelongsToMany
-    {
-        return $this->belongsToMany(Course::class, 'course_participant', 'partner_id', 'course_id')
-            ->using(Participant::class)
-            ->withPivot([
-                'open_participations_count',
-                'participations_count',
-            ])
-            ->withTimestamps()
-            ->as('participation');
-    }
-
     public function getIsDeletableAttribute() : bool
     {
         return $this->isDeletable();
@@ -141,6 +129,16 @@ class Partner extends Model
     public function getBillingAddressAttribute()
     {
         return $this->name . "\n" . $this->address . "\n" .  $this->postcode . ' ' . $this->city . ($this->country ? "\n" . $this->country : '');
+    }
+
+    public function courses() : HasMany
+    {
+        return $this->hasMany(\App\Models\Courses\Course::class, 'partner_id');
+    }
+
+    public function dates() : HasMany
+    {
+        return $this->hasMany(\App\Models\Courses\Date::class, 'staff_id');
     }
 
     public function healthdatas() : HasMany

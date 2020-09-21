@@ -26,6 +26,38 @@
         </div>
     </div>
 
+    <div class="row mb-3">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">Kurse</div>
+                <div class="card-body">
+                    @if (count($model->courses))
+                        <table class="table table-striped">
+                            <tbody>
+                                @foreach ($model->courses as $course)
+                                    <tr>
+                                        <td><a href="{{ $course->path }}" target="_blank">{{ $course->name }}</a></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        Keine Daten vorhanden.
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">Aufgaben</div>
+                <div class="card-body">
+                    TODO
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
             <div class="card mb-3">

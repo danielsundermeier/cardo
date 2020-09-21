@@ -65,7 +65,7 @@ class StaffController extends Controller
     public function show(Partner $staff)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $staff)
+            ->with('model', $staff->load(['courses']))
             ->with('base_view_path', $this->baseViewPath);
     }
 
