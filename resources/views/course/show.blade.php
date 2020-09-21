@@ -19,7 +19,7 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             <div class="card mb-3">
                 <div class="card-header">{{ $model->name }}</div>
                 <div class="card-body">
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             @if($model->item)
                 <div class="card mb-3">
                     <div class="card-header">Produkt</div>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             <div class="card mb-3">
                 <div class="card-header">Teilnehmer</div>
                 <div class="card-body">
@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             <div class="card mb-3">
                 <div class="card-header">Veranstaltungen</div>
                 <div class="card-body">

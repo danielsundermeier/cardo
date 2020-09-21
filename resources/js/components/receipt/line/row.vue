@@ -34,7 +34,6 @@
             <div class="invalid-feedback" v-text="'tax' in errors ? errors.tax[0] : ''"></div>
         </td>
         <td class="align-middle text-right">{{ net }}</td>
-        <td></td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button class="btn btn-secondary" title="Speichern" @click="update"><i class="fas fa-save"></i></button>
@@ -58,7 +57,6 @@
         <td class="align-middle pointer text-right" @click="edit = true">{{ (item.discount * 100).format(1, ',', '') }}%</td>
         <td class="align-middle pointer text-right" @click="edit = true" v-if="showTax">{{ (item.tax * 100).format(0, ',', '') }}%</td>
         <td class="align-middle pointer text-right" @click="edit = true">{{ (item.net / 100).format(2, ',', '.') }} €</td>
-        <td class="align-middle text-center"></td>
         <td class="align-middle pointer text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <a :href="item.item.path" target="_blank" class="btn btn-secondary" title="Artikel" v-if="item.item_id > 0"><i class="fas fa-fw fa-eye"></i></a>

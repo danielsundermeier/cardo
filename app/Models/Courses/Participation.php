@@ -11,9 +11,9 @@ class Participation extends Model
     use HasPath;
 
     protected $appends = [
-        // 'edit_path',
-        // 'is_deletable',
-        // 'path',
+        'edit_path',
+        'is_deletable',
+        'path',
     ];
 
     protected $fillable = [
@@ -36,12 +36,12 @@ class Participation extends Model
     public function getPathParameterAttribute() : array
     {
         return [
-            'date' => $this->course_id,
+            'date' => $this->course_date_id,
             'participation' => $this->id,
         ];
     }
 
-    protected function baseRoute() : string
+    protected function getBaseRouteAttribute() : string
     {
         return 'date.participation';
     }

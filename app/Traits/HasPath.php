@@ -16,10 +16,10 @@ trait HasPath
 
     protected function path(string $action = '') : string
     {
-        return ($this->id ? route($this->baseRoute() . '.' . $action, $this->path_parameter) : '');
+        return ($this->id ? route($this->base_route . '.' . $action, $this->path_parameter) : '');
     }
 
-    protected function baseRoute() : string
+    protected function getBaseRouteAttribute() : string
     {
         return '';
     }
@@ -27,7 +27,7 @@ trait HasPath
     public function getPathParameterAttribute() : array
     {
         return [
-            $this->baseRoute() => $this->id
+            $this->base_route => $this->id
         ];
     }
 }

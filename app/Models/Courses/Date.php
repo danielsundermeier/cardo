@@ -65,7 +65,7 @@ class Date extends Model
         ];
     }
 
-    protected function baseRoute() : string
+    protected function getBaseRouteAttribute() : string
     {
         return 'course.date';
     }

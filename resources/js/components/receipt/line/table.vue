@@ -25,19 +25,18 @@
             <table class="table table-hover table-striped bg-white">
                 <thead>
                     <tr>
-                        <th width="5%">
+                        <th width="25">
                             <label class="form-checkbox" for="checkall"></label>
                             <input id="checkall" type="checkbox" v-model="selectAll">
                         </th>
-                        <th width="15%">Beschreibung</th>
-                        <th class="text-right" width="10%">Menge</th>
-                        <th width="10%">Einheit</th>
-                        <th class="text-right" width="10%">Preis</th>
-                        <th class="text-right" width="5%">%</th>
-                        <th class="text-right" width="10%" v-if="showTax">Ust.</th>
-                        <th class="text-right" width="10%">Betrag</th>
-                        <th class="text-right" width="5%"></th>
-                        <th class="text-right" width="10%"></th>
+                        <th width="100%">Beschreibung</th>
+                        <th class="text-right" width="100">Menge</th>
+                        <th width="100">Einheit</th>
+                        <th class="text-right" width="100">Preis</th>
+                        <th class="text-right" width="75">%</th>
+                        <th class="text-right" width="75" v-if="showTax">Ust.</th>
+                        <th class="text-right" width="100">Betrag</th>
+                        <th class="text-right" width="125"></th>
                     </tr>
                 </thead>
                 <tbody>

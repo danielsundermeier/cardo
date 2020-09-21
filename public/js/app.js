@@ -4411,8 +4411,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4484,7 +4482,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./row.vue */ "./resources/js/components/receipt/line/row.vue");
-//
 //
 //
 //
@@ -41971,11 +41968,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.at_formatted))
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.link } }, [
+    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
       _vm._v(_vm._s(_vm.item.instructor.name))
     ]),
     _vm._v(" "),
@@ -44893,8 +44890,6 @@ var render = function() {
           _vm._v(_vm._s(_vm.net))
         ]),
         _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
         _c("td", { staticClass: "align-middle text-right" }, [
           _c(
             "div",
@@ -45060,8 +45055,6 @@ var render = function() {
           },
           [_vm._v(_vm._s((_vm.item.net / 100).format(2, ",", ".")) + " €")]
         ),
-        _vm._v(" "),
-        _c("td", { staticClass: "align-middle text-center" }),
         _vm._v(" "),
         _c("td", { staticClass: "align-middle pointer text-right" }, [
           _c(
@@ -45230,7 +45223,7 @@ var render = function() {
             [
               _c("thead", [
                 _c("tr", [
-                  _c("th", { attrs: { width: "5%" } }, [
+                  _c("th", { attrs: { width: "25" } }, [
                     _c("label", {
                       staticClass: "form-checkbox",
                       attrs: { for: "checkall" }
@@ -45275,52 +45268,47 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "15%" } }, [
+                  _c("th", { attrs: { width: "100%" } }, [
                     _vm._v("Beschreibung")
                   ]),
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "10%" } },
+                    { staticClass: "text-right", attrs: { width: "100" } },
                     [_vm._v("Menge")]
                   ),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "10%" } }, [_vm._v("Einheit")]),
+                  _c("th", { attrs: { width: "100" } }, [_vm._v("Einheit")]),
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "10%" } },
+                    { staticClass: "text-right", attrs: { width: "100" } },
                     [_vm._v("Preis")]
                   ),
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "5%" } },
+                    { staticClass: "text-right", attrs: { width: "75" } },
                     [_vm._v("%")]
                   ),
                   _vm._v(" "),
                   _vm.showTax
                     ? _c(
                         "th",
-                        { staticClass: "text-right", attrs: { width: "10%" } },
+                        { staticClass: "text-right", attrs: { width: "75" } },
                         [_vm._v("Ust.")]
                       )
                     : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "10%" } },
+                    { staticClass: "text-right", attrs: { width: "100" } },
                     [_vm._v("Betrag")]
                   ),
                   _vm._v(" "),
                   _c("th", {
                     staticClass: "text-right",
-                    attrs: { width: "5%" }
-                  }),
-                  _vm._v(" "),
-                  _c("th", {
-                    staticClass: "text-right",
-                    attrs: { width: "10%" }
+                    attrs: { width: "125" }
                   })
                 ])
               ]),

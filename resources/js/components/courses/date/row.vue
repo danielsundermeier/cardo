@@ -1,7 +1,7 @@
 <template>
     <tr>
-        <td class="align-middle pointer" @click="link">{{ item.at_formatted }}</td>
-        <td class="align-middle pointer" @click="link">{{ item.instructor.name }}</td>
+        <td class="align-middle pointer" @click="show">{{ item.at_formatted }}</td>
+        <td class="align-middle pointer" @click="show">{{ item.instructor.name }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>

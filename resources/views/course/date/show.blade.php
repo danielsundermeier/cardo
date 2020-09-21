@@ -24,16 +24,12 @@
                 <div class="card-header">{{ $parent->name }}</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="row">
-                                <div class="col-label"><b>Datum</b></div>
-                                <div class="col-value">{{ $model->at_formatted }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-label"><b>Leiter</b></div>
-                                <div class="col-value">{{ $model->instructor->name }}</div>
-                            </div>
-                        </div>
+                        <div class="col-label"><b>Datum</b></div>
+                        <div class="col-value">{{ $model->at_formatted }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-label"><b>Leiter</b></div>
+                        <div class="col-value">{{ $model->instructor->name }}</div>
                     </div>
                 </div>
             </div>
