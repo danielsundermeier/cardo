@@ -51,7 +51,7 @@ class Partner extends Model
         'postcode',
         'website',
         'is_client',
-        'ist_staff',
+        'is_staff',
         'is_supplier',
         'user_id',
         'job',
