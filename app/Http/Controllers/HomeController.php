@@ -26,6 +26,7 @@ class HomeController extends Controller
         return view('home')
             ->with('user', auth()->user()->load([
                 'partner.courses',
+                'incompleted_tasks',
             ]));
     }
 }

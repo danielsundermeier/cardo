@@ -59,6 +59,8 @@ Vue.component('partner-course-table', require('./components/partner/course/table
 Vue.component('receipt-table', require('./components/receipt/table.vue').default);
 Vue.component('receipt-line-table', require('./components/receipt/line/table.vue').default);
 Vue.component('receipt-edit-address', require('./components/receipt/edit/address.vue').default);
+Vue.component('task-table', require('./components/task/table.vue').default);
+Vue.component('task-category-table', require('./components/task/category/table.vue').default);
 Vue.component('unit-table', require('./components/unit/table.vue').default);
 
 

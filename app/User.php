@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -42,5 +43,19 @@ class User extends Authenticatable
     public function partner() : HasOne
     {
         return $this->hasOne(\App\Models\Partners\Partner::class, 'user_id');
+    }
+
+    public function tasks() : HasMany
+    {
+        return $this->hasMany(\App\Models\Tasks\Task::class, 'user_id');
+    }
+
+    public function incompleted_tasks() : HasMany
+    {
+        return $this->hasMany(\App\Models\Tasks\Task::class, 'user_id')
+            ->with(['category'])
+            ->where('is_completed', false)
+            ->orderBy('priority', 'ASC')
+            ->orderBy('name', 'ASC');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Partners\Partner;
+use App\Models\Tasks\Task;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,16 @@ Route::bind('model', function ($id) {
 
     if (in_array($type, ['client', 'staff', 'supplier'])) {
         return Partner::findOrFail($id);
+    }
+
+    switch ($type) {
+        case 'task':
+            return Task::findOrFail($id);
+            break;
+
+        default:
+            # code...
+            break;
     }
 
     return ucfirst($type)::findOrFail($id);
@@ -46,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('partner.participant', 'Partners\ParticipantController');
     Route::resource('/staff', 'Partners\StaffController');
     Route::resource('/supplier', 'Partners\SupplierController');
+    Route::resource('/task/category', 'Tasks\CategoryController');
+    Route::resource('/task', 'Tasks\TaskController');
     Route::resource('/unit', 'Items\UnitController');
 
     Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
@@ -54,6 +67,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('comment', 'Comments\CommentController@index');
     Route::get('{type}/{model}/comment', 'Comments\CommentController@index');
     Route::post('{type}/{model}/comment', 'Comments\CommentController@store');
+
+    Route::put('/task/{task}/complete', 'Tasks\CompleteController@update');
+    Route::delete('/task/{task}/complete', 'Tasks\CompleteController@destroy');
 
     Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
 });
