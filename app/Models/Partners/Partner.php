@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Arr;
 
 class Partner extends Model
 {
@@ -110,7 +111,7 @@ class Partner extends Model
 
     public function getBirthdayFormattedAttribute() : string
     {
-        if (is_null($this->attributes['birthday_at'])) {
+        if (is_null(Arr::get($this->attributes, 'birthday_at'))) {
             return '';
         }
 
