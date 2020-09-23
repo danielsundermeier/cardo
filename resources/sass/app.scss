@@ -140,3 +140,15 @@ ul {
     @extend .d-md-none;
     @extend .d-lg-block;
 }
+
+table tr.priority-0 {
+    border-left: 6px solid $red;
+}
+
+table tr.priority-1 {
+    border-left: 6px solid $yellow;
+}
+
+table tr.priority-2 {
+    border-left: 6px solid $green;
+}

@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr :class="'priority-' + item.priority">
         <td class="align-middle pointer" @click="show">{{ item.name }}</td>
         <td class="align-middle pointer">{{ item.category.name }}</td>
         <td class="align-middle text-right">

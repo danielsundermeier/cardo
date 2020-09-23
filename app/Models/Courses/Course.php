@@ -2,6 +2,7 @@
 
 namespace App\Models\Courses;
 
+use App\Traits\HasPath;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,8 @@ use Illuminate\Support\Arr;
 
 class Course extends Model
 {
+    use HasPath;
+
     const DAYS = [
         'Sonntag',
         'Montag',
@@ -23,9 +26,7 @@ class Course extends Model
 
     protected $appends = [
         'day_formatted',
-        'edit_path',
         'is_deletable',
-        'path',
         'time_formatted',
     ];
 
@@ -94,22 +95,7 @@ class Course extends Model
         return '<a href="' . $this->path . '" target="_blank">' . $this->name . '</a>';
     }
 
-    public function getPathAttribute()
-    {
-        return $this->path('show');
-    }
-
-    public function getEditPathAttribute()
-    {
-        return $this->path('edit');
-    }
-
-    protected function path(string $action = '') : string
-    {
-        return ($this->id ? route($this->baseRoute() . '.' . $action, ['course' => $this->id]) : '');
-    }
-
-    protected function baseRoute() : string
+    protected function getBaseRouteAttribute() : string
     {
         return 'course';
     }

@@ -26,7 +26,7 @@ class TaskController extends Controller
                     'creator',
                     'user',
                 ])
-                ->orderBy('priority', 'DESC')
+                ->orderBy('priority', 'ASC')
                 ->orderBy('name', 'ASC')
                 ->paginate();
         }

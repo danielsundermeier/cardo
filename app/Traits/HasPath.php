@@ -4,6 +4,14 @@ namespace App\Traits;
 
 trait HasPath
 {
+    public function initializeHasPath()
+    {
+        $this->append([
+            'edit_path',
+            'path',
+        ]);
+    }
+
     public function getPathAttribute()
     {
         return $this->path('show');

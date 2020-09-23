@@ -19,9 +19,7 @@ class Task extends Model
     ];
 
     protected $appends = [
-        'edit_path',
         'is_deletable',
-        'path',
         'complete_path',
     ];
 

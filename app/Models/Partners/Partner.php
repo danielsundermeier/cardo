@@ -6,6 +6,7 @@ use App\Models\Courses\Course;
 use App\Models\Courses\Participant;
 use App\Traits\HasComments;
 use App\Traits\HasPath;
+use App\Traits\IsDeletable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,7 +15,7 @@ use Illuminate\Support\Arr;
 
 class Partner extends Model
 {
-    use HasComments, HasPath;
+    use HasComments, HasPath, IsDeletable;
 
     const UPDATE_RULES = [
 
@@ -23,10 +24,8 @@ class Partner extends Model
     protected $appends = [
         'billing_address',
         'birthday_formatted',
-        'edit_path',
         'is_deletable',
         'name',
-        'path',
     ];
 
     protected $dates = [
@@ -68,16 +67,6 @@ class Partner extends Model
         $height_in_m = $this->height_in_cm / 100;
 
         return $weight_in_kg / ($height_in_m * $height_in_m);
-    }
-
-    public function isDeletable() : bool
-    {
-        return true;
-    }
-
-    public function getIsDeletableAttribute() : bool
-    {
-        return $this->isDeletable();
     }
 
     public function getDayFormattedAttribute() : string

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tasks\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,10 +24,26 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $categories = Category::with([
+            'tasks' => function ($query) use ($user) {
+                $query->where('user_id', $user->id)
+                    ->where('is_completed', false)
+                    ->orderBy('priority', 'ASC')
+                    ->orderBy('name', 'ASC');
+            },
+        ])
+            ->whereHas('tasks', function ($query) use ($user) {
+                $query->where('user_id', $user->id)
+                    ->where('is_completed', false);
+            })
+            ->orderBy('name', 'ASC')
+            ->get();
+
         return view('home')
-            ->with('user', auth()->user()->load([
+            ->with('user', $user->load([
                 'partner.courses',
-                'incompleted_tasks',
-            ]));
+            ]))
+            ->with('categories', $categories);
     }
 }

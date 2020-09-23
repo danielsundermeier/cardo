@@ -17,9 +17,7 @@ class Date extends Model
 
     protected $appends = [
         'at_formatted',
-        'edit_path',
         'is_deletable',
-        'path',
     ];
 
     protected $dates = [

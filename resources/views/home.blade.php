@@ -25,19 +25,24 @@
 
         <div class="col-12 col-lg-6">
             <div class="card">
-                <div class="card-header">Meine Aufgaben</div>
+                <div class="card-header d-flex justify-content-between">
+                    <div>Meine Aufgaben</div>
+                    <a class="text-body" href="/task"><i class="fas fa-arrow-right"></i></a>
+                </div>
                 <div class="card-body">
-                    @if (count($user->tasks))
-                        <table class="table table-striped">
-                            <tbody>
-                                @foreach ($user->tasks as $task)
-                                    <tr>
-                                        <td><a href="{{ $task->path }}" target="_blank">{{ $task->name }}</a></td>
-                                        <td>{{ $task->category->name }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    @if (count($categories))
+                        @foreach ($categories as $category)
+                            <h6>{{ $category->name }}</h6>
+                            <table class="table table-striped table-sm">
+                                <tbody>
+                                    @foreach ($category->tasks as $task)
+                                        <tr class="priority-{{ $task->priority }}">
+                                            <td><a href="{{ $task->path }}" target="_blank">{{ $task->name }}</a></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endforeach
                     @else
                         Keine Daten vorhanden.
                     @endif

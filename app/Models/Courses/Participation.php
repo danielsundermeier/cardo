@@ -11,9 +11,7 @@ class Participation extends Model
     use HasPath;
 
     protected $appends = [
-        'edit_path',
         'is_deletable',
-        'path',
     ];
 
     protected $fillable = [

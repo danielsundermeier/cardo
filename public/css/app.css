@@ -17148,3 +17148,15 @@ ul {
   text-overflow: ellipsis;
 }
 
+table tr.priority-0 {
+  border-left: 6px solid #e3342f;
+}
+
+table tr.priority-1 {
+  border-left: 6px solid #ffed4a;
+}
+
+table tr.priority-2 {
+  border-left: 6px solid #38c172;
+}
+
