@@ -5,6 +5,7 @@ namespace App\Models\Tasks;
 use App\Traits\HasComments;
 use App\Traits\HasPath;
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -96,5 +97,50 @@ class Task extends Model
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function scopeCategory(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('tasks.category_id', $value);
+    }
+
+    public function scopeIsCompleted(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('tasks.is_completed', $value);
+    }
+
+    public function scopePriority(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('tasks.priority', $value);
+    }
+
+    public function scopeSearch(Builder $query, $value) : Builder
+    {
+        if (! $value) {
+            return $query;
+        }
+
+        return $query->where('tasks.name', 'LIKE', '%' . $value . '%');
+    }
+
+    public function scopeUser(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('tasks.user_id', $value);
     }
 }

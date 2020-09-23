@@ -5208,6 +5208,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -5331,6 +5332,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5340,6 +5381,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     categories: {
+      type: Array,
+      required: true
+    },
+    priorities: {
+      type: Array,
+      required: true
+    },
+    users: {
       type: Array,
       required: true
     }
@@ -5356,7 +5405,12 @@ __webpack_require__.r(__webpack_exports__);
       },
       filter: {
         page: 1,
-        searchtext: ''
+        searchtext: '',
+        category_id: null,
+        is_completed: 0,
+        priority: null,
+        user_id: null,
+        show: false
       },
       form: {
         name: '',
@@ -5435,6 +5489,10 @@ __webpack_require__.r(__webpack_exports__);
         Vue.error('Datensätze konnten nicht geladen werden');
         console.log(error);
       });
+    },
+    search: function search() {
+      this.filter.page = 1;
+      this.fetch();
     },
     updated: function updated(index, item) {
       Vue.set(this.items, index, item);
@@ -46869,12 +46927,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", { class: "priority-" + _vm.item.priority }, [
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
-      _vm._v(_vm._s(_vm.item.name))
-    ]),
+    _c(
+      "td",
+      {
+        staticClass: "align-middle pointer",
+        class: { is_completed: _vm.item.is_completed },
+        on: { click: _vm.show }
+      },
+      [_vm._v(_vm._s(_vm.item.name))]
+    ),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer" }, [
       _vm._v(_vm._s(_vm.item.category.name))
+    ]),
+    _vm._v(" "),
+    _c("td", { staticClass: "align-middle pointer" }, [
+      _vm._v(_vm._s(_vm.item.user_id ? _vm.item.user.name : "Nicht zugeordnet"))
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
@@ -47062,15 +47130,259 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        false
-          ? undefined
-          : _vm._e()
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary ml-1",
+            on: {
+              click: function($event) {
+                _vm.filter.show = !_vm.filter.show
+              }
+            }
+          },
+          [_c("i", { staticClass: "fas fa-filter" })]
+        )
       ])
     ]),
     _vm._v(" "),
     _vm.filter.show
       ? _c("form", { staticClass: "mt-1", attrs: { id: "filter" } }, [
-          _c("div", { staticClass: "form-row" })
+          _c("div", { staticClass: "form-row" }, [
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "filter-completed" } }, [
+                  _vm._v("Status")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.is_completed,
+                        expression: "filter.is_completed"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "filter-completed" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "is_completed",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.search
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { domProps: { value: null } }, [
+                      _vm._v("Alle")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 1 } }, [
+                      _vm._v("Erledigt")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 0 } }, [
+                      _vm._v("Unerledigt")
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "filter-staff" } }, [
+                  _vm._v("Personal")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.user_id,
+                        expression: "filter.user_id"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "filter-staff" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "user_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.search
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { domProps: { value: null } }, [
+                      _vm._v("Alle")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.users, function(user) {
+                      return _c("option", { domProps: { value: user.id } }, [
+                        _vm._v(_vm._s(user.name))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "filter-category" } }, [
+                  _vm._v("Kategorie")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.category_id,
+                        expression: "filter.category_id"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "filter-category" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "category_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.search
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { domProps: { value: null } }, [
+                      _vm._v("Alle")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.categories, function(category) {
+                      return _c(
+                        "option",
+                        { domProps: { value: category.id } },
+                        [_vm._v(_vm._s(category.name))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "filter-priority" } }, [
+                  _vm._v("Priorität")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.priority,
+                        expression: "filter.priority"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "filter-priority" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "priority",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.search
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { domProps: { value: null } }, [
+                      _vm._v("Alle")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.priorities, function(priority, index) {
+                      return _c("option", { domProps: { value: index } }, [
+                        _vm._v(_vm._s(priority))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ])
+          ])
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -47240,9 +47552,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "50%" } }, [_vm._v("Name")]),
+        _c("th", { attrs: { width: "35%" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "50%" } }, [_vm._v("Kategorie")]),
+        _c("th", { attrs: { width: "30%" } }, [_vm._v("Kategorie")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "35%" } }, [_vm._v("Personal")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
           _vm._v("Aktion")

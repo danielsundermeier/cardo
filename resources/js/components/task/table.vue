@@ -19,14 +19,53 @@
                 <div class="form-group" style="margin-bottom: 0;">
                     <filter-search v-model="filter.searchtext" @input="fetch()"></filter-search>
                 </div>
-                <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show" v-if="false"><i class="fas fa-filter"></i></button>
+                <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show"><i class="fas fa-filter"></i></button>
             </div>
         </div>
 
         <form v-if="filter.show" id="filter" class="mt-1">
             <div  class="form-row">
 
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="filter-completed">Status</label>
+                        <select class="form-control" id="filter-completed" v-model="filter.is_completed" @change="search">
+                            <option :value="null">Alle</option>
+                            <option :value="1">Erledigt</option>
+                            <option :value="0">Unerledigt</option>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="filter-staff">Personal</label>
+                        <select class="form-control" id="filter-staff" v-model="filter.user_id" @change="search">
+                            <option :value="null">Alle</option>
+                            <option :value="user.id" v-for="user in users">{{ user.name }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="filter-category">Kategorie</label>
+                        <select class="form-control" id="filter-category" v-model="filter.category_id" @change="search">
+                            <option :value="null">Alle</option>
+                            <option :value="category.id" v-for="category in categories">{{ category.name }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="filter-priority">Priorität</label>
+                        <select class="form-control" id="filter-priority" v-model="filter.priority" @change="search">
+                            <option :value="null">Alle</option>
+                            <option :value="index" v-for="(priority, index) in priorities">{{ priority }}</option>
+                        </select>
+                    </div>
+                </div>
 
             </div>
         </form>
@@ -43,8 +82,9 @@
             <table class="table table-hover table-striped bg-white">
                 <thead>
                     <tr>
-                        <th width="50%">Name</th>
-                        <th width="50%">Kategorie</th>
+                        <th width="35%">Name</th>
+                        <th width="30%">Kategorie</th>
+                        <th width="35%">Personal</th>
                         <th class="text-right" width="100">Aktion</th>
                     </tr>
                 </thead>
@@ -86,6 +126,14 @@
                 type: Array,
                 required: true,
             },
+            priorities: {
+                type: Array,
+                required: true,
+            },
+            users: {
+                type: Array,
+                required: true,
+            },
         },
 
         data () {
@@ -101,6 +149,11 @@
                 filter: {
                     page: 1,
                     searchtext: '',
+                    category_id: null,
+                    is_completed: 0,
+                    priority: null,
+                    user_id: null,
+                    show: false,
                 },
                 form: {
                     name: '',
@@ -186,6 +239,10 @@
                         Vue.error('Datensätze konnten nicht geladen werden');
                         console.log(error);
                     });
+            },
+            search() {
+                this.filter.page = 1;
+                this.fetch();
             },
             updated(index, item) {
                 Vue.set(this.items, index, item);

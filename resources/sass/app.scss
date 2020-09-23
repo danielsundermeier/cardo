@@ -152,3 +152,7 @@ table tr.priority-1 {
 table tr.priority-2 {
     border-left: 6px solid $green;
 }
+
+.is_completed {
+    text-decoration: line-through;
+}

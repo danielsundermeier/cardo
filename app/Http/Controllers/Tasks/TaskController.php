@@ -22,17 +22,23 @@ class TaskController extends Controller
         if ($request->wantsJson()) {
             return Task::with([
                     'category',
-                    'completer',
-                    'creator',
                     'user',
                 ])
+                ->category($request->input('category_id'))
+                ->isCompleted($request->input('is_completed'))
+                ->priority($request->input('priority'))
+                ->search($request->input('searchtext'))
+                ->user($request->input('user_id'))
+                ->orderBy('is_completed', 'ASC')
                 ->orderBy('priority', 'ASC')
                 ->orderBy('name', 'ASC')
                 ->paginate();
         }
 
         return view($this->baseViewPath . '.index')
-            ->with('categories', Category::orderBy('name', 'ASC')->get());
+            ->with('categories', Category::orderBy('name', 'ASC')->get())
+            ->with('priorities', Task::PRIORITIES)
+            ->with('users', User::orderBy('name', 'ASC')->get());
     }
 
     /**

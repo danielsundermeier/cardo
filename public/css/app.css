@@ -17160,3 +17160,7 @@ table tr.priority-2 {
   border-left: 6px solid #38c172;
 }
 
+.is_completed {
+  text-decoration: line-through;
+}
+
