@@ -42,7 +42,7 @@
                     @if ($model->course_id)
                         <div class="row">
                             <div class="col-label"><b>Verknüpfter Kurs</b></div>
-                            <div class="col-value"><a href="{{ $model->course->path }}" target="_blank">{{ $model->course->name }}</a></div>
+                            <div class="col-value"><a href="{{ $model->course->path }}"layouts.guest>{{ $model->course->name }}</a></div>
                         </div>
                     @endif
                 </div>

@@ -6,7 +6,7 @@
         </td>
         <td class="align-middle pointer" @click="show">{{ item.date_formatted }}</td>
         <td class="align-middle pointer" @click="show">{{ item.name }}</td>
-        <td class="align-middle"><a :href="'/kontakte/' + item.partner.id">{{ item.partner.name }}</a></td>
+        <td class="align-middle"><a :href="item.partner.path">{{ item.partner.name }}</a></td>
         <td class="align-middle text-right pointer" @click="show">{{ (item.net / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
         <td class="align-middle text-right pointer" @click="show">{{ (item.gross / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
         <td class="align-middle text-center pointer" @click="show"><i class="fas fa-money-bill-wave text-success" title="Bezahlt" v-if="item.is_paid"></i></td>

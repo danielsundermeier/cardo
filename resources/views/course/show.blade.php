@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div class="col-label"><b>Leiter</b></div>
-                        <div class="col-value"><a href="{{ $model->instructor->path }}" target="_blank">{{ $model->instructor->name }}</a></div>
+                        <div class="col-value"><a href="{{ $model->instructor->path }}"layouts.guest>{{ $model->instructor->name }}</a></div>
                     </div>
                     <div class="row">
                         <div class="col-label"><b>Zeit</b></div>
@@ -51,7 +51,7 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-label"><b>Name</b></div>
-                                    <div class="col-value"><a href="{{ $model->item->path }}" target="_blank">{{ $model->item->name }}</a></div>
+                                    <div class="col-value"><a href="{{ $model->item->path }}"layouts.guest>{{ $model->item->name }}</a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-label"><b>Preis</b></div>

@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td class="align-middle"><a :href="item.participant.partner.path" target="_blank">{{ item.participant.partner.name }}</a></td>
+        <td class="align-middle"><a :href="item.participant.partner.path"layouts.guest>{{ item.participant.partner.name }}</a></td>
         <td class="align-middle text-right">{{ item.participant.open_participations_count }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">

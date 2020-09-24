@@ -59,7 +59,7 @@
         <td class="align-middle pointer text-right" @click="edit = true">{{ (item.net / 100).format(2, ',', '.') }} €</td>
         <td class="align-middle pointer text-right">
             <div class="btn-group btn-group-sm" role="group">
-                <a :href="item.item.path" target="_blank" class="btn btn-secondary" title="Artikel" v-if="item.item_id > 0"><i class="fas fa-fw fa-eye"></i></a>
+                <a :href="item.item.path"layouts.guest class="btn btn-secondary" title="Artikel" v-if="item.item_id > 0"><i class="fas fa-fw fa-eye"></i></a>
                 <button class="btn btn-secondary" title="Bearbeiten" @click="edit = true"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy"><i class="fas fa-trash"></i></button>
             </div>

@@ -11,7 +11,7 @@
                             <tbody>
                                 @foreach ($user->partner->courses as $course)
                                     <tr>
-                                        <td><a href="{{ $course->path }}" target="_blank">{{ $course->name }}</a></td>
+                                        <td><a href="{{ $course->path }}"layouts.guest>{{ $course->name }}</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -37,7 +37,7 @@
                                 <tbody>
                                     @foreach ($category->tasks as $task)
                                         <tr class="priority-{{ $task->priority }}">
-                                            <td><a href="{{ $task->path }}" target="_blank">{{ $task->name }}</a></td>
+                                            <td><a href="{{ $task->path }}"layouts.guest>{{ $task->name }}</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -44,7 +44,7 @@
         @if ($model->website)
             <div class="row">
                 <div class="col-label"><b>Webseite</b></div>
-                <div class="col-value"><a href="{{ $model->website }}" target="_blank">{{ $model->website }}</a></div>
+                <div class="col-value"><a href="{{ $model->website }}"layouts.guest>{{ $model->website }}</a></div>
             </div>
         @endif
     </div>
