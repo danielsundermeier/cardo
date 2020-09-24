@@ -219,4 +219,13 @@ class Receipt extends Model
 
         return $query->where('receipts.is_paid', $value);
     }
+
+    public function scopePartner(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('receipts.partner_id', $value);
+    }
 }
