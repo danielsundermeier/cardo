@@ -5146,7 +5146,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(component.uri, component.form).then(function (response) {
         component.errors = {};
         component.items.unshift(response.data);
-        component.filter.name = '';
+        component.form.name = '';
       })["catch"](function (error) {
         component.errors = error.response.data.errors;
       });
@@ -5388,7 +5388,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       required: true
     },
-    users: {
+    partners: {
       type: Array,
       required: true
     }
@@ -5409,7 +5409,7 @@ __webpack_require__.r(__webpack_exports__);
         category_id: null,
         is_completed: 0,
         priority: null,
-        user_id: null,
+        staff_id: null,
         show: false
       },
       form: {
@@ -46942,7 +46942,9 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer" }, [
-      _vm._v(_vm._s(_vm.item.user_id ? _vm.item.user.name : "Nicht zugeordnet"))
+      _vm._v(
+        _vm._s(_vm.item.staff_id ? _vm.item.partner.name : "Nicht zugeordnet")
+      )
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
@@ -47220,8 +47222,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.filter.user_id,
-                        expression: "filter.user_id"
+                        value: _vm.filter.staff_id,
+                        expression: "filter.staff_id"
                       }
                     ],
                     staticClass: "form-control",
@@ -47239,7 +47241,7 @@ var render = function() {
                             })
                           _vm.$set(
                             _vm.filter,
-                            "user_id",
+                            "staff_id",
                             $event.target.multiple
                               ? $$selectedVal
                               : $$selectedVal[0]
@@ -47254,9 +47256,9 @@ var render = function() {
                       _vm._v("Alle")
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.users, function(user) {
-                      return _c("option", { domProps: { value: user.id } }, [
-                        _vm._v(_vm._s(user.name))
+                    _vm._l(_vm.partners, function(partner) {
+                      return _c("option", { domProps: { value: partner.id } }, [
+                        _vm._v(_vm._s(partner.name))
                       ])
                     })
                   ],

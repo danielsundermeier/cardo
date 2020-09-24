@@ -95,7 +95,7 @@
                     .then(function (response) {
                         component.errors = {};
                         component.items.unshift(response.data);
-                        component.filter.name = '';
+                        component.form.name = '';
                 })
                     .catch(function (error) {
                         component.errors = error.response.data.errors;

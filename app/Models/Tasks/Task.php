@@ -38,7 +38,7 @@ class Task extends Model
         'name',
         'note',
         'priority',
-        'user_id',
+        'staff_id',
     ];
 
     public function complete(User $user)
@@ -94,9 +94,9 @@ class Task extends Model
         return $this->belongsTo(User::class, 'completer_id');
     }
 
-    public function user() : BelongsTo
+    public function partner() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(\App\Models\Partners\Partner::class, 'staff_id');
     }
 
     public function scopeCategory(Builder $query, $value) : Builder
@@ -135,12 +135,12 @@ class Task extends Model
         return $query->where('tasks.name', 'LIKE', '%' . $value . '%');
     }
 
-    public function scopeUser(Builder $query, $value) : Builder
+    public function scopePartner(Builder $query, $value) : Builder
     {
         if (is_null($value)) {
             return $query;
         }
 
-        return $query->where('tasks.user_id', $value);
+        return $query->where('tasks.staff_id', $value);
     }
 }

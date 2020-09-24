@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('completer_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('staff_id')->nullable();
 
             $table->boolean('is_completed')->default(false);
             $table->dateTime('is_completed_at')->nullable();
@@ -32,7 +32,7 @@ class CreateTasksTable extends Migration
 
             $table->foreign('category_id')->references('id')->on('task_category');
             $table->foreign('creator_id')->references('id')->on('users');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('staff_id')->references('id')->on('partners');
             $table->foreign('completer_id')->references('id')->on('users');
         });
     }

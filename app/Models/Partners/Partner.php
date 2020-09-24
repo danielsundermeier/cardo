@@ -141,6 +141,11 @@ class Partner extends Model
         return $this->hasMany(\App\Models\Courses\Participant::class, 'partner_id');
     }
 
+    public function tasks() : HasMany
+    {
+        return $this->hasMany(\App\Models\Tasks\Task::class, 'staff_id');
+    }
+
     public function scopeStaff(Builder $query, $value = true) : Builder
     {
         if (is_null($value)) {
@@ -166,5 +171,11 @@ class Partner extends Model
         }
 
         return $query->where('partners.is_supplier', $value);
+    }
+
+    public function scopeOrderByName(Builder $query) : Builder
+    {
+        return $query->orderBy('firstname', 'ASC')
+                ->orderBy('lastname', 'ASC');
     }
 }

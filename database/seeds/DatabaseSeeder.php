@@ -4,6 +4,7 @@ use App\Models\Courses\Course;
 use App\Models\Items\Item;
 use App\Models\Items\Unit;
 use App\Models\Partners\Partner;
+use App\Models\Tasks\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,5 +35,19 @@ class DatabaseSeeder extends Seeder
             'unit_id' => $unit->id,
             'name' => 'Produkt A',
         ]);
+
+        $categories = [
+            'Büro & Buchhaltung',
+            'Konzepte',
+            'Kunden',
+            'Marketing',
+            'Material',
+            'Veranstaltungen',
+        ];
+        foreach ($categories as $key => $name) {
+            Category::create([
+                'name' => $name,
+            ]);
+        }
     }
 }

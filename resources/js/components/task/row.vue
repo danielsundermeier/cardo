@@ -2,7 +2,7 @@
     <tr :class="'priority-' + item.priority">
         <td class="align-middle pointer" :class="{is_completed: item.is_completed}" @click="show">{{ item.name }}</td>
         <td class="align-middle pointer">{{ item.category.name }}</td>
-        <td class="align-middle pointer">{{ item.user_id ? item.user.name : 'Nicht zugeordnet' }}</td>
+        <td class="align-middle pointer">{{ item.staff_id ? item.partner.name : 'Nicht zugeordnet' }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>

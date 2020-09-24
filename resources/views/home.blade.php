@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row mb-3">
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 mb-3">
             <div class="card">
                 <div class="card-header">Meine Kurse</div>
                 <div class="card-body">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 mb-3">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div>Meine Aufgaben</div>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 mb-3">
             <div class="card">
                 <div class="card-header">Nächste Geburtstage</div>
                 <div class="card-body">
@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 mb-3">
             <div class="card">
                 <div class="card-header">Meine Arbeitzeit</div>
                 <div class="card-body">

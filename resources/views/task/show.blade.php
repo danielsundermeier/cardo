@@ -62,14 +62,14 @@
                     <div class="card-header">Anpassen</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="user_id">Benutzer</label>
-                            <select class="form-control {{ ($errors->has('user_id') ? 'is-invalid' : '') }}" id="user_id" name="user_id">
+                            <label for="staff_id">Benutzer</label>
+                            <select class="form-control {{ ($errors->has('staff_id') ? 'is-invalid' : '') }}" id="staff_id" name="staff_id">
                                 <option value="">Keine Zuordnung</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id}}" {{ $model->user_id == $user->id ? 'selected="selected"' : '' }}>{{ $user->name }}</option>
+                                @foreach($partners as $partner)
+                                    <option value="{{ $partner->id}}" {{ $model->staff_id == $partner->id ? 'selected="selected"' : '' }}>{{ $partner->name }}</option>
                                 @endforeach
                             </select>
-                            @error('user_id')
+                            @error('staff_id')
                                 <div class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </div>

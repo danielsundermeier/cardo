@@ -40,9 +40,9 @@
                 <div class="col-12 col-md-3">
                     <div class="form-group">
                         <label for="filter-staff">Personal</label>
-                        <select class="form-control" id="filter-staff" v-model="filter.user_id" @change="search">
+                        <select class="form-control" id="filter-staff" v-model="filter.staff_id" @change="search">
                             <option :value="null">Alle</option>
-                            <option :value="user.id" v-for="user in users">{{ user.name }}</option>
+                            <option :value="partner.id" v-for="partner in partners">{{ partner.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                 type: Array,
                 required: true,
             },
-            users: {
+            partners: {
                 type: Array,
                 required: true,
             },
@@ -152,7 +152,7 @@
                     category_id: null,
                     is_completed: 0,
                     priority: null,
-                    user_id: null,
+                    staff_id: null,
                     show: false,
                 },
                 form: {

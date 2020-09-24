@@ -92,7 +92,7 @@ class CourseController extends Controller
         return view($this->baseViewPath . '.edit')
             ->with('model', $course->load(['item']))
             ->with('days', Course::DAYS)
-            ->with('partners', Partner::staff()->whereNotNull('user_id')->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
+            ->with('partners', Partner::staff()->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }
 
     /**

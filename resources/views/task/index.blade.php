@@ -7,6 +7,6 @@
     <a href="{{ url('/task/category') }}" class="btn btn-secondary btn-sm">Kategorien</a>
 </div>
 
-<task-table :categories="{{ json_encode($categories) }}" :priorities="{{ json_encode($priorities) }}" :users="{{ json_encode($users) }}"></task-table>
+<task-table :categories="{{ json_encode($categories) }}" :priorities="{{ json_encode($priorities) }}" :partners="{{ json_encode($partners) }}"></task-table>
 
 @endsection

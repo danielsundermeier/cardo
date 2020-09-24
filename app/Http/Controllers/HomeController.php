@@ -24,17 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = auth()->user()->load([
+            'partner',
+        ]);
         $categories = Category::with([
             'tasks' => function ($query) use ($user) {
-                $query->where('user_id', $user->id)
+                $query->partner($user->partner->id)
                     ->where('is_completed', false)
                     ->orderBy('priority', 'ASC')
                     ->orderBy('name', 'ASC');
             },
         ])
             ->whereHas('tasks', function ($query) use ($user) {
-                $query->where('user_id', $user->id)
+                $query->partner($user->partner->id)
                     ->where('is_completed', false);
             })
             ->orderBy('name', 'ASC')

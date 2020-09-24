@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+use App\Models\Partners\Partner;
 use App\Models\Tasks\Category;
 use App\Models\Tasks\Task;
 use App\User;
@@ -22,13 +23,13 @@ class TaskController extends Controller
         if ($request->wantsJson()) {
             return Task::with([
                     'category',
-                    'user',
+                    'partner',
                 ])
                 ->category($request->input('category_id'))
                 ->isCompleted($request->input('is_completed'))
                 ->priority($request->input('priority'))
                 ->search($request->input('searchtext'))
-                ->user($request->input('user_id'))
+                ->partner($request->input('staff_id'))
                 ->orderBy('is_completed', 'ASC')
                 ->orderBy('priority', 'ASC')
                 ->orderBy('name', 'ASC')
@@ -38,7 +39,9 @@ class TaskController extends Controller
         return view($this->baseViewPath . '.index')
             ->with('categories', Category::orderBy('name', 'ASC')->get())
             ->with('priorities', Task::PRIORITIES)
-            ->with('users', User::orderBy('name', 'ASC')->get());
+            ->with('partners', Partner::staff()
+                ->orderByName()
+                ->get());
     }
 
     /**
@@ -65,7 +68,7 @@ class TaskController extends Controller
             'name' => 'required|string',
             'category_id' => 'required|integer|exists:task_category,id'
         ]) + [
-            'user_id' => $user->id,
+            'staff_id' => $user->partner->id,
             'creator_id' => $user->id,
             'priority' => 1,
         ]);
@@ -84,10 +87,10 @@ class TaskController extends Controller
                     'category',
                     'completer',
                     'creator',
-                    'user',
+                    'partner',
                 ]))
             ->with('priorities', Task::PRIORITIES)
-            ->with('users', User::orderBy('name', 'ASC')->get());
+            ->with('partners', Partner::staff()->orderByName()->get());
     }
 
     /**
@@ -116,7 +119,7 @@ class TaskController extends Controller
             'name' => 'sometimes|required|string',
             'category_id' => 'sometimes|required|integer|exists:task_category,id',
             'description' => 'sometimes|nullable|string',
-            'user_id' => 'sometimes|nullable|integer|exists:users,id',
+            'staff_id' => 'sometimes|nullable|integer|exists:partners,id',
             'priority' => 'sometimes|required|integer',
             'note' => 'sometimes|nullable|string',
         ]);

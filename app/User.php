@@ -48,9 +48,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(\App\Models\Partners\Partner::class, 'user_id');
     }
-
-    public function tasks() : HasMany
-    {
-        return $this->hasMany(\App\Models\Tasks\Task::class, 'user_id');
-    }
 }
