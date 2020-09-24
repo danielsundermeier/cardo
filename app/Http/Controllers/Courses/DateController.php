@@ -21,6 +21,9 @@ class DateController extends Controller
     {
         if ($request->wantsJson()) {
             return $course->dates()
+            ->withCount([
+                'participations'
+            ])
             ->with([
                 'instructor',
             ])

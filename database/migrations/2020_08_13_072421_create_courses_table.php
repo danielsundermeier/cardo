@@ -20,7 +20,7 @@ class CreateCoursesTable extends Migration
 
             $table->string('name');
             $table->text('description')->nullable();
-            $table->smallInteger('day')->nullable();
+            $table->smallInteger('day')->default(0);
             $table->dateTime('time')->nullable();
 
             $table->timestamps();
