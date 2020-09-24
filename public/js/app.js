@@ -1919,6 +1919,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     model: {
@@ -1928,7 +1933,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      errors: {},
       form: {
+        name: '',
         text: ''
       }
     };
@@ -1940,6 +1947,7 @@ __webpack_require__.r(__webpack_exports__);
         component.$emit('comment-created', {
           comment: response.data
         });
+        component.name = '';
         component.text = '';
       });
     }
@@ -2104,7 +2112,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {};
+    return {
+      isShowing: false
+    };
   },
   methods: {}
 });
@@ -42262,6 +42272,40 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "text" } }, [_vm._v("Überschrift")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.form.name,
+            expression: "form.name"
+          }
+        ],
+        staticClass: "form-control",
+        class: "name" in _vm.errors ? "is-invalid" : "",
+        attrs: { type: "text", placeholder: "Überschrift" },
+        domProps: { value: _vm.form.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.form, "name", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "invalid-feedback",
+        domProps: {
+          textContent: _vm._s("name" in _vm.errors ? _vm.errors.name[0] : "")
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
       _c("label", { attrs: { for: "text" } }, [_vm._v("Kommentar")]),
       _vm._v(" "),
       _c("textarea", {
@@ -42497,24 +42541,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "list-group-item list-group-item-action" }, [
-    _c("div", { staticClass: "d-flex w-100 justify-content-between" }, [
-      _c("h5", { staticClass: "mb-1" }, [_vm._v(_vm._s(_vm.item.user.name))]),
+  return _c(
+    "div",
+    {
+      staticClass: "list-group-item list-group-item-action pointer",
+      on: {
+        click: function($event) {
+          _vm.isShowing = !_vm.isShowing
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "d-flex w-100 justify-content-between" }, [
+        _c("h5", { staticClass: "mb-1" }, [
+          _vm._v(_vm._s(_vm.item.user.name) + ": " + _vm._s(_vm.item.name))
+        ]),
+        _vm._v(" "),
+        _c("small", [_vm._v(_vm._s(_vm.item.created_at_formatted))])
+      ]),
       _vm._v(" "),
-      _c("small", [_vm._v(_vm._s(_vm.item.created_at_formatted))])
-    ]),
-    _vm._v(" "),
-    "commentable" in _vm.item
-      ? _c("a", { attrs: { href: _vm.item.commentable.path } }, [
-          _vm._v(_vm._s(_vm.item.commentable.name))
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("p", {
-      staticClass: "mb-1 whitespace-pre",
-      domProps: { innerHTML: _vm._s(_vm.item.text) }
-    })
-  ])
+      "commentable" in _vm.item
+        ? _c("a", { attrs: { href: _vm.item.commentable.path } }, [
+            _vm._v(_vm._s(_vm.item.commentable.name))
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("p", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isShowing,
+            expression: "isShowing"
+          }
+        ],
+        staticClass: "mb-1 whitespace-pre",
+        domProps: { innerHTML: _vm._s(_vm.item.text_formatted) }
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

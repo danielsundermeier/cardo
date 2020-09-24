@@ -29,9 +29,11 @@ class Comment extends Model
 
     protected $appends = [
         'created_at_formatted',
+        'text_formatted',
     ];
 
     protected $fillable = [
+        'name',
         'text',
         'user_id',
     ];
@@ -39,6 +41,11 @@ class Comment extends Model
     public function getCreatedAtFormattedAttribute() : string
     {
         return $this->created_at->addHours(2)->format('d.m.Y H:i');
+    }
+
+    public function getTextFormattedAttribute() : string
+    {
+        return nl2br($this->text);
     }
 
     public function commentable() : MorphTo

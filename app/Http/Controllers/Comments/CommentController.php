@@ -42,6 +42,7 @@ class CommentController extends Controller
     public function store(Request $request, string $type, $model)
     {
         $attributes = $request->validate([
+            'name' => 'required|string',
             'text' => 'required|string',
         ]);
 
