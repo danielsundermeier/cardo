@@ -9,6 +9,7 @@
         <td class="align-middle"><a :href="'/kontakte/' + item.partner.id">{{ item.partner.name }}</a></td>
         <td class="align-middle text-right pointer" @click="show">{{ (item.net / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
         <td class="align-middle text-right pointer" @click="show">{{ (item.gross / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
+        <td class="align-middle text-center pointer" @click="show"><i class="fas fa-money-bill-wave text-success" title="Bezahlt" v-if="item.is_paid"></i></td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>

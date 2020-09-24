@@ -4755,6 +4755,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['item', 'uri', 'selected'],
   data: function data() {
@@ -4878,6 +4879,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4902,9 +4916,10 @@ __webpack_require__.r(__webpack_exports__);
         lastPage: 0
       },
       filter: {
+        is_paid: null,
         page: 1,
-        show: false,
-        searchtext: ''
+        searchtext: '',
+        show: false
       },
       selected: []
     };
@@ -4965,6 +4980,10 @@ __webpack_require__.r(__webpack_exports__);
     remove: function remove(index) {
       this.items.splice(index, 1);
       Vue.success('Datensatz gelöscht.');
+    },
+    search: function search() {
+      this.filter.page = 1;
+      this.fetch();
     },
     toggleSelected: function toggleSelected(id) {
       var index = this.selected.indexOf(id);
@@ -46177,6 +46196,22 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c(
+      "td",
+      {
+        staticClass: "align-middle text-center pointer",
+        on: { click: _vm.show }
+      },
+      [
+        _vm.item.is_paid
+          ? _c("i", {
+              staticClass: "fas fa-money-bill-wave text-success",
+              attrs: { title: "Bezahlt" }
+            })
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
       _c(
         "div",
@@ -46278,7 +46313,66 @@ var render = function() {
     _vm._v(" "),
     _vm.filter.show
       ? _c("form", { staticClass: "mt-1", attrs: { id: "filter" } }, [
-          _c("div", { staticClass: "form-row" })
+          _c("div", { staticClass: "form-row" }, [
+            _c("div", { staticClass: "col-12 col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "filter-paid" } }, [
+                  _vm._v("Bezahlt")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.is_paid,
+                        expression: "filter.is_paid"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { id: "filter-paid" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "is_paid",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        _vm.search
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { domProps: { value: null } }, [
+                      _vm._v("Alle")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 1 } }, [
+                      _vm._v("Bezahlt")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 0 } }, [
+                      _vm._v("Nicht Bezahlt")
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -46368,6 +46462,11 @@ var render = function() {
                     [_vm._v("Brutto")]
                   ),
                   _vm._v(" "),
+                  _c("th", {
+                    staticClass: "text-right",
+                    attrs: { width: "25" }
+                  }),
+                  _vm._v(" "),
                   _c(
                     "th",
                     { staticClass: "text-right", attrs: { width: "100" } },
@@ -46421,6 +46520,8 @@ var render = function() {
                     _c("td", { staticClass: "align-middle text-center" }, [
                       _vm._v(_vm._s(_vm.selected.length) + " ausgewählt")
                     ]),
+                    _vm._v(" "),
+                    _c("td"),
                     _vm._v(" "),
                     _c("td"),
                     _vm._v(" "),

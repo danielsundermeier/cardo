@@ -28,6 +28,7 @@ class InvoiceController extends Controller
             return Invoice::with([
                 'partner'
             ])
+                ->isPaid($request->input('is_paid'))
                 ->orderBy('number', 'DESC')
                 ->paginate();
         }

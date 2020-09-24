@@ -9,7 +9,7 @@ class Invoice extends Receipt
 {
     use HasParent;
 
-    protected function baseRoute() : string
+    protected function getBaseRouteAttribute() : string
     {
         return 'invoice';
     }

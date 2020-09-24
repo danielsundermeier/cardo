@@ -4,7 +4,9 @@ namespace App\Models\Receipts;
 
 use App\Models\Items\Item;
 use App\Models\Receipts\Line;
+use App\Traits\HasPath;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,11 +14,10 @@ use Parental\HasChildren;
 
 class Receipt extends Model
 {
-    use HasChildren;
+    use HasChildren, HasPath;
 
     protected $appends = [
-        'edit_path',
-        'path',
+        'pay_path',
         'date_formatted',
     ];
 
@@ -27,12 +28,13 @@ class Receipt extends Model
 
     protected $fillable = [
         'address',
-        'partner_id',
         'date',
         'date_due',
+        'is_paid',
         'name',
         'net',
         'number',
+        'partner_id',
         'subject',
         'text',
         'text_above',
@@ -89,6 +91,15 @@ class Receipt extends Model
     protected function setTextBelow()
     {
         $this->text_below = 'Zahlungsbedingungen: Zahlung innerhalb von 14 Tagen ab Rechnungseingang ohne Abzüge auf folgendes Konto: Juliette Rolf, IBAN: DE06 4825 0110 0004 8701 43, Sparkasse Lemgo.';
+    }
+
+    public function pay(bool $value = true) : self
+    {
+        $this->update([
+            'is_paid' => $value,
+        ]);
+
+        return $this;
     }
 
     public function addLine(Item $item, array $attributes = []) : Line
@@ -168,24 +179,16 @@ class Receipt extends Model
         return true;
     }
 
-    public function getPathAttribute()
+    public function getPayPathAttribute()
     {
-        return $this->path('show');
+        return ($this->id ? route('receipt.pay.update', [
+            'receipt' => $this->id,
+        ]) : '');
     }
 
-    public function getEditPathAttribute()
+    protected function getBaseRouteAttribute() : string
     {
-        return $this->path('edit');
-    }
-
-    protected function path(string $action = '') : string
-    {
-        return ($this->id ? route($this->baseRoute() . '.' . $action, [$this->baseRoute() => $this->id]) : '');
-    }
-
-    protected function baseRoute() : string
-    {
-        return '';
+        return 'receipt';
     }
 
     public function getDateFormattedAttribute() : string
@@ -206,5 +209,14 @@ class Receipt extends Model
     public function lines() : HasMany
     {
         return $this->hasMany(\App\Models\Receipts\Line::class, 'receipt_id');
+    }
+
+    public function scopeIsPaid(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('receipts.is_paid', $value);
     }
 }

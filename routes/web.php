@@ -68,8 +68,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('{type}/{model}/comment', 'Comments\CommentController@index');
     Route::post('{type}/{model}/comment', 'Comments\CommentController@store');
 
+    Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
+
     Route::put('/task/{task}/complete', 'Tasks\CompleteController@update');
     Route::delete('/task/{task}/complete', 'Tasks\CompleteController@destroy');
 
-    Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
+    Route::put('/receipt/{receipt}/pay', 'Receipts\PayController@update')->name('receipt.pay.update');
+    Route::delete('/receipt/{receipt}/pay', 'Receipts\PayController@destroy')->name('receipt.pay.destroy');
+
 });

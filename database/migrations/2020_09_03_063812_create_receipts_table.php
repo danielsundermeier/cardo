@@ -30,6 +30,7 @@ class CreateReceiptsTable extends Migration
             $table->integer('discount_value')->default(0);
             $table->integer('gross')->default(0);
             $table->integer('outstanding')->default(0);
+            $table->boolean('is_paid')->default(false);
 
             $table->text('address')->nullable();
             $table->text('text_above')->nullable();

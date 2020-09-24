@@ -15,6 +15,17 @@
         <form v-if="filter.show" id="filter" class="mt-1">
             <div  class="form-row">
 
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                        <label for="filter-paid">Bezahlt</label>
+                        <select class="form-control" id="filter-paid" v-model="filter.is_paid" @change="search">
+                            <option :value="null">Alle</option>
+                            <option :value="1">Bezahlt</option>
+                            <option :value="0">Nicht Bezahlt</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </form>
 
@@ -39,6 +50,7 @@
                         <th width="100%">Partner</th>
                         <th class="text-right" width="75">Netto</th>
                         <th class="text-right" width="75">Brutto</th>
+                        <th class="text-right" width="25"></th>
                         <th class="text-right" width="100">Aktion</th>
                     </tr>
                 </thead>
@@ -50,6 +62,7 @@
                 <tfoot v-show="selected.length > 0">
                     <tr>
                         <td class="align-middle text-center">{{ selected.length }} ausgewählt</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -109,9 +122,10 @@
                     lastPage: 0,
                 },
                 filter: {
+                    is_paid: null,
                     page: 1,
-                    show: false,
                     searchtext: '',
+                    show: false,
                 },
                 selected: [],
             };
@@ -182,6 +196,10 @@
             remove(index) {
                 this.items.splice(index, 1);
                 Vue.success('Datensatz gelöscht.');
+            },
+            search() {
+                this.filter.page = 1;
+                this.fetch();
             },
             toggleSelected (id) {
                 var index = this.selected.indexOf(id);
