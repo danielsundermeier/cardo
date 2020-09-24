@@ -69,6 +69,15 @@ class Partner extends Model
         return $weight_in_kg / ($height_in_m * $height_in_m);
     }
 
+    public function isDeletable() : bool
+    {
+        return (! $this->participants()->exists() &&
+            ! $this->receipts()->exists() &&
+            ! $this->courses()->exists() &&
+            ! $this->dates()->exists() &&
+            ! $this->healthdatas()->exists());
+    }
+
     public function getDayFormattedAttribute() : string
     {
         return (is_null($this->day) ? '-' : self::DAYS[$this->day]);
@@ -139,6 +148,11 @@ class Partner extends Model
     public function participants() : HasMany
     {
         return $this->hasMany(\App\Models\Courses\Participant::class, 'partner_id');
+    }
+
+    public function receipts() : HasMany
+    {
+        return $this->hasMany(\App\Models\Receipts\Receipt::class, 'partner_id');
     }
 
     public function tasks() : HasMany
