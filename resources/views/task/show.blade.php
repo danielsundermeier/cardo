@@ -62,7 +62,7 @@
                     <div class="card-header">Anpassen</div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="staff_id">Benutzer</label>
+                            <label for="staff_id">Personal</label>
                             <select class="form-control {{ ($errors->has('staff_id') ? 'is-invalid' : '') }}" id="staff_id" name="staff_id">
                                 <option value="">Keine Zuordnung</option>
                                 @foreach($partners as $partner)
