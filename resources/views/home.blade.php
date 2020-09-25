@@ -6,7 +6,11 @@
             <div class="card">
                 <div class="card-header">Meine Kurse</div>
                 <div class="card-body">
-                    @if (count($user->partner->courses))
+                    @if (is_null($user->partner))
+                        <div class="alert alert-danger" role="alert">
+                            Mit diesem Benutzer ist kein <a href="/staff">Personal</a> verknüpft!
+                        </div>
+                    @elseif (count($user->partner->courses))
                         <table class="table table-striped">
                             <tbody>
                                 @foreach ($user->partner->courses as $course)

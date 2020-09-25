@@ -1,14 +1,15 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers\Users;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class {{ class }} extends Controller
+class UserController extends Controller
 {
-    protected $baseViewPath = '{{ modelVariable }}';
+    protected $baseViewPath = 'user';
 
     /**
      * Display a listing of the resource.
@@ -18,10 +19,14 @@ class {{ class }} extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            //
+            return User::with([
+                'partner'
+            ])->orderBy('name', 'ASC')
+            ->paginate();
         }
 
-        return view($this->baseViewPath . '.index');
+        return view($this->baseViewPath . '.index')
+            ->with('default_password', User::DEFAULT_PASSWORD);
     }
 
     /**
@@ -42,50 +47,59 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'email' => 'required|email|unique:users,email',
+        ]);
+
+        return User::create($attributes + [
+            'name' => 'Neuer Benutzer',
+            'password' => Hash::make(User::DEFAULT_PASSWORD),
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show(User $user)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $user);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit({{ model }} ${{ modelVariable }})
+    public function edit(User $user)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', ${{ modelVariable }});
+            ->with('model', $user);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, User $user)
     {
         $attributes = $request->validate([
-
+            'name' => 'sometimes|required|string',
+            'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
+            'password' => 'sometimes|required|confirmed|min:8',
         ]);
 
-        ${{ modelVariable }}->update($attributes);
+        $user->update($attributes);
 
         if ($request->wantsJson()) {
-            return ${{ modelVariable }};
+            return $user;
         }
 
         return back()
@@ -98,13 +112,13 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    public function destroy(Request $request, User $user)
     {
-        if ($isDeletable = ${{ modelVariable }}->isDeletable()) {
-            ${{ modelVariable }}->delete();
+        if ($isDeletable = $user->isDeletable()) {
+            $user->delete();
         }
 
         if ($request->wantsJson()) {

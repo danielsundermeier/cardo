@@ -27,20 +27,25 @@ class HomeController extends Controller
         $user = auth()->user()->load([
             'partner',
         ]);
-        $categories = Category::with([
-            'tasks' => function ($query) use ($user) {
-                $query->partner($user->partner->id)
-                    ->where('is_completed', false)
-                    ->orderBy('priority', 'ASC')
-                    ->orderBy('name', 'ASC');
-            },
-        ])
-            ->whereHas('tasks', function ($query) use ($user) {
-                $query->partner($user->partner->id)
-                    ->where('is_completed', false);
-            })
-            ->orderBy('name', 'ASC')
-            ->get();
+        if ($user->partner) {
+            $categories = Category::with([
+                'tasks' => function ($query) use ($user) {
+                    $query->partner($user->partner->id)
+                        ->where('is_completed', false)
+                        ->orderBy('priority', 'ASC')
+                        ->orderBy('name', 'ASC');
+                },
+            ])
+                ->whereHas('tasks', function ($query) use ($user) {
+                    $query->partner($user->partner->id)
+                        ->where('is_completed', false);
+                })
+                ->orderBy('name', 'ASC')
+                ->get();
+        }
+        else {
+            $categories = new \Illuminate\Database\Eloquent\Collection();
+        }
 
         return view('home')
             ->with('user', $user->load([

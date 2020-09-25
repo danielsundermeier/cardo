@@ -2,8 +2,11 @@
     <div>
         <div class="row">
             <div class="col d-flex align-items-start mb-1 mb-sm-0">
-                <div class="form-group mb-0">
-
+                <div class="form-group mb-0 mr-1">
+                    <div>
+                        <input type="email" class="form-control" :class="'email' in errors ? 'is-invalid' : ''" v-model="form.email" placeholder="E-Mail" @keydown.enter="create">
+                        <div class="invalid-feedback" v-text="'email' in errors ? errors.email[0] : ''"></div>
+                    </div>
                 </div>
                 <button class="btn btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
             </div>
@@ -35,9 +38,8 @@
             <table class="table table-hover table-striped bg-white">
                 <thead>
                     <tr>
-                        <th width="25%">Nummer</th>
-                        <th width="25%">Name</th>
-                        <th width="50%"><span v-if="uri == 'client'">Kurse</span></th>
+                        <th width="50%">Name</th>
+                        <th width="50%">Personal</th>
                         <th class="text-right" width="100">Aktion</th>
                     </tr>
                 </thead>
@@ -75,14 +77,12 @@
         },
 
         props: {
-            uri: {
-                required: true,
-                type: String,
-            },
+
         },
 
         data () {
             return {
+                uri: '/user',
                 items: [],
                 isLoading: true,
                 paginate: {
@@ -95,7 +95,7 @@
                     searchtext: '',
                 },
                 form: {
-
+                    email: '',
                 },
                 selected: [],
                 errors: {},
@@ -194,7 +194,6 @@
             },
             remove(index) {
                 this.items.splice(index, 1);
-                Vue.success('Datensatz gelöscht.');
             },
         },
     };

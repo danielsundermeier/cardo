@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Tasks\Category;
 use App\Models\Tasks\Task;
+use App\Traits\HasPath;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,7 +16,9 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasPath, Notifiable;
+
+    const DEFAULT_PASSWORD = 'cardo';
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +46,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected function getBaseRouteAttribute() : string
+    {
+        return 'user';
+    }
 
     public function partner() : HasOne
     {

@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/task/category', 'Tasks\CategoryController');
     Route::resource('/task', 'Tasks\TaskController');
     Route::resource('/unit', 'Items\UnitController');
+    Route::resource('/user', 'Users\UserController');
 
     Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
     Route::get('/bookkeeping/receipt/{receipt}/download', 'Receipts\PdfController@store');

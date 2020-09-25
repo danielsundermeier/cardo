@@ -63,6 +63,7 @@ Vue.component('receipt-edit-address', require('./components/receipt/edit/address
 Vue.component('task-table', require('./components/task/table.vue').default);
 Vue.component('task-category-table', require('./components/task/category/table.vue').default);
 Vue.component('unit-table', require('./components/unit/table.vue').default);
+Vue.component('user-table', require('./components/user/table.vue').default);
 
 
 $(document).ready( function () {
