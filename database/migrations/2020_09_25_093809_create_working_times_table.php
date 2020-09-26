@@ -19,7 +19,7 @@ class CreateWorkingTimesTable extends Migration
             $table->unsignedBigInteger('course_date_id')->nullable();
             $table->dateTime('start_at');
             $table->dateTime('end_at')->nullable();
-            $table->unsignedSmallInteger('duration_in_seconds')->default(0);
+            $table->unsignedMediumInteger('duration_in_seconds')->default(0);
             $table->boolean('is_paid')->default(false);
 
             $table->timestamps();

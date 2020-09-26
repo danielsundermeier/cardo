@@ -1,55 +1,34 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col d-flex align-items-start mb-1 mb-sm-0">
-                <div class="form-group mr-1 mb-0">
-                    <input type="text" class="form-control" :class="'industry_hours_formatted' in errors ? 'is-invalid' : ''" v-model="form.industry_hours_formatted" @keydown.enter="update">
-                    <div class="invalid-feedback" v-text="'industry_hours_formatted' in errors ? errors.industry_hours_formatted[0] : ''"></div>
-                </div>
-                <button class="btn btn-primary" @click="create(0)"><i class="fas fa-plus-square"></i></button>
+    <div v-if="isLoading" class="mt-3 p-5">
+        <center>
+            <span style="font-size: 48px;">
+                <i class="fas fa-spinner fa-spin"></i><br />
+            </span>
+            Lade Daten
+        </center>
+    </div>
+    <div class="mt-3 w-100 px-3" v-else>
+        <div class="row flex-column">
+            <div class="alert alert-secondary" role="alert">
+                Heutige Arbeitszeit: {{ industryHoursSum.format(2, ',', '.') }} h
             </div>
+            <button class="btn btn-primary btn-lg mb-3" @click="create('1,00')">+1</button>
+            <button class="btn btn-primary btn-lg mb-3" @click="create('0,50')">+0,5</button>
+            <button class="btn btn-primary btn-lg mb-3" @click="create('0,25')">+0,25</button>
+            <div class="form-group mb-1">
+                <input type="text" class="form-control" :class="'industry_hours_formatted' in errors ? 'is-invalid' : ''" v-model="form.industry_hours_formatted" @keydown.enter="create(0)">
+                <div class="invalid-feedback" v-text="'industry_hours_formatted' in errors ? errors.industry_hours_formatted[0] : ''"></div>
+            </div>
+            <button class="btn btn-primary btn-lg" @click="create(0)"><i class="fas fa-plus-square"></i></button>
         </div>
-
-        <div v-if="isLoading" class="mt-3 p-5">
-            <center>
-                <span style="font-size: 48px;">
-                    <i class="fas fa-spinner fa-spin"></i><br />
-                </span>
-                Lade Daten
-            </center>
-        </div>
-        <div class="table-responsive mt-3" v-else-if="items.length">
-            <table class="table table-hover table-striped bg-white">
-                <thead>
-                    <tr>
-                        <th width="100%">Datum</th>
-                        <th class="text-right" width="100">Dauer</th>
-                        <th class="text-right" width="100">Aktion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <row :item="item" :key="item.id" :uri="uri" v-for="(item, index) in items" @deleted="deleted(index)" @updated="updated(index, $event)"></row>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td></td>
-                        <td class="text-right font-weight-bold">{{ industryHoursSum.format(2, ',', '.') }}</td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        <div class="alert alert-dark mt-3" v-else><center>Keine Daten vorhanden</center></div>
     </div>
 </template>
 
 <script>
-    import row from "./row.vue";
-
     export default {
 
         components: {
-            row,
+
         },
 
         props: {
@@ -101,29 +80,20 @@
                 }
                 return sum;
             },
-            selectAll: {
-                get: function () {
-                    return this.items.length ? this.items.length == this.selected.length : false;
-                },
-                set: function (value) {
-                    this.selected = [];
-                    if (value) {
-                        for (let i in this.items) {
-                            this.selected.push(this.items[i].id);
-                        }
-                    }
-                },
-            },
         },
 
         methods: {
-            create(industry_hours) {
+            create(industry_hours_formatted) {
                 var component = this;
-                component.form.industry_hours = industry_hours;
+                if (industry_hours_formatted) {
+                    component.form.industry_hours_formatted = industry_hours_formatted;
+                }
                 axios.post(component.uri, component.form)
                     .then(function (response) {
                         component.errors = {};
                         component.items.unshift(response.data);
+                        component.form.industry_hours_formatted = '1,00';
+                        Vue.success('Arbeitszeit gespeichert.');
                     })
                     .catch( function (error) {
                         component.errors = error.response.data.errors;
@@ -144,6 +114,9 @@
                         Vue.error('Datensätze konnten nicht geladen werden');
                         console.log(error);
                     });
+            },
+            updated(index, item) {
+                Vue.set(this.items, index, item);
             },
             search() {
                 this.filter.page = 1;

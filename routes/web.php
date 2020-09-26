@@ -35,6 +35,8 @@ Route::bind('model', function ($id) {
     return ucfirst($type)::findOrFail($id);
 });
 
+Route::get('/staff/{staff}/workingtime', 'Partners\Staffs\WorkingTimeController@show')->name('staff.workingtime.show');
+
 Route::post('deploy', 'DeploymentController@store');
 
 Auth::routes([

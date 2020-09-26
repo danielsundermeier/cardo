@@ -27,7 +27,7 @@ class WorkingTimeController extends Controller
             ->month($request->input('month'))
             ->year($request->input('year'))
             ->orderBy('start_at', 'DESC')
-            ->paginate();
+            ->get();
         }
 
         return view($this->baseViewPath . '.index')

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Partners\Partner;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class StaffController extends Controller
 {

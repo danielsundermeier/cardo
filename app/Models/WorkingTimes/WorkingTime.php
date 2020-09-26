@@ -37,6 +37,8 @@ class WorkingTime extends Model
         'industry_hours',
         'industry_hours_formatted',
         'start_at_formatted',
+        'date_formatted',
+        'date_key',
     ];
 
     protected $dates = [
@@ -97,6 +99,16 @@ class WorkingTime extends Model
     public function getIsEditableAttribute()
     {
         return $this->isEditable();
+    }
+
+    public function getDateKeyAttribute() : string
+    {
+        return $this->start_at->format('Y-m-d');
+    }
+
+    public function getDateFormattedAttribute() : string
+    {
+        return $this->start_at->format('Y-m-d');
     }
 
     public function getStartAtFormattedAttribute() : string

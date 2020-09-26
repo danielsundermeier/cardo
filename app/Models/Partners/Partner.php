@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\URL;
 
 class Partner extends Model
 {
@@ -123,6 +124,11 @@ class Partner extends Model
         }
 
         return $this->company_name;
+    }
+
+    public function getWorkingTimeUrlAttribute() : string
+    {
+        return URL::signedRoute('staff.workingtime.show', ['staff' => $this->id]);
     }
 
     public function getBillingAddressAttribute()
