@@ -155,6 +155,11 @@ class Partner extends Model
         return $this->hasMany(\App\Models\Receipts\Receipt::class, 'partner_id');
     }
 
+    public function workingtimes() : HasMany
+    {
+        return $this->hasMany(\App\Models\WorkingTimes\WorkingTime::class, 'staff_id');
+    }
+
     public function tasks() : HasMany
     {
         return $this->hasMany(\App\Models\Tasks\Task::class, 'staff_id');

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Arr;
 
 class Date extends Model
@@ -33,6 +34,44 @@ class Date extends Model
     ];
 
     protected $table = 'course_date';
+
+    /**
+     * The booting method of the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function($model)
+        {
+            $model->workingtime()->create([
+                'duration_in_seconds' => 3600,
+                'staff_id' => $model->staff_id,
+                'start_at' => $model->at,
+            ]);
+
+            return true;
+        });
+
+        static::updated(function($model)
+        {
+            $model->workingtime()->update([
+                'staff_id' => $model->staff_id,
+                'start_at' => $model->at,
+            ]);
+
+            return true;
+        });
+
+        static::deleted(function($model)
+        {
+            $model->workingtime()->delete();
+
+            return true;
+        });
+    }
 
     public function isDeletable()
     {
@@ -81,5 +120,10 @@ class Date extends Model
     public function participations() : HasMany
     {
         return $this->hasMany(\App\Models\Courses\Participation::class, 'course_date_id');
+    }
+
+    public function workingtime() : HasOne
+    {
+        return $this->hasOne(\App\Models\WorkingTimes\WorkingTime::class, 'course_date_id');
     }
 }

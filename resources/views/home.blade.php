@@ -65,13 +65,18 @@
             </div>
         </div>
 
-        <div class="col-12 col-lg-6 mb-3">
-            <div class="card">
-                <div class="card-header">Meine Arbeitzeit</div>
-                <div class="card-body">
-                    TODO
+        @if ($user->partner)
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div>Meine Arbeitszeit (heute)</div>
+                        <a class="text-body" href="/workingtime"><i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <user-workingtime-table :selected-staff-id="{{ $user->partner->id }}"></user-workingtime-table>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

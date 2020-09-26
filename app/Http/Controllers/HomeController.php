@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user()->load([
-            'partner',
+            'partner'
         ]);
         if ($user->partner) {
             $categories = Category::with([
