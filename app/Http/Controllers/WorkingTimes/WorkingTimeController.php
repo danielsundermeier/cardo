@@ -23,8 +23,9 @@ class WorkingTimeController extends Controller
                 'date.course',
                 'partner',
             ])->partner($request->input('staff_id'))
-            ->year($request->input('year'))
+            ->date($request->input('date'))
             ->month($request->input('month'))
+            ->year($request->input('year'))
             ->orderBy('start_at', 'DESC')
             ->paginate();
         }

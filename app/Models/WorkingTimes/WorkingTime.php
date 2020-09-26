@@ -156,6 +156,15 @@ class WorkingTime extends Model
         return $query->where('working_times.staff_id', $value);
     }
 
+    public function scopeDate(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->whereDate('working_times.start_at', $value);
+    }
+
     public function scopeMonth(Builder $query, $value) : Builder
     {
         if (is_null($value)) {

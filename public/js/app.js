@@ -6480,6 +6480,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   data: function data() {
+    var date = new Date(),
+        today_formatted = new Date().toLocaleDateString('de-DE', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    });
     return {
       uri: '/workingtime',
       items: [],
@@ -6492,16 +6498,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       filter: {
         page: 1,
         searchtext: '',
-        staff_id: this.selectedStaffId
+        staff_id: this.selectedStaffId,
+        date: date.toISOString().split('T')[0]
       },
       form: {
         staff_id: this.selectedStaffId,
         industry_hours_formatted: '1,00',
-        start_at_formatted: new Date().toLocaleDateString('de-DE', {
-          month: '2-digit',
-          day: '2-digit',
-          year: 'numeric'
-        })
+        start_at_formatted: today_formatted
       },
       selected: [],
       errors: {}
