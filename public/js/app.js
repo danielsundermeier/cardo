@@ -46827,11 +46827,15 @@ var render = function() {
                   "tbody",
                   _vm._l(_vm.form.data.complains, function(complain, index) {
                     return _c("tr", [
-                      _c("td", [_vm._v(_vm._s(complain.bodypart))]),
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(_vm._s(complain.bodypart))
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(complain.complain))]),
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(_vm._s(complain.complain))
+                      ]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-right" }, [
+                      _c("td", { staticClass: "align-middle text-right" }, [
                         _c(
                           "div",
                           {

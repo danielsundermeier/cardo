@@ -54,9 +54,9 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(complain, index) in form.data.complains">
-                                    <td>{{ complain.bodypart }}</td>
-                                    <td>{{ complain.complain }}</td>
-                                    <td class="text-right">
+                                    <td class="align-middle">{{ complain.bodypart }}</td>
+                                    <td class="align-middle">{{ complain.complain }}</td>
+                                    <td class="align-middle text-right">
                                         <div class="btn-group btn-group-sm" role="group">
                                             <button type="button" class="btn btn-secondary" title="Löschen" @click="destroyComplain(index)"><i class="fas fa-trash"></i></button>
                                         </div>
