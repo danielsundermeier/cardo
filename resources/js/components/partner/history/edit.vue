@@ -4,6 +4,124 @@
             <div class="col-12 col-lg-6">
 
                 <div class="card mb-3">
+                    <div class="card-header">Sport</div>
+                    <div class="card-body">
+
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="regular" v-model="form.data.sport.regular">
+                            <label class="form-check-label" for="regular">Treiben Sie regelmäßig Sport?</label>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="past" v-model="form.data.sport.past">
+                            <label class="form-check-label" for="past">Haben Sie früher Sport getrieben?</label>
+                        </div>
+
+                        <p>Wie oft trainieren Sie in der Woche?</p>
+                        <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" v-model="form.data.sport.quantity" id="sport_quantity_1" :value="1">
+                              <label class="form-check-label" for="sport_quantity_1">1x</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" v-model="form.data.sport.quantity" id="sport_quantity_2" :value="2">
+                              <label class="form-check-label" for="sport_quantity_2">2x</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" v-model="form.data.sport.quantity" id="sport_quantity_3" :value="3">
+                              <label class="form-check-label" for="sport_quantity_3">mehr als 2x</label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">Sportarten</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex align-items-start mb-1 mb-sm-0">
+                                <div class="form-group">
+                                    <input class="form-control" :class="'bodypart' in errors ? 'is-invalid' : ''" type="text" v-model="form_sport_type" placeholder="Sportart" @keydown.enter="createSportType">
+                                    <div class="invalid-feedback" v-text="'bodypart' in errors ? errors.bodypart[0] : ''"></div>
+                                </div>
+                                <div class="form-group ml-1" style="margin-bottom: 0;">
+                                    <button class="btn btn-primary" title="Anlegen" @click="createSportType"><i class="fas fa-plus-square"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-sm" v-show="form.data.sport.types.length">
+                            <thead>
+                                <tr>
+                                    <th width="100%">Sportart</th>
+                                    <th width="100"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(type, index) in form.data.sport.types">
+                                    <td class="align-middle">{{ type }}</td>
+                                    <td class="align-middle text-right">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-secondary" title="Löschen" @click="destroySportType(index)"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">Sportliche Zielsetzung</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col d-flex align-items-start mb-1 mb-sm-0">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" v-model="form_goals.type" placeholder="Art" @keydown.enter="createGoal">
+                                </div>
+                                <div class="form-group ml-1">
+                                    <input class="form-control" type="text" v-model="form_goals.scope" placeholder="Umfang" @keydown.enter="createGoal">
+                                </div>
+                                <div class="form-group ml-1">
+                                    <input class="form-control" type="text" v-model="form_goals.time" placeholder="Zeit" @keydown.enter="createGoal">
+                                </div>
+                                <div class="form-group ml-1" style="margin-bottom: 0;">
+                                    <button class="btn btn-primary" title="Anlegen" @click="createGoal"><i class="fas fa-plus-square"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-auto d-flex">
+
+                            </div>
+                        </div>
+                        <table class="table table-striped table-sm" v-show="form.data.goals.length">
+                            <thead>
+                                <tr>
+                                    <th width="50%">Art</th>
+                                    <th width="50%">Umfang</th>
+                                    <th width="50%">Zeit</th>
+                                    <th width="100"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(goal, index) in form.data.goals">
+                                    <td class="align-middle">{{ goal.type }}</td>
+                                    <td class="align-middle">{{ goal.scope }}</td>
+                                    <td class="align-middle">{{ goal.time }}</td>
+                                    <td class="align-middle text-right">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-secondary" title="Löschen" @click="destroyGoal(index)"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-12 col-lg-6">
+
+                <div class="card mb-3">
                     <div class="card-header">Gesundheitsdaten</div>
                     <div class="card-body">
                         <div class="form-group">
@@ -18,10 +136,6 @@
                         <number-input class="form-group" v-model="form.resting_heart_rate" label="Ruhepuls" :error="'resting_heart_rate' in errors ? errors.resting_heart_rate[0] : ''" @enter="update"></number-input>
                     </div>
                 </div>
-
-            </div>
-
-            <div class="col-12 col-lg-6">
 
                 <div class="card mb-3">
                     <div class="card-header">Beschwerden</div>
@@ -116,11 +230,20 @@
                     bodypart: '',
                     complain: '',
                 },
+                form_sport_type: '',
+                form_goals: {
+                    type: '',
+                    scope: '',
+                    time: '',
+                },
             };
         },
 
         methods: {
             createComplain() {
+                if (this.formComplain.bodypart == '') {
+                    return;
+                }
                 this.form.data.complains.unshift({
                     bodypart: this.formComplain.bodypart,
                     complain: this.formComplain.complain,
@@ -130,6 +253,32 @@
             },
             destroyComplain(index) {
                 this.form.data.complains.splice(index, 1);
+            },
+            createGoal() {
+                if (this.form_goals.type == '') {
+                    return;
+                }
+                this.form.data.goals.unshift({
+                    type: this.form_goals.type,
+                    scope: this.form_goals.scope,
+                    time: this.form_goals.time,
+                });
+                this.form_goals.type = '';
+                this.form_goals.scope = '';
+                this.form_goals.time = '';
+            },
+            destroyGoal(index) {
+                this.form.data.goals.splice(index, 1);
+            },
+            createSportType() {
+                if (this.form_sport_type == '') {
+                    return;
+                }
+                this.form.data.sport.types.unshift(this.form_sport_type);
+                this.form_sport_type = '';
+            },
+            destroySportType(index) {
+                this.form.data.sport.types.splice(index, 1);
             },
             update() {
                 var component = this;

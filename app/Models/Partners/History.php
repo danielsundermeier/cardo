@@ -74,6 +74,12 @@ class History extends Model
     public static function defaultData() : array
     {
         return [
+            'sport' => [
+                'regular' => false,
+                'past' => false,
+                'types' => [],
+            ],
+            'goals' => [],
             'complains' => [],
             'goals' => [],
             'illnesses' => [

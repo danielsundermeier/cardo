@@ -4142,6 +4142,120 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4168,11 +4282,21 @@ __webpack_require__.r(__webpack_exports__);
       formComplain: {
         bodypart: '',
         complain: ''
+      },
+      form_sport_type: '',
+      form_goals: {
+        type: '',
+        scope: '',
+        time: ''
       }
     };
   },
   methods: {
     createComplain: function createComplain() {
+      if (this.formComplain.bodypart == '') {
+        return;
+      }
+
       this.form.data.complains.unshift({
         bodypart: this.formComplain.bodypart,
         complain: this.formComplain.complain
@@ -4182,6 +4306,34 @@ __webpack_require__.r(__webpack_exports__);
     },
     destroyComplain: function destroyComplain(index) {
       this.form.data.complains.splice(index, 1);
+    },
+    createGoal: function createGoal() {
+      if (this.form_goals.type == '') {
+        return;
+      }
+
+      this.form.data.goals.unshift({
+        type: this.form_goals.type,
+        scope: this.form_goals.scope,
+        time: this.form_goals.time
+      });
+      this.form_goals.type = '';
+      this.form_goals.scope = '';
+      this.form_goals.time = '';
+    },
+    destroyGoal: function destroyGoal(index) {
+      this.form.data.goals.splice(index, 1);
+    },
+    createSportType: function createSportType() {
+      if (this.form_sport_type == '') {
+        return;
+      }
+
+      this.form.data.sport.types.unshift(this.form_sport_type);
+      this.form_sport_type = '';
+    },
+    destroySportType: function destroySportType(index) {
+      this.form.data.sport.types.splice(index, 1);
     },
     update: function update() {
       var component = this;
@@ -46514,6 +46666,577 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12 col-lg-6" }, [
         _c("div", { staticClass: "card mb-3" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Sport")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "form-group form-check" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.sport.regular,
+                    expression: "form.data.sport.regular"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: { type: "checkbox", id: "regular" },
+                domProps: {
+                  checked: Array.isArray(_vm.form.data.sport.regular)
+                    ? _vm._i(_vm.form.data.sport.regular, null) > -1
+                    : _vm.form.data.sport.regular
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.form.data.sport.regular,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.form.data.sport,
+                            "regular",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.form.data.sport,
+                            "regular",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.form.data.sport, "regular", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                { staticClass: "form-check-label", attrs: { for: "regular" } },
+                [_vm._v("Treiben Sie regelmäßig Sport?")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group form-check" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.sport.past,
+                    expression: "form.data.sport.past"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: { type: "checkbox", id: "past" },
+                domProps: {
+                  checked: Array.isArray(_vm.form.data.sport.past)
+                    ? _vm._i(_vm.form.data.sport.past, null) > -1
+                    : _vm.form.data.sport.past
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.form.data.sport.past,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.form.data.sport,
+                            "past",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.form.data.sport,
+                            "past",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.form.data.sport, "past", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                { staticClass: "form-check-label", attrs: { for: "past" } },
+                [_vm._v("Haben Sie früher Sport getrieben?")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Wie oft trainieren Sie in der Woche?")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-check form-check-inline" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.sport.quantity,
+                    expression: "form.data.sport.quantity"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: { type: "radio", id: "sport_quantity_1" },
+                domProps: {
+                  value: 1,
+                  checked: _vm._q(_vm.form.data.sport.quantity, 1)
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.form.data.sport, "quantity", 1)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "form-check-label",
+                  attrs: { for: "sport_quantity_1" }
+                },
+                [_vm._v("1x")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-check form-check-inline" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.sport.quantity,
+                    expression: "form.data.sport.quantity"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: { type: "radio", id: "sport_quantity_2" },
+                domProps: {
+                  value: 2,
+                  checked: _vm._q(_vm.form.data.sport.quantity, 2)
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.form.data.sport, "quantity", 2)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "form-check-label",
+                  attrs: { for: "sport_quantity_2" }
+                },
+                [_vm._v("2x")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-check form-check-inline" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.sport.quantity,
+                    expression: "form.data.sport.quantity"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: { type: "radio", id: "sport_quantity_3" },
+                domProps: {
+                  value: 3,
+                  checked: _vm._q(_vm.form.data.sport.quantity, 3)
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.$set(_vm.form.data.sport, "quantity", 3)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "form-check-label",
+                  attrs: { for: "sport_quantity_3" }
+                },
+                [_vm._v("mehr als 2x")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card mb-3" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Sportarten")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col d-flex align-items-start mb-1 mb-sm-0" },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form_sport_type,
+                          expression: "form_sport_type"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: "bodypart" in _vm.errors ? "is-invalid" : "",
+                      attrs: { type: "text", placeholder: "Sportart" },
+                      domProps: { value: _vm.form_sport_type },
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.createSportType($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.form_sport_type = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass: "invalid-feedback",
+                      domProps: {
+                        textContent: _vm._s(
+                          "bodypart" in _vm.errors ? _vm.errors.bodypart[0] : ""
+                        )
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group ml-1",
+                      staticStyle: { "margin-bottom": "0" }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { title: "Anlegen" },
+                          on: { click: _vm.createSportType }
+                        },
+                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.form.data.sport.types.length,
+                    expression: "form.data.sport.types.length"
+                  }
+                ],
+                staticClass: "table table-striped table-sm"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.form.data.sport.types, function(type, index) {
+                    return _c("tr", [
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(_vm._s(type))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "align-middle text-right" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn-group btn-group-sm",
+                            attrs: { role: "group" }
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-secondary",
+                                attrs: { type: "button", title: "Löschen" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.destroySportType(index)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card mb-3" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Sportliche Zielsetzung")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col d-flex align-items-start mb-1 mb-sm-0" },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form_goals.type,
+                          expression: "form_goals.type"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Art" },
+                      domProps: { value: _vm.form_goals.type },
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.createGoal($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form_goals, "type", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group ml-1" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form_goals.scope,
+                          expression: "form_goals.scope"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Umfang" },
+                      domProps: { value: _vm.form_goals.scope },
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.createGoal($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form_goals, "scope", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group ml-1" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form_goals.time,
+                          expression: "form_goals.time"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "Zeit" },
+                      domProps: { value: _vm.form_goals.time },
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.createGoal($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form_goals, "time", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group ml-1",
+                      staticStyle: { "margin-bottom": "0" }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { title: "Anlegen" },
+                          on: { click: _vm.createGoal }
+                        },
+                        [_c("i", { staticClass: "fas fa-plus-square" })]
+                      )
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto d-flex" })
+            ]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.form.data.goals.length,
+                    expression: "form.data.goals.length"
+                  }
+                ],
+                staticClass: "table table-striped table-sm"
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.form.data.goals, function(goal, index) {
+                    return _c("tr", [
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(_vm._s(goal.type))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(_vm._s(goal.scope))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "align-middle" }, [
+                        _vm._v(_vm._s(goal.time))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "align-middle text-right" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn-group btn-group-sm",
+                            attrs: { role: "group" }
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-secondary",
+                                attrs: { type: "button", title: "Löschen" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.destroyGoal(index)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-trash" })]
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 col-lg-6" }, [
+        _c("div", { staticClass: "card mb-3" }, [
           _c("div", { staticClass: "card-header" }, [
             _vm._v("Gesundheitsdaten")
           ]),
@@ -46664,10 +47387,8 @@ var render = function() {
             ],
             1
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12 col-lg-6" }, [
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "card mb-3" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v("Beschwerden")]),
           _vm._v(" "),
@@ -46821,7 +47542,7 @@ var render = function() {
                 staticClass: "table table-striped table-sm"
               },
               [
-                _vm._m(0),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -46886,6 +47607,34 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { width: "100%" } }, [_vm._v("Sportart")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "100" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { width: "50%" } }, [_vm._v("Art")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "50%" } }, [_vm._v("Umfang")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "50%" } }, [_vm._v("Zeit")]),
+        _vm._v(" "),
+        _c("th", { attrs: { width: "100" } })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
