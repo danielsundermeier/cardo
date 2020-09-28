@@ -95,6 +95,11 @@ class Partner extends Model
         Arr::forget($this->attributes, 'time_formatted');
     }
 
+    public function getLinkAttribute() : string
+    {
+        return '<a href="' . $this->path . '">' . $this->name . '</a>';
+    }
+
     protected function getBaseRouteAttribute() : string
     {
         if ($this->is_staff) {
@@ -207,5 +212,16 @@ class Partner extends Model
     {
         return $query->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC');
+    }
+
+    public function scopeUpcomingBirthdays(Builder $query, int $days = 7) : Builder
+    {
+        return $query->whereRaw('DATE_ADD(birthday_at,
+                INTERVAL YEAR(CURDATE())-YEAR(birthday_at)
+                         + IF((DAYOFYEAR(CURDATE()) - :leapyear_offset) > DAYOFYEAR(birthday_at),1,0)
+                YEAR)
+            BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)', [
+                'leapyear_offset' => (now()->endOfYear()->dayOfYear ? 1 : 0)
+            ]);
     }
 }

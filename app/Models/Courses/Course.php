@@ -92,7 +92,7 @@ class Course extends Model
 
     public function getLinkAttribute() : string
     {
-        return '<a href="' . $this->path . '" target="_blank">' . $this->name . '</a>';
+        return '<a href="' . $this->path . '">' . $this->name . '</a>';
     }
 
     protected function getBaseRouteAttribute() : string

@@ -56,14 +56,23 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-12 col-lg-6 mb-3">
-            <div class="card">
-                <div class="card-header">Nächste Geburtstage</div>
-                <div class="card-body">
-                    TODO
+
+        @if ($upcoming_birthdays->count())
+            <div class="col-12 col-lg-6 mb-3">
+                <div class="card">
+                    <div class="card-header">Nächste Geburtstage</div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            @foreach ($upcoming_birthdays as $upcoming_birthday)
+                                <li class="list-group-item">
+                                    {!! $upcoming_birthday->link !!} ({{ $upcoming_birthday->birthday_formatted }})
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         @if ($user->partner)
             <div class="col-12 col-lg-6 mb-3">

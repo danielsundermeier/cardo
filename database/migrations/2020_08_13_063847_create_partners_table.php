@@ -36,7 +36,7 @@ class CreatePartnersTable extends Migration
             $table->string('website')->nullable();
 
             $table->string('job')->nullable();
-            $table->dateTime('birthday_at')->nullable();
+            $table->date('birthday_at')->nullable();
             $table->unsignedSmallInteger('height_in_cm')->nullable();
             $table->text('medical_conditions')->nullable();
 

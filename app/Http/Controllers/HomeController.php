@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partners\Partner;
 use App\Models\Tasks\Category;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,7 @@ class HomeController extends Controller
             ->with('user', $user->load([
                 'partner.courses',
             ]))
+            ->with('upcoming_birthdays', Partner::upcomingBirthdays()->orderBy('birthday_at', 'DESC')->orderByName()->get())
             ->with('categories', $categories);
     }
 }
