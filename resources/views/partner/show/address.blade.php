@@ -17,6 +17,12 @@
                 <div class="col-value">{{ $model->birthday_formatted }}</div>
             </div>
         @endif
+        @if ($model->job)
+            <div class="row">
+                <div class="col-label"><b>Beruf</b></div>
+                <div class="col-value">{{ $model->job }}</div>
+            </div>
+        @endif
         @if ($model->phonenumber)
             <div class="row">
                 <div class="col-label"><b>Telefon</b></div>

@@ -56,6 +56,8 @@ Vue.component('item-table', require('./components/item/table.vue').default);
 Vue.component('partner-table', require('./components/partner/table.vue').default);
 Vue.component('partner-healthdata-table', require('./components/partner/healthdata/table.vue').default);
 Vue.component('partner-course-table', require('./components/partner/course/table.vue').default);
+Vue.component('partner-history-table', require('./components/partner/history/table.vue').default);
+Vue.component('partner-history-edit', require('./components/partner/history/edit.vue').default);
 Vue.component('partner-staff-workingtime-show', require('./components/partner/staff/workingtime/show.vue').default);
 Vue.component('partner-receipt-table', require('./components/partner/receipt/table.vue').default);
 Vue.component('receipt-table', require('./components/receipt/table.vue').default);

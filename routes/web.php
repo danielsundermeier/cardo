@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('course.participant', 'Courses\ParticipantController');
     Route::resource('date.participation', 'Courses\Dates\ParticipationController');
     Route::resource('/client', 'Partners\ClientController');
+    Route::resource('client.history', 'Partners\HistoryController');
     Route::resource('/bookkeeping/invoice', 'Receipts\InvoiceController');
     Route::resource('/bookkeeping/receipt.line', 'Receipts\LineController');
     Route::resource('/item', 'Items\ItemController');

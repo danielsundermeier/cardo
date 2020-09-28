@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="d-flex mb-1">
-        <h2 class="col mb-0"><a class="text-body" href="/{{ $base_view_path }}">Kunden</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
+        <h2 class="col mb-0"><a class="text-body" href="/{{ $base_view_path }}">Kunden</a><span class="d-none d-lg-inline"> > {{ $model->name }}</span></h2>
         <div class="d-flex align-items-center">
             <a href="{{ route($base_view_path . '.edit', [$base_view_path => $model->id]) }}" class="btn btn-primary" title="Bearbeiten"><i class="fas fa-edit"></i></a>
             <a href="/{{ $base_view_path }}" class="btn btn-secondary ml-1">Übersicht</a>
@@ -19,13 +19,13 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
 
             @include('partner.show.address', ['model' => $model])
 
         </div>
 
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             <div class="card mb-3">
                 <div class="card-header">Kurse</div>
                 <div class="card-body">
@@ -41,6 +41,17 @@
                 <div class="card-header">Gesundheitsdaten</div>
                 <div class="card-body">
                     <partner-healthdata-table :partner="{{ json_encode($model) }}"></partner-healthdata-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header">Anamnesebogen</div>
+                <div class="card-body">
+                    <partner-history-table :model="{{ json_encode($model) }}"></partner-history-table>
                 </div>
             </div>
         </div>

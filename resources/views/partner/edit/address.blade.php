@@ -52,6 +52,18 @@
             @enderror
         </div>
 
+        @if ($model->is_client)
+            <div class="form-group">
+                <label for="job">Beruf</label>
+                <input type="text" class="form-control {{ ($errors->has('job') ? 'is-invalid' : '') }}" id="job" name="job" value="{{ old('job') ?? $model->job }}">
+                @error('job')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        @endif
+
         <div class="form-group">
             <label for="address">Straße</label>
             <input type="text" class="form-control {{ ($errors->has('address') ? 'is-invalid' : '') }}" id="address" name="address" value="{{ old('address') ?? $model->address }}">

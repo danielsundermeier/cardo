@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Partners;
+namespace App\Models\Partners;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Healthdata extends Model
 {
@@ -24,6 +25,7 @@ class Healthdata extends Model
         'bloodpresure_diastolic',
         'heart_rate',
         'resting_heart_rate',
+        'partner_id',
     ];
 
     /**
@@ -47,7 +49,7 @@ class Healthdata extends Model
 
     public function isDeletable() : bool
     {
-        return true;
+        return (! $this->history()->exists());
     }
 
     public function getIsDeletableAttribute()
@@ -94,5 +96,10 @@ class Healthdata extends Model
     protected function baseRoute() : string
     {
         return 'partner.healthdatas';
+    }
+
+    protected function history() : HasOne
+    {
+        return $this->hasOne(\App\Models\Partners\History::class, 'healthdata_id');
     }
 }

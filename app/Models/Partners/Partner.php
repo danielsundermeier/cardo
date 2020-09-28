@@ -148,7 +148,12 @@ class Partner extends Model
 
     public function healthdatas() : HasMany
     {
-        return $this->hasMany(\App\Partners\Healthdata::class, 'partner_id');
+        return $this->hasMany(\App\Models\Partners\Healthdata::class, 'partner_id');
+    }
+
+    public function histories() : HasMany
+    {
+        return $this->hasMany(\App\Models\Partners\History::class, 'partner_id');
     }
 
     public function participants() : HasMany

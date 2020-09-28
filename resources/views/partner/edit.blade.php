@@ -13,12 +13,13 @@
         @method('PUT')
 
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-lg-6">
+
                 @include('partner.edit.address', ['model' => $model])
 
             </div>
 
-            <div class="col">
+            <div class="col-12 col-lg-6">
 
                 @if ($base_view_path == 'client')
                     @include('partner.edit.client', ['model' => $model])

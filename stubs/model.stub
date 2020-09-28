@@ -3,16 +3,19 @@
 namespace {{ namespace }};
 
 use App\Traits\HasPath;
+use App\Traits\IsDeleteable;
 use Illuminate\Database\Eloquent\Model;
 
 class {{ class }} extends Model
 {
-    use HasPath;
+    use HasPath, IsDeletable;
 
     protected $appends = [
-        'edit_path',
-        'is_deletable',
-        'path',
+        //
+    ];
+
+    protected $casts = [
+        //
     ];
 
     protected $dates = [
@@ -26,11 +29,6 @@ class {{ class }} extends Model
     public function isDeletable()
     {
         return true;
-    }
-
-    public function getIsDeletableAttribute()
-    {
-        return $this->isDeletable();
     }
 
     protected function getBaseRouteAttribute() : string

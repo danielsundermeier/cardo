@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Partners;
 
 use App\Http\Controllers\Controller;
+use App\Models\Partners\History;
 use App\Models\Partners\Partner;
-use App\Models\Partners\Healthdata;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class HealthdataController extends Controller
+class HistoryController extends Controller
 {
-    protected $baseViewPath = 'partner.healthdatas';
+    protected $baseViewPath = 'partner.history';
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Partner $partner)
+    public function index(Request $request, Partner $client)
     {
         if ($request->wantsJson()) {
-            return $partner->healthdatas()
-                ->orderBy('at', 'DESC')
-                ->get();
+            return $client->histories()->with([
+                'healthdata'
+            ])->orderBy('at', 'DESC')
+            ->paginate();
         }
-
-        return view($this->baseViewPath . '.index');
     }
 
     /**
@@ -33,7 +32,7 @@ class HealthdataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Partner $partner)
+    public function create()
     {
         //
     }
@@ -44,69 +43,81 @@ class HealthdataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Partner $partner)
+    public function store(Request $request, Partner $client)
     {
-        return $partner->healthdatas()->create([
-            'at' => now()->startOfDay(),
-            'weight_in_g' => 0,
-            'bmi' => 0,
-            'bloodpresure_systolic' => 0,
-            'bloodpresure_diastolic' => 0,
-            'heart_rate' => 0,
-            'resting_heart_rate' => 0,
+        return $client->histories()->create([
+            'at' => now(),
+            'data' => History::defaultData(),
+        ])->load([
+            'healthdata',
+            'partner',
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Partners\Healthdata  $healthdata
+     * @param  \App\Models\Partners\History  $history
      * @return \Illuminate\Http\Response
      */
-    public function show(Partner $partner, Healthdata $healthdata)
+    public function show(Partner $client, History $history)
     {
         return view($this->baseViewPath . '.show')
-            ->with('model', $healthdata);
+            ->with('model', $history->load([
+                'partner',
+                'healthdata',
+            ]));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Partners\Healthdata  $healthdata
+     * @param  \App\Models\Partners\History  $history
      * @return \Illuminate\Http\Response
      */
-    public function edit(Partner $partner, Healthdata $healthdata)
+    public function edit(Partner $client, History $history)
     {
         return view($this->baseViewPath . '.edit')
-            ->with('model', $healthdata);
+            ->with('model', $history);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Partners\Healthdata  $healthdata
+     * @param  \App\Models\Partners\History  $history
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Partner $partner, Healthdata $healthdata)
+    public function update(Request $request, Partner $client, History $history)
     {
-        $attributes = $request->validate([
+        $attributes = collect($request->validate([
             'at_formatted' => 'date_format:d.m.Y',
             'weight_in_kg' => 'required|numeric',
             'bloodpresure_systolic' => 'required|integer',
             'bloodpresure_diastolic' => 'required|integer',
             'heart_rate' => 'required|integer',
             'resting_heart_rate' => 'required|integer',
-        ]);
+            'data' => 'required|array',
+        ]));
 
-        $attributes['at'] = Carbon::createFromFormat('d.m.Y', $attributes['at_formatted'])->startOfDay();
-        $attributes['bmi'] = $partner->calculateBmi($attributes['weight_in_kg']);
-        $attributes['weight_in_g'] = $attributes['weight_in_kg'] * 1000;
+        $history->update($attributes->only([
+            'at_formatted',
+            'data',
+        ])->toArray());
 
-        $healthdata->update($attributes);
+        $healthdataAttributes = $attributes->except([
+            'data',
+            'at_formatted',
+            'weight_in_kg',
+        ])->toArray();
+        $healthdataAttributes['at'] = Carbon::createFromFormat('d.m.Y', $attributes['at_formatted'])->startOfDay();
+        $healthdataAttributes['bmi'] = $client->calculateBmi($attributes['weight_in_kg']);
+        $healthdataAttributes['weight_in_g'] = $attributes['weight_in_kg'] * 1000;
+
+        $history->healthdata()->update($healthdataAttributes);
 
         if ($request->wantsJson()) {
-            return $healthdata;
+            return $history;
         }
 
         return back()
@@ -119,13 +130,13 @@ class HealthdataController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Partners\Healthdata  $healthdata
+     * @param  \App\Models\Partners\History  $history
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Partner $partner, Healthdata $healthdata)
+    public function destroy(Request $request, Partner $client, History $history)
     {
-        if ($isDeletable = $healthdata->isDeletable()) {
-            $healthdata->delete();
+        if ($isDeletable = $history->isDeletable()) {
+            $history->delete();
         }
 
         if ($request->wantsJson()) {

@@ -74,7 +74,7 @@
             <div class="card mt-3"  v-for="(date, key) in dates">
                 <div class="card-header">{{ date[0].start_at_formatted }}</div>
                 <div class="card-body">
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover table-striped table-sm">
                         <thead>
                             <tr>
                                 <th width="100%">Personal</th>
@@ -92,7 +92,7 @@
             <div class="card mt-3">
                 <div class="card-header">Gesamt</div>
                 <div class="card-body">
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover table-striped table-sm">
                         <thead>
                             <tr>
                                 <th width="100%">Personal</th>
