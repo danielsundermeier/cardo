@@ -37,9 +37,9 @@ class UserSeeder extends Seeder
             'is_staff' => true,
         ]);
 
-        factory(\App\Models\Partners\Partner::class, 5)->create([
-            'is_staff' => false,
-            'is_client' => true,
-        ]);
+        // factory(\App\Models\Partners\Partner::class, 5)->create([
+        //     'is_staff' => false,
+        //     'is_client' => true,
+        // ]);
     }
 }
