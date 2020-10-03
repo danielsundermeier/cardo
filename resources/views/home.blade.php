@@ -10,12 +10,12 @@
                         <div class="alert alert-danger" role="alert">
                             Mit diesem Benutzer ist kein <a href="/staff">Personal</a> verknüpft!
                         </div>
-                    @elseif (count($user->partner->courses))
+                    @elseif (count($upcoming_dates))
                         <table class="table table-striped">
                             <tbody>
-                                @foreach ($user->partner->courses as $course)
+                                @foreach ($upcoming_dates as $date)
                                     <tr>
-                                        <td><a href="{{ $course->path }}"layouts.guest>{{ $course->name }}</a></td>
+                                        <td><a href="{{ $date->course->path }}">{{ $date->course->name }}</a> am <a href="{{ $date->path }}">{{ $date->at_formatted }}</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

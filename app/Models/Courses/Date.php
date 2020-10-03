@@ -73,6 +73,17 @@ class Date extends Model
         });
     }
 
+    public static function upcomingFor(Partner $partner)
+    {
+        return self::with([
+            'course',
+        ])
+            ->where('staff_id', $partner->id)
+            ->whereRaw('DATE(at) >= CURDATE()')
+            ->orderBy('at', 'ASC')
+            ->get();
+    }
+
     public function isDeletable()
     {
         return ! $this->participations()->exists();
