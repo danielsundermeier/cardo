@@ -75,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
 
+    Route::get('/partner/import/csv/create', 'Partners\Imports\CsvController@create')->name('partner.import.csv.create');
+    Route::post('/partner/import/csv', 'Partners\Imports\CsvController@store')->name('partner.import.csv.store');
+
     Route::put('/task/{task}/complete', 'Tasks\CompleteController@update');
     Route::delete('/task/{task}/complete', 'Tasks\CompleteController@destroy');
 
