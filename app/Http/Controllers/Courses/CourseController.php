@@ -26,7 +26,7 @@ class CourseController extends Controller
                     'item',
                 ])
                 ->orderByDay()
-                ->orderBy('time', 'ASC')
+                ->orderByTime()
                 ->paginate();
         }
 

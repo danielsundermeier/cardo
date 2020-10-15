@@ -126,4 +126,9 @@ class Course extends Model
     {
         return $query->orderBy(DB::raw('IF(day = 0, 7, day)'), 'ASC');
     }
+
+    public function scopeOrderByTime(Builder $query) : Builder
+    {
+        return $query->orderBy(DB::raw('TIME(time)'), 'ASC');
+    }
 }
