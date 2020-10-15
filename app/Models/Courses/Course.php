@@ -4,11 +4,13 @@ namespace App\Models\Courses;
 
 use App\Traits\HasPath;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class Course extends Model
 {
@@ -118,5 +120,10 @@ class Course extends Model
     public function participants() : HasMany
     {
         return $this->hasMany(\App\Models\Courses\Participant::class, 'course_id');
+    }
+
+    public function scopeOrderByDay(Builder $query) : Builder
+    {
+        return $query->orderBy(DB::raw('IF(day = 0, 7, day)'), 'ASC');
     }
 }
