@@ -62,8 +62,15 @@ class CourseController extends Controller
             'unit_id' => Unit::first()->id,
         ]);
 
+        $course->subscription_item()->create([
+            'name' => $course->name . ' Abo',
+            'unit_id' => Unit::first()->id,
+            'is_subscription' => true,
+        ]);
+
         return $course->load([
-            'item'
+            'item',
+            'subscription_item',
         ]);
     }
 

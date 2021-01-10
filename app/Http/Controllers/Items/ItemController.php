@@ -81,7 +81,7 @@ class ItemController extends Controller
     {
         $courses = Course::select('courses.*')
             ->where(function (Builder $query) use ($item) {
-                $query->doesntHave('item');
+                $query->doesntHave($item->is_subscription ? 'subscription_item' : 'item');
                 if ($item->course_id) {
                     $query->orWhere('id', $item->course_id);
                 }
@@ -110,6 +110,8 @@ class ItemController extends Controller
             'unit_price_formatted' => 'required|formatted_number',
             'course_id' => 'nullable|int|exists:courses,id',
         ]);
+
+        $attributes['is_subscription'] = $request->has('is_subscription');
 
         $item->update($attributes);
 

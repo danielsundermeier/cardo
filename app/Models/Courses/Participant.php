@@ -26,10 +26,17 @@ class Participant extends Pivot
 
     protected $table = 'course_participant';
 
-    public function cache() : self
+    public function cache(bool $is_subscription = false) : self
     {
         $this->participations_count = $this->participations()->count();
-        $this->open_participations_count = $this->course->item->lines()->where('partner_id', $this->partner_id)->sum('quantity') - $this->participations_count;
+        if ($is_subscription) {
+            $this->open_participations_count = $this->course->subscription_item->lines()->where('partner_id', $this->partner_id)->whereHas('invoice', function ($query) {
+                return $query->where('date', now()->startOfMonth());
+            })->exists() ? 99 : 0;
+        }
+        else {
+            $this->open_participations_count = $this->course->item->lines()->where('partner_id', $this->partner_id)->sum('quantity') - $this->participations_count;
+        }
 
         return $this;
     }

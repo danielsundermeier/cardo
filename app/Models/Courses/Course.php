@@ -68,7 +68,7 @@ class Course extends Model
 
     public function isDeletable() : bool
     {
-        return ! $this->dates()->exists() && ! $this->item()->exists();
+        return ! $this->dates()->exists() && ! $this->item()->exists() && ! $this->subscription_item()->exists();
     }
 
     public function getIsDeletableAttribute()
@@ -114,7 +114,12 @@ class Course extends Model
 
     public function item() : HasOne
     {
-        return $this->hasOne(\App\Models\Items\Item::class, 'course_id');
+        return $this->hasOne(\App\Models\Items\Item::class, 'course_id')->where('is_subscription', false);
+    }
+
+    public function subscription_item() : HasOne
+    {
+        return $this->hasOne(\App\Models\Items\Item::class, 'course_id')->where('is_subscription', true);
     }
 
     public function participants() : HasMany

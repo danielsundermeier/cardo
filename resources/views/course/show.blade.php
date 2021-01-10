@@ -51,7 +51,7 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-label"><b>Name</b></div>
-                                    <div class="col-value"><a href="{{ $model->item->path }}"layouts.guest>{{ $model->item->name }}</a></div>
+                                    <div class="col-value"><a href="{{ $model->item->path }}">{{ $model->item->name }}</a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-label"><b>Preis</b></div>
@@ -66,7 +66,32 @@
                     Mit diesem Kurs ist kein <a href="/item">Produkt</a> verknüpft!
                 </div>
             @endif
+
+            @if($model->subscription_item)
+                <div class="card mb-3">
+                    <div class="card-header">Abo Produkt</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-label"><b>Name</b></div>
+                                    <div class="col-value"><a href="{{ $model->subscription_item->path }}">{{ $model->subscription_item->name }}</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label"><b>Preis</b></div>
+                                    <div class="col-value">{{ $model->subscription_item->unit_price_formatted }} €</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="alert alert-danger" role="alert">
+                    Mit diesem Kurs ist kein <a href="/item">Abo Produkt</a> verknüpft!
+                </div>
+            @endif
         </div>
+
 
     </div>
 

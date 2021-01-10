@@ -123,7 +123,7 @@ class LineController extends Controller
         $receipt->cache();
 
         if (isset($participant)) {
-            $participant->cache()
+            $participant->cache($line->item->is_subscription)
                 ->save();
         }
 

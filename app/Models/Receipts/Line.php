@@ -3,6 +3,8 @@
 namespace App\Models\Receipts;
 
 use App\Models\Courses\Participant;
+use App\Models\Receipts\Invoice;
+use App\Models\Receipts\Receipt;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -47,7 +49,7 @@ class Line extends Model
             return;
         }
 
-        $participant->cache()
+        $participant->cache($this->item->is_subscription)
             ->save();
     }
 
@@ -107,5 +109,15 @@ class Line extends Model
     public function unit() : BelongsTo
     {
         return $this->belongsTo(\App\Models\Items\Unit::class, 'unit_id');
+    }
+
+    public function receipt() : BelongsTo
+    {
+        return $this->belongsTo(Receipt::class, 'receipt_id');
+    }
+
+    public function invoice() : BelongsTo
+    {
+        return $this->belongsTo(Receipt::class, 'receipt_id')->where('type', Invoice::class);
     }
 }

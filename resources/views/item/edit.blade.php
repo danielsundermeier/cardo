@@ -50,6 +50,11 @@
                             @enderror
                         </div>
 
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" name="is_subscription" id="is_subscription" value="1" {{ $model->is_subscription ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="is_subscription">Abo</label>
+                        </div>
+
                         <div class="form-group">
                             <label for="course_id">Verknüpfter Kurs</label>
                             <select class="form-control {{ ($errors->has('course_id') ? 'is-invalid' : '') }}" id="course_id" name="course_id">
