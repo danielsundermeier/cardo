@@ -220,7 +220,7 @@ class Partner extends Model
                 INTERVAL YEAR(CURDATE())-YEAR(birthday_at)
                          + IF((DAYOFYEAR(CURDATE()) - :leapyear_offset) > DAYOFYEAR(birthday_at),1,0)
                 YEAR)
-            BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)', [
+            BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL ' . $days . ' DAY)', [
                 'leapyear_offset' => (now()->isLeapYear() ? 1 : 0)
             ]);
     }

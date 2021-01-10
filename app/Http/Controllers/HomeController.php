@@ -26,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $upcoming_birthdays_days = 30;
+
         $user = auth()->user()->load([
             'partner'
         ]);
@@ -52,7 +54,7 @@ class HomeController extends Controller
         return view('home')
             ->with('user', $user)
             ->with('upcoming_dates', Date::upcomingFor($user->partner))
-            ->with('upcoming_birthdays', Partner::upcomingBirthdays()->orderBy('birthday_at', 'DESC')->orderByName()->get())
+            ->with('upcoming_birthdays', Partner::upcomingBirthdays($upcoming_birthdays_days)->orderBy('birthday_at', 'DESC')->orderByName()->get())
             ->with('categories', $categories);
     }
 }
