@@ -24,6 +24,7 @@ class ClientController extends Controller
             $partners = Partner::client()->with([
                     'participants.course'
                 ])
+                ->search($request->input('searchtext'))
                 ->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC')
                 ->paginate();

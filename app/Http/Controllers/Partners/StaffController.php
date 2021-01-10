@@ -23,6 +23,7 @@ class StaffController extends Controller
             return Partner::staff()->with([
 
                 ])
+                ->search($request->input('searchtext'))
                 ->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC')
                 ->paginate();

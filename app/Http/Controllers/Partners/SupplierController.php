@@ -22,6 +22,7 @@ class SupplierController extends Controller
             return Partner::supplier()->with([
 
                 ])
+                ->search($request->input('searchtext'))
                 ->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC')
                 ->paginate();

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 class Partner extends Model
@@ -212,6 +213,20 @@ class Partner extends Model
     {
         return $query->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC');
+    }
+
+    public function scopeSearch(Builder $query, $value) : Builder {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        $value = strtolower($value);
+
+        return $query->where( function ($query) use($value) {
+            $query
+                ->orWhere(DB::raw('LOWER(firstname)'), 'LIKE', '%' . $value . '%')
+                ->orWhere(DB::raw('LOWER(lastname)'), 'LIKE', '%' . $value . '%');
+        });
     }
 
     public function scopeUpcomingBirthdays(Builder $query, int $days = 7) : Builder
