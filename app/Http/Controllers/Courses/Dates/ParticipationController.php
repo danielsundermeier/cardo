@@ -81,7 +81,7 @@ class ParticipationController extends Controller
             $invoice->cache();
         }
 
-        $participant->cache()
+        $participant->cache($date->course->item->is_subscription)
             ->save();
 
         return $participation->load([
