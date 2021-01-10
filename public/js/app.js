@@ -4845,6 +4845,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -5095,6 +5100,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5119,7 +5134,8 @@ __webpack_require__.r(__webpack_exports__);
       },
       filter: {
         page: 1,
-        searchtext: ''
+        searchtext: '',
+        is_active: 1
       },
       form: {},
       selected: [],
@@ -48417,11 +48433,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", [
     _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
-      _vm._v(_vm._s(_vm.item.number))
+      _vm._v("\n        " + _vm._s(_vm.item.number) + "\n    ")
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
-      _vm._v(_vm._s(_vm.item.name))
+      _vm._v("\n        " + _vm._s(_vm.item.name) + "\n        "),
+      _vm.item.is_client && !_vm.item.is_active
+        ? _c("span", { staticClass: "text-muted" }, [_vm._v("inaktiv")])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer" }, [
@@ -48652,10 +48671,68 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-auto d-flex" }, [
+      _c("div", { staticClass: "col-auto form-row" }, [
+        _vm.uri == "client"
+          ? _c("div", { staticClass: "col-auto" }, [
+              _c("div", { staticClass: "form-group mb-0" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter.is_active,
+                        expression: "filter.is_active"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.filter,
+                            "is_active",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          return _vm.fetch()
+                        }
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { domProps: { value: null } }, [
+                      _vm._v("Aktive und inaktive Datensätze")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 1 } }, [
+                      _vm._v("Aktive Datensätze")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { domProps: { value: 0 } }, [
+                      _vm._v("Inaktive Datensätze")
+                    ])
+                  ]
+                )
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "div",
-          { staticClass: "form-group", staticStyle: { "margin-bottom": "0" } },
+          { staticClass: "form-group mb-0" },
           [
             _c("filter-search", {
               on: {

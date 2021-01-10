@@ -59,6 +59,7 @@ class Partner extends Model
         'birthday_at',
         'height_in_cm',
         'medical_conditions',
+        'is_active',
     ];
 
     public function calculateBmi(float $weight_in_kg) : float {
@@ -213,6 +214,14 @@ class Partner extends Model
     {
         return $query->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC');
+    }
+
+    public function scopeIsActive(Builder $query, $value) : Builder {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('is_active', $value);
     }
 
     public function scopeSearch(Builder $query, $value) : Builder {

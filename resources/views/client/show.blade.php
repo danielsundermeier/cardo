@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="d-flex mb-1">
-        <h2 class="col mb-0"><a class="text-body" href="/{{ $base_view_path }}">Kunden</a><span class="d-none d-lg-inline"> > {{ $model->name }}</span></h2>
+        <h2 class="col mb-0"><a class="text-body" href="/{{ $base_view_path }}">Kunden</a><span class="d-none d-lg-inline"> > {{ $model->name }} ({{ $model->is_active ? 'aktiv' : 'inaktiv' }})</span></h2>
         <div class="d-flex align-items-center">
             <a href="{{ route($base_view_path . '.edit', [$base_view_path => $model->id]) }}" class="btn btn-primary" title="Bearbeiten"><i class="fas fa-edit"></i></a>
             <a href="/{{ $base_view_path }}" class="btn btn-secondary ml-1">Übersicht</a>

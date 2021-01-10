@@ -25,6 +25,7 @@ class ClientController extends Controller
                     'participants.course'
                 ])
                 ->search($request->input('searchtext'))
+                ->isActive($request->input('is_active'))
                 ->orderBy('firstname', 'ASC')
                 ->orderBy('lastname', 'ASC')
                 ->paginate();
@@ -130,6 +131,7 @@ class ClientController extends Controller
         ]);
 
         $attributes['birthday_at'] = is_null($attributes['birthday_formatted']) ? null : Carbon::createFromFormat('d.m.Y', $attributes['birthday_formatted'])->startOfDay();
+        $attributes['is_active'] = $request->has('is_active');
         $attributes['is_client'] = $request->has('is_client');
         $attributes['is_staff'] = $request->has('is_staff');
         $attributes['is_supplier'] = $request->has('is_supplier');

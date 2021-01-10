@@ -1,6 +1,12 @@
 <div class="card mb-3">
     <div class="card-header">Sonstiges</div>
     <div class="card-body">
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" name="is_active" id="is_active" value="1" {{ $model->is_active ? 'checked="checked"' : '' }}>
+            <label class="form-check-label" for="is_active">Aktiv</label>
+        </div>
+
         <div class="form-group">
             <label for="job">Beruf</label>
             <input type="text" class="form-control {{ ($errors->has('job') ? 'is-invalid' : '') }}" id="job" name="job" value="{{ old('job') ?? $model->job }}">

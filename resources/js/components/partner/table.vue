@@ -7,8 +7,18 @@
                 </div>
                 <button class="btn btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
             </div>
-            <div class="col-auto d-flex">
-                <div class="form-group" style="margin-bottom: 0;">
+            <div class="col-auto form-row">
+                <div class="col-auto" v-if="uri == 'client'">
+                    <div class="form-group mb-0">
+                        <select class="form-control" v-model="filter.is_active" @change="fetch()">
+                            <option :value="null">Aktive und inaktive Datensätze</option>
+                            <option :value="1">Aktive Datensätze</option>
+                            <option :value="0">Inaktive Datensätze</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group mb-0">
                     <filter-search v-model="filter.searchtext" @input="fetch()"></filter-search>
                 </div>
                 <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show" v-if="false"><i class="fas fa-filter"></i></button>
@@ -93,6 +103,7 @@
                 filter: {
                     page: 1,
                     searchtext: '',
+                    is_active: 1,
                 },
                 form: {
 

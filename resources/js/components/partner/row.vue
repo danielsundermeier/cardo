@@ -1,7 +1,12 @@
 <template>
     <tr>
-        <td class="align-middle pointer" @click="show">{{ item.number }}</td>
-        <td class="align-middle pointer" @click="show">{{ item.name }}</td>
+        <td class="align-middle pointer" @click="show">
+            {{ item.number }}
+        </td>
+        <td class="align-middle pointer" @click="show">
+            {{ item.name }}
+            <span class="text-muted" v-if="item.is_client && ! item.is_active">inaktiv</span>
+        </td>
         <td class="align-middle pointer"><span v-html="item.courses_string" v-if="uri == 'client'"></span></td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
