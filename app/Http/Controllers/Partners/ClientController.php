@@ -26,8 +26,7 @@ class ClientController extends Controller
                 ])
                 ->search($request->input('searchtext'))
                 ->isActive($request->input('is_active'))
-                ->orderBy('firstname', 'ASC')
-                ->orderBy('lastname', 'ASC')
+                ->orderByName()
                 ->paginate();
 
             foreach ($partners as $key => $partner) {

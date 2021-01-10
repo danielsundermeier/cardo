@@ -127,7 +127,7 @@ class Partner extends Model
     public function getNameAttribute() : string
     {
         if (is_null($this->company_name)) {
-            return $this->firstname . ' ' . $this->lastname;
+            return $this->lastname . ' ' . $this->firstname;
         }
 
         return $this->company_name;
@@ -212,8 +212,8 @@ class Partner extends Model
 
     public function scopeOrderByName(Builder $query) : Builder
     {
-        return $query->orderBy('firstname', 'ASC')
-                ->orderBy('lastname', 'ASC');
+        return $query->orderBy('lastname', 'ASC')
+                ->orderBy('firstname', 'ASC');
     }
 
     public function scopeIsActive(Builder $query, $value) : Builder {
