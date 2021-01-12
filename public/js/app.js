@@ -5852,6 +5852,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5888,6 +5889,13 @@ __webpack_require__.r(__webpack_exports__);
     this.fetch(); // this.setInitialFilters();
   },
   watch: {
+    action: function action(newValue, oldValue) {
+      if (newValue == 0) {
+        return;
+      }
+
+      this[newValue]();
+    },
     page: function page() {
       this.fetch();
     }
@@ -5953,6 +5961,18 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.selected.splice(index, 1);
       }
+    },
+    downloadPdfs: function downloadPdfs() {
+      var component = this;
+      axios.post('/receipts/export/pdf', {
+        receipt_ids: component.selected
+      }).then(function (response) {
+        location.href = response.data.path;
+      })["catch"](function (error) {
+        Vue.error('PDFs konnten nicht erstellt werden!');
+      }).then(function () {
+        component.action = '0';
+      });
     }
   }
 });
@@ -50480,6 +50500,10 @@ var render = function() {
                           [
                             _c("option", { domProps: { value: 0 } }, [
                               _vm._v("Aktion")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "downloadPdfs" } }, [
+                              _vm._v("PDFs herunterladen")
                             ])
                           ]
                         )

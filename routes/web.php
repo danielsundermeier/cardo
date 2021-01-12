@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/user', 'Users\UserController');
     Route::resource('/workingtime', 'WorkingTimes\WorkingTimeController');
 
+    Route::post('/receipts/export/pdf', 'Receipts\PdfController@index')->name('receipts.export.pdf');
     Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
     Route::get('/bookkeeping/receipt/{receipt}/download', 'Receipts\PdfController@store');
 

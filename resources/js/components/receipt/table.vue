@@ -70,6 +70,7 @@
                         <td class="align-middle" colspan="2">
                             <select class="form-control" v-model="action">
                                 <option :value="0">Aktion</option>
+                                <option value="downloadPdfs">PDFs herunterladen</option>
                             </select>
                         </td>
                     </tr>
@@ -139,6 +140,13 @@
         },
 
         watch: {
+            action(newValue, oldValue) {
+                if (newValue == 0) {
+                    return;
+                }
+
+                this[newValue]();
+            },
             page () {
                 this.fetch();
             },
@@ -209,6 +217,21 @@
                 else {
                     this.selected.splice(index, 1);
                 }
+            },
+            downloadPdfs() {
+                var component = this;
+                axios.post('/receipts/export/pdf', {
+                    receipt_ids: component.selected,
+                })
+                    .then(function (response) {
+                        location.href = response.data.path;
+                    })
+                    .catch(function (error) {
+                        Vue.error('PDFs konnten nicht erstellt werden!');
+                    })
+                    .then( function() {
+                        component.action = '0';
+                });
             },
         },
     };

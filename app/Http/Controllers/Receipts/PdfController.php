@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Receipts;
 
 use App\Http\Controllers\Controller;
 use App\Models\Receipts\Receipt;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -14,9 +15,43 @@ class PdfController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Filesystem $filessytem)
     {
-        // Alle/Einzeln herunterladen
+        $attributes = $request->validate([
+            'receipt_ids' => 'required|array'
+        ]);
+
+        $receipts = Receipt::find($attributes['receipt_ids']);
+
+        $user = auth()->user();
+        $base_path = 'app/public/receipts/' . $user->id . '/';
+        $path = storage_path($base_path);
+        $zip_file = $path . 'belege.zip';
+
+        if (! $filessytem->isDirectory($path)) {
+            $filessytem->makeDirectory($path, 0777, true, true);
+        }
+
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        $files = [];
+        foreach ($receipts as $receipt) {
+            $filename = Str::slug($receipt->name, '-', 'de') . '.pdf';
+            $receipt->pdf()->save($path . $filename);
+            $zip->addFile($path . $filename, $filename);
+            $files[] = $path . $filename;
+        }
+
+        $zip->close();
+
+        foreach ($files as $path) {
+            unlink($path);
+        }
+
+        return [
+            'path' => '/storage/receipts/' . $user->id . '/belege.zip',
+        ];
     }
 
     /**
