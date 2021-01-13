@@ -6,6 +6,7 @@ use App\Models\Courses\Course;
 use App\Models\Courses\Participant;
 use App\Traits\HasComments;
 use App\Traits\HasPath;
+use App\Traits\HasUserFiles;
 use App\Traits\IsDeletable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,10 @@ use Illuminate\Support\Facades\URL;
 
 class Partner extends Model
 {
-    use HasComments, HasPath, IsDeletable;
+    use HasComments,
+        HasPath,
+        HasUserFiles,
+        IsDeletable;
 
     const UPDATE_RULES = [
 

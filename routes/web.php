@@ -74,6 +74,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('{type}/{model}/comment', 'Comments\CommentController@index');
     Route::post('{type}/{model}/comment', 'Comments\CommentController@store');
 
+    Route::get('userfiles/{userfile}', 'Files\UserFileableController@show')->name('userfileable.show');
+    Route::put('userfiles/{userfile}', 'Files\UserFileableController@update')->name('userfileable.update');
+    Route::delete('userfiles/{userfile}', 'Files\UserFileableController@destroy')->name('userfile.destroy');
+
+    Route::get('{type}/{model}/userfiles', 'Files\UserFileableController@index')->name('userfileable.index');
+    Route::post('{type}/{model}/userfiles', 'Files\UserFileableController@store')->name('userfileable.store');
+
     Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
 
     Route::get('/partner/import/csv/create', 'Partners\Imports\CsvController@create')->name('partner.import.csv.create');
