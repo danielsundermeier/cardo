@@ -131,7 +131,7 @@ class Partner extends Model
     public function getNameAttribute() : string
     {
         if (is_null($this->company_name)) {
-            return $this->lastname . ' ' . $this->firstname;
+            return $this->lastname . ', ' . $this->firstname;
         }
 
         return $this->company_name;
