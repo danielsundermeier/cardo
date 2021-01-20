@@ -44633,9 +44633,11 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle text-right" }, [
-      _vm._v(_vm._s(_vm.item.participant.open_participations_count))
-    ]),
+    _c(
+      "td",
+      { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+      [_vm._v(_vm._s(_vm.item.participant.open_participations_count))]
+    ),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
       _c(
@@ -44855,9 +44857,14 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { width: "100%" } }, [_vm._v("Teilnehmer")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "200" } }, [
-          _vm._v("Offene Teilnahmen")
-        ]),
+        _c(
+          "th",
+          {
+            staticClass: "text-right d-none d-sm-table-cell",
+            attrs: { width: "200" }
+          },
+          [_vm._v("Offene Teilnahmen")]
+        ),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
           _vm._v("Aktion")
@@ -44899,7 +44906,7 @@ var render = function() {
     _c(
       "td",
       {
-        staticClass: "align-middle text-right pointer",
+        staticClass: "align-middle text-right pointer d-none d-sm-table-cell",
         on: { click: _vm.show }
       },
       [_vm._v(_vm._s(_vm.item.participations_count))]
@@ -45218,9 +45225,14 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { width: "100%" } }, [_vm._v("Leiter")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
-          _vm._v("Teilnehmer")
-        ]),
+        _c(
+          "th",
+          {
+            staticClass: "text-right d-none d-sm-table-cell",
+            attrs: { width: "100" }
+          },
+          [_vm._v("Teilnehmer")]
+        ),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
           _vm._v("Aktion")
@@ -45257,9 +45269,11 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle text-right" }, [
-      _vm._v(_vm._s(_vm.item.open_participations_count))
-    ]),
+    _c(
+      "td",
+      { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+      [_vm._v(_vm._s(_vm.item.open_participations_count))]
+    ),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle text-right" }, [
       _c(
@@ -45457,9 +45471,14 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { width: "100%" } }, [_vm._v("Teilnehmer")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "200" } }, [
-          _vm._v("Offene Teilnahmen")
-        ]),
+        _c(
+          "th",
+          {
+            staticClass: "text-right d-none d-sm-table-cell",
+            attrs: { width: "200" }
+          },
+          [_vm._v("Offene Teilnahmen")]
+        ),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
           _vm._v("Aktion")

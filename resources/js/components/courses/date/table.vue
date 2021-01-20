@@ -40,7 +40,7 @@
                     <tr>
                         <th width="100">Datum</th>
                         <th width="100%">Leiter</th>
-                        <th class="text-right" width="100">Teilnehmer</th>
+                        <th class="text-right d-none d-sm-table-cell" width="100">Teilnehmer</th>
                         <th class="text-right" width="100">Aktion</th>
                     </tr>
                 </thead>

@@ -27,7 +27,7 @@
             <thead>
                 <tr>
                     <th width="100%">Teilnehmer</th>
-                    <th class="text-right" width="200">Offene Teilnahmen</th>
+                    <th class="text-right d-none d-sm-table-cell" width="200">Offene Teilnahmen</th>
                     <th class="text-right" width="100">Aktion</th>
                 </tr>
             </thead>

@@ -2,7 +2,7 @@
     <tr>
         <td class="align-middle pointer" @click="show">{{ item.at_formatted }}</td>
         <td class="align-middle pointer" @click="show">{{ item.instructor.name }}</td>
-        <td class="align-middle text-right pointer" @click="show">{{ item.participations_count }}</td>
+        <td class="align-middle text-right pointer d-none d-sm-table-cell" @click="show">{{ item.participations_count }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>

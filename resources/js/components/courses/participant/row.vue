@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="align-middle"><a :href="item.partner.path"layouts.guest>{{ item.partner.name }}</a></td>
-        <td class="align-middle text-right">{{ item.open_participations_count }}</td>
+        <td class="align-middle text-right d-none d-sm-table-cell">{{ item.open_participations_count }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="10er Karte kaufen" @click="create">+10</button>
