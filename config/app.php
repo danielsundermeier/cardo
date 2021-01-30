@@ -229,6 +229,6 @@ return [
 
     ],
 
-    'show_tax' => false,
+    'show_tax' => true,
 
 ];

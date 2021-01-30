@@ -113,7 +113,7 @@ class Receipt extends Model
             'description' => $item->description,
             'quantity' => $attributes['quantity'] ?? 1,
             'discount' => 0,
-            'tax' => $item->tax ?? 0,
+            'tax' => $item->tax ?? 0.19,
             'unit_price' => $item->unit_price ?? 0,
         ]);
     }

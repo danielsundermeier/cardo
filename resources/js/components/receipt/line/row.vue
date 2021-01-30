@@ -96,7 +96,7 @@
                     discount: Number(this.item.discount) * 100,
                     name: this.item.name,
                     quantity: Number(this.item.quantity),
-                    tax: this.item.tax,
+                    tax: Number(this.item.tax),
                     unit_id: this.item.unit_id,
                     unit_price: Number(this.item.unit_price),
                     partner_id: this.item.partner_id,
@@ -104,10 +104,10 @@
                 errors: {},
                 uri: '/bookkeeping/receipt/' + this.item.receipt_id + '/line/' + this.item.id,
                 taxes: {
-                    '0.190': '19%',
-                    '0.160': '16%',
-                    '0.070': '7%',
-                    '0.000': '0%',
+                    '0.19': '19%',
+                    '0.16': '16%',
+                    '0.07': '7%',
+                    '0.00': '0%',
                 },
             };
         },
