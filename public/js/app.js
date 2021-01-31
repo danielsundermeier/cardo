@@ -50791,7 +50791,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("th", { attrs: { width: "125" } }, [_vm._v("Datum")]),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "100" } }, [_vm._v("#")]),
+                  _c("th", { attrs: { width: "150" } }, [_vm._v("#")]),
                   _vm._v(" "),
                   _c("th", { attrs: { width: "100%" } }, [_vm._v("Partner")]),
                   _vm._v(" "),
