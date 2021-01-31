@@ -4,6 +4,8 @@
 
 @section('content')
 
+    @include('receipt.confirm-destroy', ['route' => $model->path])
+
     <div class="container-fluid">
         <div class="row">
             <div class="col"></div>
@@ -62,7 +64,5 @@
     <br />
 
     <receipt-line-table :show-tax="{{ config('app.show_tax') ? '1' : '0' }}" :model="{{ json_encode($model) }}" :options="{{ json_encode($items) }}" :units="{{ json_encode($units) }}" :selected-partner-id="{{ $model->partner_id }}" :partners="{{ json_encode($partners) }}"></receipt-item-table>
-
-    @include('receipt.confirm-destroy', ['route' => $model->path])
 
 @endsection
