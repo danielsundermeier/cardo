@@ -80,7 +80,7 @@ class Receipt extends Model
 
     public function setName()
     {
-        $this->name = 'R' . str_pad($this->number, 3, '0', STR_PAD_LEFT) . '-' . $this->date->year;
+        $this->name = 'CG-E/' . $this->date->year . '/' . str_pad($this->number, 4, '0', STR_PAD_LEFT);
     }
 
     protected function setTextAbove()
