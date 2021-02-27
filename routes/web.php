@@ -71,6 +71,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
     Route::get('/bookkeeping/receipt/{receipt}/download', 'Receipts\PdfController@store');
 
+    Route::post('receipts/exporte/datev/einzeln', 'Receipts\\Exports\\Datev\\SingleController@index');
+
     Route::get('comment', 'Comments\CommentController@index');
     Route::get('{type}/{model}/comment', 'Comments\CommentController@index');
     Route::post('{type}/{model}/comment', 'Comments\CommentController@store');

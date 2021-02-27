@@ -5853,6 +5853,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5970,6 +5973,18 @@ __webpack_require__.r(__webpack_exports__);
         location.href = response.data.path;
       })["catch"](function (error) {
         Vue.error('PDFs konnten nicht erstellt werden!');
+      }).then(function () {
+        component.action = '0';
+      });
+    },
+    exportDatevEinzeln: function exportDatevEinzeln() {
+      var component = this;
+      axios.post('/receipts/exporte/datev/einzeln', {
+        receipt_ids: component.selected
+      }).then(function (response) {
+        location.href = response.data.path;
+      })["catch"](function (error) {
+        Vue.error('Export konnte nicht erstellt werden!');
       }).then(function () {
         component.action = '0';
       });
@@ -51068,7 +51083,9 @@ var render = function() {
                             _vm._v(" "),
                             _c("option", { attrs: { value: "downloadPdfs" } }, [
                               _vm._v("PDFs herunterladen")
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(0)
                           ]
                         )
                       ]
@@ -51191,7 +51208,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("optgroup", { attrs: { label: "Export" } }, [
+      _c("option", { attrs: { value: "exportDatevEinzeln" } }, [
+        _vm._v("Datev")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
