@@ -108,6 +108,8 @@ class ItemController extends Controller
             'name' => 'required|string',
             'unit_id' => 'required|int|exists:units,id',
             'unit_price_formatted' => 'required|formatted_number',
+            'revenue_account_number' => 'nullable|int',
+            'expense_account_number' => 'nullable|int',
             'course_id' => 'nullable|int|exists:courses,id',
         ]);
 

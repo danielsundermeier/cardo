@@ -39,6 +39,14 @@
                         <div class="col-label"><b>Preis/Einheit</b></div>
                         <div class="col-value">{{ $model->unit_price_formatted }} €</div>
                     </div>
+                    <div class="row">
+                        <div class="col-label"><b>Buchungskonto Rechnung</b></div>
+                        <div class="col-value">{{ $model->revenue_account_number }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-label"><b>Buchungskonto Ausgabe</b></div>
+                        <div class="col-value">{{ $model->expense_account_number }}</div>
+                    </div>
                     @if ($model->course_id)
                         <div class="row">
                             <div class="col-label"><b>Verknüpfter Kurs</b></div>

@@ -29,6 +29,8 @@ class Item extends Model
         'unit_price',
         'unit_price_formatted',
         'is_subscription',
+        'revenue_account_number',
+        'expense_account_number',
     ];
 
     /**

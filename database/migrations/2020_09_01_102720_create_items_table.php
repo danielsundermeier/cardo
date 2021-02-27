@@ -23,6 +23,9 @@ class CreateItemsTable extends Migration
 
             $table->decimal('unit_price', 15, 6)->default(0);
 
+            $table->unsignedMediumInteger('revenue_account_number')->default(0);
+            $table->unsignedMediumInteger('expense_account_number')->default(0);
+
             $table->unsignedSmallInteger('course_count')->nullable();
 
             $table->timestamps();

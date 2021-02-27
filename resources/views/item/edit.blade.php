@@ -50,6 +50,26 @@
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <label for="revenue_account_number">Buchungskonto Rechnung</label>
+                            <input type="text" class="form-control {{ ($errors->has('revenue_account_number') ? 'is-invalid' : '') }}" id="revenue_account_number" name="revenue_account_number" value="{{ $model->revenue_account_number }}">
+                            @error('revenue_account_number')
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="expense_account_number">Buchungskonto Ausgabe</label>
+                            <input type="text" class="form-control {{ ($errors->has('expense_account_number') ? 'is-invalid' : '') }}" id="expense_account_number" name="expense_account_number" value="{{ $model->expense_account_number }}">
+                            @error('expense_account_number')
+                                <div class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" name="is_subscription" id="is_subscription" value="1" {{ $model->is_subscription ? 'checked="checked"' : '' }}>
                             <label class="form-check-label" for="is_subscription">Abo</label>
