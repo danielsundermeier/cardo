@@ -5,6 +5,7 @@ namespace App\Models\Receipts;
 use App\Models\Items\Item;
 use App\Models\Receipts\Line;
 use App\Traits\HasPath;
+use App\Traits\HasUserFiles;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,9 @@ use Parental\HasChildren;
 
 class Receipt extends Model
 {
-    use HasChildren, HasPath;
+    use HasChildren,
+        HasPath,
+        HasUserFiles;
 
     protected $appends = [
         'pay_path',

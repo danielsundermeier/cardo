@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Partners\Partner;
+use App\Models\Receipts\Expense;
 use App\Models\Tasks\Task;
 use Illuminate\Support\Facades\Route;
 
@@ -23,9 +24,8 @@ Route::bind('model', function ($id) {
     }
 
     switch ($type) {
-        case 'task':
-            return Task::findOrFail($id);
-            break;
+        case 'expense': return Expense::findOrFail($id); break;
+        case 'task': return Task::findOrFail($id); break;
 
         default:
             # code...
@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('date.participation', 'Courses\Dates\ParticipationController');
     Route::resource('/client', 'Partners\ClientController');
     Route::resource('client.history', 'Partners\HistoryController');
+    Route::resource('/bookkeeping/expense', 'Receipts\ExpenseController');
     Route::resource('/bookkeeping/invoice', 'Receipts\InvoiceController');
     Route::resource('/bookkeeping/receipt.line', 'Receipts\LineController');
     Route::resource('/item', 'Items\ItemController');
@@ -80,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('{type}/{model}/userfiles', 'Files\UserFileableController@index')->name('userfileable.index');
     Route::post('{type}/{model}/userfiles', 'Files\UserFileableController@store')->name('userfileable.store');
+    Route::post('/bookkeeping/{type}/{model}/userfiles', 'Files\UserFileableController@store')->name('userfileable.store');
 
     Route::post('/date/{date}/participation/copy', 'Courses\Dates\Participations\CopyController@store');
 
