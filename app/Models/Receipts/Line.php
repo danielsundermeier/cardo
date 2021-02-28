@@ -80,6 +80,19 @@ class Line extends Model
         return (int)($nachkommastellen < $min ? $min : ($nachkommastellen > $max ? $max : $nachkommastellen));
     }
 
+    public function getDatevTaxCodeAttribute() : int
+    {
+        switch ($this->tax) {
+            case 0.000: return 1; break;
+            case 0.050: return 2; break; // Corona
+            case 0.070: return 2; break;
+            case 0.107: return 50; break;
+            case 0.055: return 49; break;
+            case 0.160: return 3; break; // Corona
+            case 0.190: return 3; break;
+        }
+    }
+
     public function setQuantityAttribute($value) {
         $this->attributes['quantity'] = str_replace(',', '.', $value);
     }

@@ -3,6 +3,10 @@
 namespace App\Exports\Receipts;
 
 use App\Company;
+use App\Models\Receipts\Expense;
+use App\Models\Receipts\Invoice;
+use App\Models\Receipts\Line;
+use App\Models\Receipts\Receipt;
 use App\Support\Csv;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -171,13 +175,13 @@ class Datev
             foreach ($receipt->lines as $item) {
                 $csv->row([
                     number_format(abs($item->gross / 100), 2, ',', ''),
-                    ($item->gross < 0 ? 'H' : 'S'),
+                    self::sollHaben($receipt, $item),
                     '',
                     '',
                     '',
                     '',
                     $receipt->partner->number,
-                    $item->item->revenue_account_number,
+                    self::accountNumber($receipt, $item),
                     $item->datev_tax_code, // Steuerschluessel
                     $receipt->date->format('dm'),
                     $receipt->name,
@@ -292,5 +296,25 @@ class Datev
         $csv->save(Storage::disk('public')->path($path));
 
         return $path;
+    }
+
+    protected static function sollHaben(Receipt $receipt, Line $line) : string
+    {
+        $class_name = get_class($receipt);
+        switch($class_name) {
+            case Invoice::class: return ($line->gross < 0 ? 'H' : 'S'); break;
+            case Expense::class: return ($line->gross < 0 ? 'S' : 'H'); break;
+            default: return ''; break;
+        }
+    }
+
+    protected static function accountNumber(Receipt $receipt, Line $line) : int
+    {
+        $class_name = get_class($receipt);
+        switch($class_name) {
+            case Invoice::class: return $line->item->revenue_account_number ?? 0; break;
+            case Expense::class: return $line->item->expense_account_number ?? 0; break;
+            default: return 0; break;
+        }
     }
 }
