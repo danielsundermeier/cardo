@@ -17,8 +17,8 @@ class Datev
     {
         $path = 'EXTF_Buchungsstapel.csv';
 
-        $export_start = $receipts->min('date');
-        $export_end = $receipts->max('date');
+        $export_start = $receipts->min('date')->startOfMonth();
+        $export_end = $receipts->max('date')->endOfMonth();
 
         $datev_sachkontenlaenge = 4;
         $datev_beraternummer = '133080';
