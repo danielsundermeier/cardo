@@ -55,7 +55,7 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        $partner = $request->has('partner_id') ? Partner::find($request->input('partner_id')) : Partner::client()->first();
+        $partner = $request->has('partner_id') ? Partner::find($request->input('partner_id')) : Partner::supplier()->first();
 
         $expense = Expense::create([
             'address' => $partner->billing_address,
@@ -99,7 +99,7 @@ class ExpenseController extends Controller
 
         return view($this->baseViewPath . '.edit')
             ->with('model', $expense)
-            ->with('partners', Partner::client()->get())
+            ->with('partners', Partner::supplier()->get())
             ->with('units', Unit::all())
             ->with('items', Item::all());
     }
