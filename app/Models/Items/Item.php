@@ -28,6 +28,7 @@ class Item extends Model
         'unit_id',
         'unit_price',
         'unit_price_formatted',
+        'tax',
         'is_subscription',
         'revenue_account_number',
         'expense_account_number',

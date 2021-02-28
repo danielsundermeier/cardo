@@ -51,6 +51,21 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="tax">USt.</label>
+                            <select class="form-control @error('tax') is-invalid @enderror" id="tax" name="tax">
+                                <option value="0.19" {{ $model->tax == 0.19 ? 'selected="selected"' : '' }}>19%</option>
+                                <option value="0.16" {{ $model->tax == 0.16 ? 'selected="selected"' : '' }}>16%</option>
+                                <option value="0.07" {{ $model->tax == 0.07 ? 'selected="selected"' : '' }}>7%</option>
+                                <option value="0" {{ $model->tax == 0 ? 'selected="selected"' : '' }}>0%</option>
+                            </select>
+                            @error('tax')
+                                <div class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="revenue_account_number">Buchungskonto Rechnung</label>
                             <input type="text" class="form-control {{ ($errors->has('revenue_account_number') ? 'is-invalid' : '') }}" id="revenue_account_number" name="revenue_account_number" value="{{ $model->revenue_account_number }}">
                             @error('revenue_account_number')

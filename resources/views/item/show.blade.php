@@ -40,6 +40,10 @@
                         <div class="col-value">{{ $model->unit_price_formatted }} €</div>
                     </div>
                     <div class="row">
+                        <div class="col-label"><b>USt.</b></div>
+                        <div class="col-value">{{ $model->tax * 100 }}%</div>
+                    </div>
+                    <div class="row">
                         <div class="col-label"><b>Buchungskonto Rechnung</b></div>
                         <div class="col-value">{{ $model->revenue_account_number }}</div>
                     </div>

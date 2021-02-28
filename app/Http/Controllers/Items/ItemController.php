@@ -55,6 +55,7 @@ class ItemController extends Controller
         ]);
 
         $attributes['unit_id'] = Unit::first()->id;
+        $attributes['tax'] = 0.19;
 
         return Item::create($attributes);
     }
@@ -108,6 +109,7 @@ class ItemController extends Controller
             'name' => 'required|string',
             'unit_id' => 'required|int|exists:units,id',
             'unit_price_formatted' => 'required|formatted_number',
+            'tax' => 'required|numeric',
             'revenue_account_number' => 'nullable|int',
             'expense_account_number' => 'nullable|int',
             'course_id' => 'nullable|int|exists:courses,id',
