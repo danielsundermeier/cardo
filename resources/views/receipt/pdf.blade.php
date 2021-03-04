@@ -46,12 +46,10 @@
     <!--mpdf
         <htmlpageheader name="page-header">
 
-            <table height="81" width="100%" autosize="1" style="height: 81px; margin: 90px 0;">
+            <table width="100%" autosize="1" style="margin: 0px 0;">
                 <tr>
                     <td width="100%">
-                        @if (false)
-                            <img src="" height="81">
-                        @endif
+                        <img src="{{ Storage::disk('public')->url('receipt-top.png') }}" width="100%" border="1">
                     </td>
                 </tr>
             </table>
@@ -104,7 +102,7 @@
                 <thead>
                     <tr style="font-weight: 700;">
                         <td align="center" width="35%">Cardo Gesundheit</td>
-                        <td align="center" width="43%" rowspan="4">Logo</td>
+                        <td align="center" width="43%" rowspan="5">Logo</td>
                         <td align="center" width="22%">Kontakt & Infos:</td>
                     </tr>
                 </thead>
@@ -117,10 +115,15 @@
                     <tr>
                         <td align="center">Westorfer Straße 11</td>
 
-                        <td align="center">info@cardo-gesundheit.de</td>
+                        <td align="center">Festnetz</td>
                     </tr>
                     <tr>
                         <td align="center">32689 Kalletal</td>
+
+                        <td align="center">info@cardo-gesundheit.de</td>
+                    </tr>
+                    <tr>
+                        <td align="center">329/5084/3453</td>
 
                         <td align="center">www.cardo-gesundheit.de</td>
                     </tr>
