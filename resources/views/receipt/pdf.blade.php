@@ -115,7 +115,7 @@
                     <tr>
                         <td align="center">Westorfer Straße 11</td>
 
-                        <td align="center">Festnetz</td>
+                        <td align="center">+49 5264 6575181</td>
                     </tr>
                     <tr>
                         <td align="center">32689 Kalletal</td>
