@@ -98,11 +98,11 @@
         </htmlpageheader>
 
         <htmlpagefooter name="page-footer">
-            <table width="100%" style="border-top: 1px solid #EAEAEA; color: #646473; padding-top: 20px; font-size: 8px;">
+            <table width="100%" style="border-top: 1px solid #EAEAEA; color: #fff; background-color: #000; margin-top: 20px; padding: 10px 0; font-size: 8px;">
                 <thead>
                     <tr style="font-weight: 700;">
                         <td align="center" width="35%">Cardo Gesundheit</td>
-                        <td align="center" width="43%" rowspan="5">Logo</td>
+                        <td align="center" width="43%" rowspan="5"><img src="{{ Storage::disk('public')->url('receipt-logo.png') }}" width="75" /></td>
                         <td align="center" width="22%">Kontakt & Infos:</td>
                     </tr>
                 </thead>
