@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Receipts;
 
 use App\Http\Controllers\Controller;
+use App\Models\Receipts\Expense;
+use App\Models\Receipts\Invoice;
 use App\Models\Receipts\Receipt;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
@@ -38,9 +40,20 @@ class PdfController extends Controller
         $files = [];
         foreach ($receipts as $receipt) {
             $filename = Str::slug($receipt->name, '-', 'de') . '.pdf';
-            $receipt->pdf()->save($path . $filename);
-            $zip->addFile($path . $filename, $filename);
-            $files[] = $path . $filename;
+            $class_name = get_class($receipt);
+            if ($class_name == Invoice::class) {
+                $receipt->pdf()->save($path . $filename);
+                $zip->addFile($path . $filename, $filename);
+                $files[] = $path . $filename;
+            }
+            elseif ($class_name == Expense::class) {
+                if (is_null($receipt->previewFile)) {
+                    continue;
+                }
+
+                $zip->addFile($receipt->previewFile->storage_path, $filename);
+                $files[] = $receipt->previewFile->storage_path;
+            }
         }
 
         $zip->close();

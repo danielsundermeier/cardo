@@ -69,6 +69,11 @@ class UserFile extends Model
         ];
     }
 
+    public function getStoragePathAttribute() : string
+    {
+        return Storage::disk('public')->path('userfiles/' . $this->filename);
+    }
+
     public static function fromUploadedFile(UploadedFile $file, Model $fileable = null) : self
     {
         $attributes['mime'] = $file->getClientMimeType();
