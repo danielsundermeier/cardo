@@ -171,9 +171,12 @@ class Receipt extends Model
             'receipt' => $this,
             'show_tax' => config('app.show_tax'),
         ], [], [
-            'margin_top' => 100,
+            'margin_top' => 90,
+            'margin_left' => 0,
+            'margin_right' => 0,
             'margin_bottom' => 20,
             'margin_header' => 0,
+            'margin_footer' => 0,
         ]);
     }
 
