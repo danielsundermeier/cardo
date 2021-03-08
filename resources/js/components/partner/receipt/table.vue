@@ -78,13 +78,13 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination" v-show="paginate.lastPage > 1">
                 <li class="page-item" v-show="paginate.prevPageUrl">
-                    <a class="page-link" href="#" @click.prevent="page--">Previous</a>
+                    <a class="page-link" href="#" @click.prevent="filter.page--">Previous</a>
                 </li>
 
-                <li class="page-item" v-for="n in paginate.lastPage" v-bind:class="{ active: (n == page) }"><a class="page-link" href="#" @click.prevent="page = n">{{ n }}</a></li>
+                <li class="page-item" v-for="n in paginate.lastPage" v-bind:class="{ active: (n == filter.page) }"><a class="page-link" href="#" @click.prevent="filter.page = n">{{ n }}</a></li>
 
                 <li class="page-item" v-show="paginate.nextPageUrl">
-                    <a class="page-link" href="#" @click.prevent="page++">Next</a>
+                    <a class="page-link" href="#" @click.prevent="filter.page++">Next</a>
                 </li>
             </ul>
         </nav>
