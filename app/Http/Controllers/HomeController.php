@@ -46,14 +46,16 @@ class HomeController extends Controller
                 })
                 ->orderBy('name', 'ASC')
                 ->get();
+            $upcoming_dates = Date::upcomingFor($user->partner);
         }
         else {
             $categories = new \Illuminate\Database\Eloquent\Collection();
+            $upcoming_dates = new \Illuminate\Database\Eloquent\Collection();
         }
 
         return view('home')
             ->with('user', $user)
-            ->with('upcoming_dates', Date::upcomingFor($user->partner))
+            ->with('upcoming_dates', $upcoming_dates)
             ->with('upcoming_birthdays', Partner::upcomingBirthdays($upcoming_birthdays_days)->orderBy('birthday_at', 'DESC')->orderByName()->get())
             ->with('categories', $categories);
     }
