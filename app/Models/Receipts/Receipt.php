@@ -74,6 +74,13 @@ class Receipt extends Model
 
             return true;
         });
+
+        static::updating(function($model)
+        {
+            $model->setName();
+
+            return true;
+        });
     }
 
     public static function nextNumber(Carbon $date)
