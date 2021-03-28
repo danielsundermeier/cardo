@@ -33,7 +33,6 @@
                 <a href="/staff"><li>Personal</li></a>
                 <a href="" data-toggle="collapse" data-target="#nav-buchhaltung"><li class="d-flex align-items-center justify-content-between line-height-base">Buchhaltung<i class="fas fa-caret-right"></i></li></a>
                 <ul id="nav-buchhaltung" class="collapse">
-                    <a href="/bookkeeping/revenue"><li>Einnahmen</li></a>
                     <a href="/bookkeeping/expense"><li>Ausgaben</li></a>
                     <a href="/bookkeeping/invoice"><li>Rechnungen</li></a>
                 </ul>
