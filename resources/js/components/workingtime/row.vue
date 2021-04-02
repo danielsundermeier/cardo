@@ -22,9 +22,8 @@
         </td>
     </tr>
     <tr v-else>
-        <td class="align-middle pointer" @click="edit">{{ item.partner ? item.partner.name : '-' }}</td>
-        <td class="align-middle pointer" @click="edit">
-            {{ item.start_at_formatted }}
+        <td class="align-middle pointer" colspan="2" @click="edit">
+            {{ item.partner ? item.partner.name : '-' }}
             <div class="text-muted" v-if="item.course_date_id"><a :href="item.date.course.path">{{ item.date.course.name }}</a> am <a :href="item.date.path">{{ item.date.at_formatted }}</a></div>
         </td>
         <td class="align-middle pointer text-right" @click="edit">{{ item.industry_hours_formatted }}</td>

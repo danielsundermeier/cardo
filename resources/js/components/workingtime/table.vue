@@ -77,9 +77,8 @@
                     <table class="table table-hover table-striped table-sm">
                         <thead>
                             <tr>
-                                <th width="100%">Personal</th>
-                                <th width="200">Datum</th>
-                                <th class="text-right" width="100">Dauer</th>
+                                <th width="100%" colspan="2">Personal</th>
+                                <th class="text-right" width="75">Dauer</th>
                                 <th class="text-right" width="100">Aktion</th>
                             </tr>
                         </thead>
@@ -96,17 +95,13 @@
                         <thead>
                             <tr>
                                 <th width="100%">Personal</th>
-                                <th width="200"></th>
-                                <th class="text-right" width="100">Dauer</th>
-                                <th class="text-right" width="100">Aktion</th>
+                                <th class="text-right" width="75">Dauer</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="" v-for="industryHoursSum in industryHoursSums">
                                 <td>{{ industryHoursSum.name }}</td>
-                                <td></td>
                                 <td class="text-right">{{ industryHoursSum.sum.format(2, ',', '.') }}</td>
-                                <td></td>
                             </tr>
                         </tbody>
                     </table>

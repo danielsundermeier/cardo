@@ -7712,7 +7712,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -7791,11 +7790,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _filter_search_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../filter/search.vue */ "./resources/js/components/filter/search.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -54046,16 +54040,16 @@ var render = function() {
     : _c("tr", [
         _c(
           "td",
-          { staticClass: "align-middle pointer", on: { click: _vm.edit } },
-          [_vm._v(_vm._s(_vm.item.partner ? _vm.item.partner.name : "-"))]
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          { staticClass: "align-middle pointer", on: { click: _vm.edit } },
+          {
+            staticClass: "align-middle pointer",
+            attrs: { colspan: "2" },
+            on: { click: _vm.edit }
+          },
           [
             _vm._v(
-              "\n        " + _vm._s(_vm.item.start_at_formatted) + "\n        "
+              "\n        " +
+                _vm._s(_vm.item.partner ? _vm.item.partner.name : "-") +
+                "\n        "
             ),
             _vm.item.course_date_id
               ? _c("div", { staticClass: "text-muted" }, [
@@ -54585,15 +54579,11 @@ var render = function() {
                         return _c("tr", {}, [
                           _c("td", [_vm._v(_vm._s(industryHoursSum.name))]),
                           _vm._v(" "),
-                          _c("td"),
-                          _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(
                               _vm._s(industryHoursSum.sum.format(2, ",", "."))
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("td")
+                          ])
                         ])
                       }),
                       0
@@ -54620,11 +54610,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "100%" } }, [_vm._v("Personal")]),
+        _c("th", { attrs: { width: "100%", colspan: "2" } }, [
+          _vm._v("Personal")
+        ]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "200" } }, [_vm._v("Datum")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
+        _c("th", { staticClass: "text-right", attrs: { width: "75" } }, [
           _vm._v("Dauer")
         ]),
         _vm._v(" "),
@@ -54642,14 +54632,8 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { width: "100%" } }, [_vm._v("Personal")]),
         _vm._v(" "),
-        _c("th", { attrs: { width: "200" } }),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
+        _c("th", { staticClass: "text-right", attrs: { width: "75" } }, [
           _vm._v("Dauer")
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
-          _vm._v("Aktion")
         ])
       ])
     ])
