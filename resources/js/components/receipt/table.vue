@@ -45,13 +45,13 @@
                             <label class="form-checkbox" for="checkall"></label>
                             <input id="checkall" type="checkbox" v-model="selectAll">
                         </th>
-                        <th width="125">Datum</th>
+                        <th class="d-none d-sm-table-cell" width="125">Datum</th>
                         <th width="150">#</th>
-                        <th width="100%">Partner</th>
+                        <th class="d-none d-sm-table-cell" width="100%">Partner</th>
                         <th class="text-right" width="75">Netto</th>
                         <th class="text-right" width="75">Brutto</th>
                         <th class="text-right" width="25"></th>
-                        <th class="text-right" width="100">Aktion</th>
+                        <th class="text-right d-none d-md-table-cell" width="100">Aktion</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -4,13 +4,16 @@
             <label class="form-checkbox"></label>
             <input :checked="selected" type="checkbox" :value="id"  @change="$emit('input', id)" number>
         </td>
-        <td class="align-middle pointer" @click="show">{{ item.date_formatted }}</td>
-        <td class="align-middle pointer" @click="show">{{ item.name }}</td>
-        <td class="align-middle"><a :href="item.partner.path">{{ item.partner.name }}</a></td>
+        <td class="align-middle pointer d-none d-sm-table-cell" @click="show">{{ item.date_formatted }}</td>
+        <td class="align-middle pointer" @click="show">
+            {{ item.name }}
+            <div class="d-table-cell d-sm-none"><a :href="item.partner.path">{{ item.partner.name }}</a></div>
+        </td>
+        <td class="align-middle d-none d-sm-table-cell"><a :href="item.partner.path">{{ item.partner.name }}</a></td>
         <td class="align-middle text-right pointer" @click="show">{{ (item.net / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
         <td class="align-middle text-right pointer" @click="show">{{ (item.gross / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }}</td>
         <td class="align-middle text-center pointer" @click="show"><i class="fas fa-money-bill-wave text-success" title="Bezahlt" v-if="item.is_paid"></i></td>
-        <td class="align-middle text-right">
+        <td class="align-middle text-right d-none d-md-table-cell">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy"><i class="fas fa-trash"></i></button>

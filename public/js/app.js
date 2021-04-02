@@ -5716,6 +5716,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['item', 'uri', 'selected'],
   data: function data() {
@@ -50659,15 +50662,25 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
-      _vm._v(_vm._s(_vm.item.date_formatted))
-    ]),
+    _c(
+      "td",
+      {
+        staticClass: "align-middle pointer d-none d-sm-table-cell",
+        on: { click: _vm.show }
+      },
+      [_vm._v(_vm._s(_vm.item.date_formatted))]
+    ),
     _vm._v(" "),
     _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
-      _vm._v(_vm._s(_vm.item.name))
+      _vm._v("\n        " + _vm._s(_vm.item.name) + "\n        "),
+      _c("div", { staticClass: "d-table-cell d-sm-none" }, [
+        _c("a", { attrs: { href: _vm.item.partner.path } }, [
+          _vm._v(_vm._s(_vm.item.partner.name))
+        ])
+      ])
     ]),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle" }, [
+    _c("td", { staticClass: "align-middle d-none d-sm-table-cell" }, [
       _c("a", { attrs: { href: _vm.item.partner.path } }, [
         _vm._v(_vm._s(_vm.item.partner.name))
       ])
@@ -50725,33 +50738,37 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c("td", { staticClass: "align-middle text-right" }, [
-      _c(
-        "div",
-        { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { type: "button", title: "Bearbeiten" },
-              on: { click: _vm.edit }
-            },
-            [_c("i", { staticClass: "fas fa-edit" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { type: "button", title: "Löschen" },
-              on: { click: _vm.destroy }
-            },
-            [_c("i", { staticClass: "fas fa-trash" })]
-          )
-        ]
-      )
-    ])
+    _c(
+      "td",
+      { staticClass: "align-middle text-right d-none d-md-table-cell" },
+      [
+        _c(
+          "div",
+          { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", title: "Bearbeiten" },
+                on: { click: _vm.edit }
+              },
+              [_c("i", { staticClass: "fas fa-edit" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", title: "Löschen" },
+                on: { click: _vm.destroy }
+              },
+              [_c("i", { staticClass: "fas fa-trash" })]
+            )
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -50957,11 +50974,25 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "125" } }, [_vm._v("Datum")]),
+                  _c(
+                    "th",
+                    {
+                      staticClass: "d-none d-sm-table-cell",
+                      attrs: { width: "125" }
+                    },
+                    [_vm._v("Datum")]
+                  ),
                   _vm._v(" "),
                   _c("th", { attrs: { width: "150" } }, [_vm._v("#")]),
                   _vm._v(" "),
-                  _c("th", { attrs: { width: "100%" } }, [_vm._v("Partner")]),
+                  _c(
+                    "th",
+                    {
+                      staticClass: "d-none d-sm-table-cell",
+                      attrs: { width: "100%" }
+                    },
+                    [_vm._v("Partner")]
+                  ),
                   _vm._v(" "),
                   _c(
                     "th",
@@ -50982,7 +51013,10 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "th",
-                    { staticClass: "text-right", attrs: { width: "100" } },
+                    {
+                      staticClass: "text-right d-none d-md-table-cell",
+                      attrs: { width: "100" }
+                    },
                     [_vm._v("Aktion")]
                   )
                 ])
