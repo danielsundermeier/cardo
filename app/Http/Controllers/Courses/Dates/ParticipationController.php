@@ -74,6 +74,8 @@ class ParticipationController extends Controller
             ]);
         }
         else {
+            $partner = Partner::find($attributes['partner_id']);
+            $attributes['address'] = $partner->billing_address;
             $invoice = Invoice::create($attributes);
             $invoice->addLine($date->course->item, [
                 'quantity' => 10,

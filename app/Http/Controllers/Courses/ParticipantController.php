@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Courses\Course;
 use App\Models\Courses\Participant;
 use App\Models\Items\Item;
+use App\Models\Partners\Partner;
 use App\Models\Receipts\Invoice;
 use App\Models\Receipts\Receipt;
 use Illuminate\Http\Request;
@@ -57,6 +58,8 @@ class ParticipantController extends Controller
         ]);
 
         if (Arr::get($attributes, 'create_invoice', false)) {
+            $partner = Partner::find($attributes['partner_id']);
+            $attributes['address'] = $partner->billing_address;
             $invoice = Invoice::create($attributes);
             $invoice->addLine($course->item, [
                 'quantity' => 10,
