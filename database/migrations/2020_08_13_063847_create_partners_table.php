@@ -40,6 +40,7 @@ class CreatePartnersTable extends Migration
             $table->unsignedSmallInteger('height_in_cm')->nullable();
             $table->text('medical_conditions')->nullable();
 
+            $table->boolean('is_active')->default(true);
             $table->boolean('is_client')->default(false);
             $table->boolean('is_staff')->default(false);
             $table->boolean('is_supplier')->default(false);
