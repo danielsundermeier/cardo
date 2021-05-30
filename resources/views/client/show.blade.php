@@ -71,6 +71,17 @@
     <div class="row">
         <div class="col">
             <div class="card mb-3">
+                <div class="card-header">Korrekturen</div>
+                <div class="card-body">
+                    <partner-participations-corrections-table :model="{{ json_encode($model) }}" :courses="{{ json_encode($courses) }}"></partner-participations-corrections-table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
                 <div class="card-header">Kommentare</div>
                 <div class="card-body">
                     <comments :model="{{ json_encode($model) }}"></comments>

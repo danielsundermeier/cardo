@@ -4,6 +4,7 @@ namespace App\Models\Partners;
 
 use App\Models\Courses\Course;
 use App\Models\Courses\Participant;
+use App\Models\Courses\Participation;
 use App\Traits\HasComments;
 use App\Traits\HasPath;
 use App\Traits\HasUserFiles;
@@ -30,6 +31,7 @@ class Partner extends Model
     protected $appends = [
         'billing_address',
         'birthday_formatted',
+        'corrections_path',
         'is_deletable',
         'name',
     ];
@@ -128,6 +130,13 @@ class Partner extends Model
         return $this->birthday_at->format('d.m.Y');
     }
 
+    public function getCorrectionsPathAttribute() : string
+    {
+        return route('clients.corrections.index', [
+            'client' => $this->id,
+        ]);
+    }
+
     public function getNameAttribute() : string
     {
         if (is_null($this->company_name)) {
@@ -150,6 +159,18 @@ class Partner extends Model
     public function courses() : HasMany
     {
         return $this->hasMany(\App\Models\Courses\Course::class, 'partner_id');
+    }
+
+    public function corrections() : \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Participation::class,
+            Participant::class,
+            'partner_id', // Foreign key on the environments table...
+            'participant_id', // Foreign key on the deployments table...
+            'id', // Local key on the projects table...
+            'id' // Local key on the environments table...
+        )->whereNull('course_date_id');
     }
 
     public function dates() : HasMany

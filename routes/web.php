@@ -67,6 +67,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/user', 'Users\UserController');
     Route::resource('/workingtime', 'WorkingTimes\WorkingTimeController');
 
+    Route::get('/client/{client}/corrections', [\App\Http\Controllers\Partners\ParticipationController::class, 'index'])->name('clients.corrections.index');
+    Route::post('/client/{client}/corrections', [\App\Http\Controllers\Partners\ParticipationController::class, 'store'])->name('clients.corrections.store');
+    Route::get('/client/{client}/corrections/{participation}', [\App\Http\Controllers\Partners\ParticipationController::class, 'show'])->name('clients.corrections.show');
+    Route::delete('/client/{client}/corrections/{participation}', [\App\Http\Controllers\Partners\ParticipationController::class, 'destroy'])->name('clients.corrections.destroy');
+
+
     Route::post('/receipts/export/pdf', 'Receipts\PdfController@index')->name('receipts.export.pdf');
     Route::get('/bookkeeping/receipt/{receipt}/pdf', 'Receipts\PdfController@show');
     Route::get('/bookkeeping/receipt/{receipt}/download', 'Receipts\PdfController@store');

@@ -60,6 +60,7 @@ Vue.component('partner-history-table', require('./components/partner/history/tab
 Vue.component('partner-history-edit', require('./components/partner/history/edit.vue').default);
 Vue.component('partner-staff-workingtime-show', require('./components/partner/staff/workingtime/show.vue').default);
 Vue.component('partner-receipt-table', require('./components/partner/receipt/table.vue').default);
+Vue.component('partner-participations-corrections-table', require('./components/partner/participations/corrections/table.vue').default);
 Vue.component('receipt-table', require('./components/receipt/table.vue').default);
 Vue.component('receipt-line-table', require('./components/receipt/line/table.vue').default);
 Vue.component('receipt-edit-address', require('./components/receipt/edit/address.vue').default);

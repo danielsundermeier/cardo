@@ -12,6 +12,7 @@ class Participation extends Model
 
     protected $appends = [
         'is_deletable',
+        'created_at_formatted',
     ];
 
     protected $fillable = [
@@ -26,6 +27,11 @@ class Participation extends Model
         return true;
     }
 
+    public function getEditPathAttribute()
+    {
+        return '';
+    }
+
     public function getIsDeletableAttribute()
     {
         return $this->isDeletable();
@@ -33,6 +39,13 @@ class Participation extends Model
 
     public function getPathParameterAttribute() : array
     {
+        if (is_null($this->date_id)) {
+            return [
+                'client' => $this->participant->partner_id,
+                'participation' => $this->id,
+            ];
+        }
+
         return [
             'date' => $this->course_date_id,
             'participation' => $this->id,
@@ -41,7 +54,16 @@ class Participation extends Model
 
     protected function getBaseRouteAttribute() : string
     {
+        if (is_null($this->date_id)) {
+            return 'clients.corrections';
+        }
+
         return 'date.participation';
+    }
+
+    public function getCreatedAtFormattedAttribute() : string
+    {
+        return $this->created_at->format('d.m.Y H:i');
     }
 
     public function date() : BelongsTo
