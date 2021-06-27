@@ -62,6 +62,19 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="duration_in_seconds">Dauer</label>
+                            <select class="form-control @error('duration_in_seconds') is-invalid @enderror" id="duration_in_seconds" name="duration_in_seconds">
+                                @foreach ($durations as $duration_in_seconds => $duration_formatted)
+                                    <option value="{{ $duration_in_seconds }}" {{ (($model->duration_in_seconds == $duration_in_seconds) ? 'selected="selected"' : '') }}>{{ $duration_formatted }}</option>
+                                @endforeach
+                            </select>
+                            @error('duration_in_seconds')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="description">Beschreibung</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="12">{!! $model->description !!}</textarea>
                             @error('description')

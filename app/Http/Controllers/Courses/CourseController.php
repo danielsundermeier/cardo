@@ -100,6 +100,7 @@ class CourseController extends Controller
         return view($this->baseViewPath . '.edit')
             ->with('model', $course->load(['item']))
             ->with('days', Course::DAYS)
+            ->with('durations', Course::DURATIONS)
             ->with('partners', Partner::staff()->orderBy('firstname', 'ASC')->orderBy('lastname', 'ASC')->get());
     }
 
@@ -115,6 +116,7 @@ class CourseController extends Controller
         $attributes = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
+            'duration_in_seconds' => 'required|in:' . implode(',', array_keys(Course::DURATIONS)),
             'partner_id' => 'required|integer|exists:partners,id',
             'day' => 'required|integer',
             'time_formatted' => 'required|date_format:"H:i"',

@@ -35,6 +35,10 @@
                         <div class="col-label"><b>Zeit</b></div>
                         <div class="col-value">{{ $model->day_formatted }} {{ $model->time_formatted }}</div>
                     </div>
+                    <div class="row">
+                        <div class="col-label"><b>Dauer</b></div>
+                        <div class="col-value">{{ $model->duration_formatted }}</div>
+                    </div>
                     <div>
                         {!! nl2br($model->description) !!}
                     </div>

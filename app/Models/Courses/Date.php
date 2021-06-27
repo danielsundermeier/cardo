@@ -47,7 +47,7 @@ class Date extends Model
         static::created(function($model)
         {
             $model->workingtime()->create([
-                'duration_in_seconds' => 3600,
+                'duration_in_seconds' => $model->course->duration_in_seconds,
                 'staff_id' => $model->staff_id,
                 'start_at' => $model->at,
             ]);

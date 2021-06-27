@@ -26,6 +26,13 @@ class Course extends Model
         'Samstag',
     ];
 
+    const DURATIONS = [
+        0 => 'Nicht gewählt',
+        1800 => '30 Minuten',
+        2700 => '45 Minuten',
+        3600 => '60 Minuten',
+    ];
+
     protected $appends = [
         'day_formatted',
         'is_deletable',
@@ -39,6 +46,7 @@ class Course extends Model
     protected $fillable = [
         'day',
         'description',
+        'duration_in_seconds',
         'name',
         'time',
         'partner_id',
@@ -79,6 +87,11 @@ class Course extends Model
     public function getDayFormattedAttribute() : string
     {
         return (is_null($this->day) ? '-' : self::DAYS[$this->day]);
+    }
+
+    public function getDurationFormattedAttribute() : string
+    {
+        return Arr::get(self::DURATIONS, $this->attributes['duration_in_seconds'], '-');
     }
 
     public function getTimeFormattedAttribute() : string
