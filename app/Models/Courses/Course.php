@@ -47,9 +47,10 @@ class Course extends Model
         'day',
         'description',
         'duration_in_seconds',
+        'is_active',
         'name',
-        'time',
         'partner_id',
+        'time',
         'time_formatted',
     ];
 
@@ -77,6 +78,15 @@ class Course extends Model
     public function isDeletable() : bool
     {
         return ! $this->dates()->exists() && ! $this->item()->exists() && ! $this->subscription_item()->exists();
+    }
+
+    public function getIsActiveFormattedAttribute() : string
+    {
+        if ($this->is_active) {
+            return 'Aktiv';
+        }
+
+        return 'Inaktiv';
     }
 
     public function getIsDeletableAttribute()
@@ -138,6 +148,15 @@ class Course extends Model
     public function participants() : HasMany
     {
         return $this->hasMany(\App\Models\Courses\Participant::class, 'course_id');
+    }
+
+    public function scopeIsActive(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('is_active', $value);
     }
 
     public function scopeOrderByDay(Builder $query) : Builder

@@ -4,24 +4,24 @@
             <div class="col d-flex align-items-start mb-1 mb-sm-0">
                 <div class="form-group mb-0 mr-1">
                     <div>
-                        <input type="text" class="form-control" :class="'name' in errors ? 'is-invalid' : ''" v-model="form.name" placeholder="Name" @keydown.enter="create">
+                        <input type="text" class="form-control form-control-sm" :class="'name' in errors ? 'is-invalid' : ''" v-model="form.name" placeholder="Name" @keydown.enter="create">
                         <div class="invalid-feedback" v-text="'name' in errors ? errors.name[0] : ''"></div>
                     </div>
                 </div>
-                <button class="btn btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
+                <button class="btn btn-sm btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
             </div>
             <div class="col-auto d-flex">
                 <div class="form-group" style="margin-bottom: 0;">
                     <filter-search v-model="filter.searchtext" @input="fetch()"></filter-search>
                 </div>
-                <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show" v-if="false"><i class="fas fa-filter"></i></button>
+                <button class="btn btn-sm btn-secondary ml-1" @click="filter.show = !filter.show"><i class="fas fa-filter"></i></button>
             </div>
         </div>
 
         <form v-if="filter.show" id="filter" class="mt-1">
             <div  class="form-row">
 
-
+                <filter-active v-model="filter.is_active" label="Kurse" @input="fetching"></filter-active>
 
             </div>
         </form>
@@ -68,11 +68,13 @@
 
 <script>
     import row from "./row.vue";
+    import filterActive from "../filter/active.vue";
     import filterSearch from "../filter/search.vue";
 
     export default {
 
         components: {
+            filterActive,
             filterSearch,
             row,
         },
@@ -94,6 +96,8 @@
                 filter: {
                     page: 1,
                     searchtext: '',
+                    is_active: 1,
+                    show: 0,
                 },
                 form: {
 
@@ -178,6 +182,10 @@
                         Vue.error('Datensätze konnten nicht geladen werden');
                         console.log(error);
                     });
+            },
+            fetching() {
+                this.filter.page = 1;
+                this.fetch();
             },
             updated(index, item) {
                 Vue.set(this.items, index, item);

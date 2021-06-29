@@ -75,6 +75,18 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="is_active">Aktiv</label>
+                            <select class="form-control @error('is_active') is-invalid @enderror" id="is_active" name="is_active">
+                                <option value="1" {{ (($model->is_active == 1) ? 'selected="selected"' : '') }}>Aktiv</option>
+                                <option value="0" {{ (($model->is_active == 0) ? 'selected="selected"' : '') }}>Inaktiv</option>
+                            </select>
+                            @error('is_active')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="description">Beschreibung</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="12">{!! $model->description !!}</textarea>
                             @error('description')

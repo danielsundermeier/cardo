@@ -25,6 +25,7 @@ class CourseController extends Controller
                     'instructor',
                     'item',
                 ])
+                ->isActive($request->input('is_active'))
                 ->orderByDay()
                 ->orderByTime()
                 ->paginate();
@@ -55,11 +56,13 @@ class CourseController extends Controller
             'name' => 'required|string',
         ]) + [
             'day' => 0,
+            'is_active' => 1,
         ]);
 
         $course->item()->create([
             'name' => $course->name,
             'unit_id' => Unit::first()->id,
+            'is_subscription' => false,
         ]);
 
         $course->subscription_item()->create([
@@ -120,6 +123,7 @@ class CourseController extends Controller
             'partner_id' => 'required|integer|exists:partners,id',
             'day' => 'required|integer',
             'time_formatted' => 'required|date_format:"H:i"',
+            'is_active' => 'required|integer',
         ]);
 
         $course->update($attributes);

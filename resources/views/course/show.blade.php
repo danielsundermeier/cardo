@@ -39,6 +39,10 @@
                         <div class="col-label"><b>Dauer</b></div>
                         <div class="col-value">{{ $model->duration_formatted }}</div>
                     </div>
+                    <div class="row">
+                        <div class="col-label"><b>Aktiv</b></div>
+                        <div class="col-value">{{ $model->is_active_formatted }}</div>
+                    </div>
                     <div>
                         {!! nl2br($model->description) !!}
                     </div>
