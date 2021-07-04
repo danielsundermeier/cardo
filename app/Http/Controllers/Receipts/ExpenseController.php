@@ -31,6 +31,7 @@ class ExpenseController extends Controller
                 ->partner($request->input('partner_id'))
                 ->isPaid($request->input('is_paid'))
                 ->orderBy('date', 'DESC')
+                ->orderBy('name', 'DESC')
                 ->paginate();
         }
 
