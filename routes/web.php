@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/course', 'Courses\CourseController');
     Route::resource('course.date', 'Courses\DateController');
     Route::resource('course.participant', 'Courses\ParticipantController');
+    Route::resource('course.participation', 'Courses\Participations\ParticipationController');
     Route::resource('date.participation', 'Courses\Dates\ParticipationController');
     Route::resource('/client', 'Partners\ClientController');
     Route::resource('client.history', 'Partners\HistoryController');

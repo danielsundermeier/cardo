@@ -37,6 +37,7 @@ class Course extends Model
         'day_formatted',
         'is_deletable',
         'time_formatted',
+        'participations_index_path',
     ];
 
     protected $dates = [
@@ -87,6 +88,13 @@ class Course extends Model
         }
 
         return 'Inaktiv';
+    }
+
+    public function getParticipationsIndexPathAttribute(): string
+    {
+        return route('course.participation.index', [
+            'course' => $this->id,
+        ]);
     }
 
     public function getIsDeletableAttribute()
