@@ -26,6 +26,7 @@ class CourseController extends Controller
                     'item',
                 ])
                 ->isActive($request->input('is_active'))
+                ->search($request->input('searchtext'))
                 ->orderByDay()
                 ->orderByTime()
                 ->paginate();

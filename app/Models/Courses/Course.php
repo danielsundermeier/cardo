@@ -167,6 +167,15 @@ class Course extends Model
         return $query->where('is_active', $value);
     }
 
+    public function scopeSearch(Builder $query, $value) : Builder
+    {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('name', 'like', '%' . $value . '%');
+    }
+
     public function scopeOrderByDay(Builder $query) : Builder
     {
         return $query->orderBy(DB::raw('IF(day = 0, 7, day)'), 'ASC');
