@@ -45,7 +45,8 @@ class CreateCommand extends Command
         $day_of_week = $yesterday->dayOfWeek;
         $next_week = $yesterday->addWeek();
 
-        $courses = Course::where('day', $day_of_week)
+        $courses = Course::where('is_active', 1)
+            ->where('day', $day_of_week)
             ->whereDoesntHave('dates', function ($query) use ($next_week) {
                 $query->where('at', $next_week);
             })
