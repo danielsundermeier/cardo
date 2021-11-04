@@ -57,6 +57,8 @@
         </div>
     </div>
 
+    <userfileable-table uri="/client" :model="{{ json_encode($model) }}" token="{{ csrf_token() }}"></userfileable-table>
+
     <div class="row">
         <div class="col">
             <div class="card mb-3">
