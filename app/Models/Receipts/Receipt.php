@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 use Parental\HasChildren;
 
 class Receipt extends Model
@@ -240,5 +241,24 @@ class Receipt extends Model
         }
 
         return $query->where('receipts.partner_id', $value);
+    }
+
+    public function scopeSearch(Builder $query, $value) : Builder {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        $value = strtolower(str_replace([' ', ','] , '', $value));
+
+        return $query->select('receipts.*')
+            ->join('partners', 'partners.id', '=', 'receipts.partner_id')
+            ->where( function ($query) use($value) {
+                $query
+                    ->orWhere(DB::raw('LOWER(receipts.name)'), 'LIKE', '%' . $value . '%')
+                    ->orWhere(DB::raw('LOWER(partners.firstname)'), 'LIKE', '%' . $value . '%')
+                    ->orWhere(DB::raw('LOWER(partners.lastname)'), 'LIKE', '%' . $value . '%')
+                    ->orWhere(DB::raw('LOWER(CONCAT(partners.lastname, partners.firstname))'), 'LIKE', '%' . $value . '%')
+                    ->orWhere(DB::raw('LOWER(CONCAT(partners.firstname, partners.lastname))'), 'LIKE', '%' . $value . '%');
+        });
     }
 }
