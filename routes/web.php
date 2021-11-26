@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/course', 'Courses\CourseController');
     Route::resource('course.date', 'Courses\DateController');
     Route::resource('course.participant', 'Courses\ParticipantController');
+    Route::put('/course/{course}/participant/{participant}/activate', [\App\Http\Controllers\Courses\Participants\ActivateController::class, 'update']);
+    Route::delete('/course/{course}/participant/{participant}/activate', [\App\Http\Controllers\Courses\Participants\ActivateController::class, 'destroy']);
     Route::resource('course.participation', 'Courses\Participations\ParticipationController');
     Route::resource('date.participation', 'Courses\Dates\ParticipationController');
     Route::resource('/client', 'Partners\ClientController');

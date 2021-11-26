@@ -28,6 +28,7 @@ class ParticipantController extends Controller
                 ->with([
                     'partner'
                 ])
+                ->isActive($request->input('is_active'))
                 ->get();
         }
 

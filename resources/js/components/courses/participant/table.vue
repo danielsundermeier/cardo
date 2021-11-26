@@ -13,6 +13,17 @@
                     <button class="btn btn-primary" title="Anlegen" @click="create"><i class="fas fa-plus-square"></i></button>
                 </div>
             </div>
+            <div class="col-auto form-row">
+                <div class="col-auto d-none d-sm-block">
+                    <div class="form-group mb-0">
+                        <select class="form-control" v-model="filter.is_active" @change="fetch()">
+                            <option :value="null">Aktive und inaktive Datensätze</option>
+                            <option :value="1">Aktive Datensätze</option>
+                            <option :value="0">Inaktive Datensätze</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div v-if="isLoading" class="mt-3 p-5">
@@ -28,7 +39,7 @@
                 <tr>
                     <th width="100%">Teilnehmer</th>
                     <th class="text-right d-none d-sm-table-cell" width="200">Offene Teilnahmen</th>
-                    <th class="text-right" width="100">Aktion</th>
+                    <th class="text-right" width="125">Aktion</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,7 +101,7 @@
                 items: [],
                 isLoading: true,
                 filter: {
-
+                    is_active: 1,
                 },
                 form: {
                     create_invoice: false,
@@ -133,7 +144,9 @@
             fetch() {
                 var component = this;
                 component.isLoading = true;
-                axios.get(this.uri)
+                axios.get(this.uri, {
+                    params: component.filter,
+                })
                     .then(function (response) {
                         component.items = response.data;
                         component.isLoading = false;
@@ -147,7 +160,7 @@
             },
             updated(index, item) {
                 Vue.set(this.items, index, item);
-                Vue.success('Rechnung erstellt.');
+                Vue.success('Datensatz gespeicherts.');
             },
         },
     };

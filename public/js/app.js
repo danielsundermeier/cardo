@@ -2639,6 +2639,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['item', 'uri'],
   data: function data() {
@@ -2652,6 +2654,24 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    activate: function activate() {
+      var component = this;
+      axios.put(component.uri + '/' + this.id + '/activate', {}).then(function (response) {
+        component.errors = {};
+        component.$emit('updated', response.data);
+      })["catch"](function (error) {
+        component.errors = error.response.data.errors;
+      });
+    },
+    deactivate: function deactivate() {
+      var component = this;
+      axios["delete"](component.uri + '/' + this.id + '/activate', {}).then(function (response) {
+        component.errors = {};
+        component.$emit('updated', response.data);
+      })["catch"](function (error) {
+        component.errors = error.response.data.errors;
+      });
+    },
     create: function create() {
       var component = this;
       axios.post(component.uri, component.form).then(function (response) {
@@ -2680,6 +2700,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./row.vue */ "./resources/js/components/courses/participant/row.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2766,7 +2797,9 @@ __webpack_require__.r(__webpack_exports__);
       uri: this.model.path + '/participant',
       items: [],
       isLoading: true,
-      filter: {},
+      filter: {
+        is_active: 1
+      },
       form: {
         create_invoice: false,
         partner_id: null
@@ -2800,7 +2833,9 @@ __webpack_require__.r(__webpack_exports__);
     fetch: function fetch() {
       var component = this;
       component.isLoading = true;
-      axios.get(this.uri).then(function (response) {
+      axios.get(this.uri, {
+        params: component.filter
+      }).then(function (response) {
         component.items = response.data;
         component.isLoading = false;
       })["catch"](function (error) {
@@ -2812,7 +2847,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     updated: function updated(index, item) {
       Vue.set(this.items, index, item);
-      Vue.success('Rechnung erstellt.');
+      Vue.success('Datensatz gespeicherts.');
     }
   }
 });
@@ -45835,6 +45870,30 @@ var render = function() {
             [_vm._v("+10")]
           ),
           _vm._v(" "),
+          _vm.item.is_active
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary d-none d-sm-table-cell",
+                  attrs: { type: "button", title: "Deaktivieren" },
+                  on: { click: _vm.deactivate }
+                },
+                [_c("i", { staticClass: "fas fa-fw fa-check" })]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.item.is_active
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary d-none d-sm-table-cell",
+                  attrs: { type: "button", title: "Aktivieren" },
+                  on: { click: _vm.activate }
+                },
+                [_c("i", { staticClass: "fas fa-fw fa-times" })]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _vm.item.is_deletable
             ? _c(
                 "button",
@@ -45954,6 +46013,64 @@ var render = function() {
             )
           ]
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-auto form-row" }, [
+        _c("div", { staticClass: "col-auto d-none d-sm-block" }, [
+          _c("div", { staticClass: "form-group mb-0" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.filter.is_active,
+                    expression: "filter.is_active"
+                  }
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.filter,
+                        "is_active",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    function($event) {
+                      return _vm.fetch()
+                    }
+                  ]
+                }
+              },
+              [
+                _c("option", { domProps: { value: null } }, [
+                  _vm._v("Aktive und inaktive Datensätze")
+                ]),
+                _vm._v(" "),
+                _c("option", { domProps: { value: 1 } }, [
+                  _vm._v("Aktive Datensätze")
+                ]),
+                _vm._v(" "),
+                _c("option", { domProps: { value: 0 } }, [
+                  _vm._v("Inaktive Datensätze")
+                ])
+              ]
+            )
+          ])
+        ])
       ])
     ]),
     _vm._v(" "),
@@ -46025,7 +46142,7 @@ var staticRenderFns = [
           [_vm._v("Offene Teilnahmen")]
         ),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
+        _c("th", { staticClass: "text-right", attrs: { width: "125" } }, [
           _vm._v("Aktion")
         ])
       ])

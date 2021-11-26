@@ -5,6 +5,7 @@ namespace App\Models\Courses;
 use App\Models\Courses\Course;
 use App\Models\Courses\Participation;
 use App\Models\Partners\Partner;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -22,6 +23,7 @@ class Participant extends Pivot
         'open_participations_count',
         'participations_count',
         'partner_id',
+        'is_active',
     ];
 
     protected $table = 'course_participant';
@@ -64,6 +66,14 @@ class Participant extends Pivot
     public function participations() : HasMany
     {
         return $this->hasMany(Participation::class, 'participant_id');
+    }
+
+    public function scopeIsActive(Builder $query, $value) : Builder {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        return $query->where('is_active', $value);
     }
 
 }
