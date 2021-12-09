@@ -56,7 +56,7 @@ class HomeController extends Controller
         return view('home')
             ->with('user', $user)
             ->with('upcoming_dates', $upcoming_dates)
-            ->with('upcoming_birthdays', Partner::upcomingBirthdays($upcoming_birthdays_days)->orderBy('birthday_at', 'DESC')->orderByName()->get())
+            ->with('upcoming_birthdays', Partner::upcomingBirthdays($upcoming_birthdays_days)->orderByRaw('DATE_ADD(birthday_at, INTERVAL YEAR(CURDATE())-YEAR(birthday_at) YEAR) DESC')->orderByName()->get())
             ->with('categories', $categories);
     }
 }
