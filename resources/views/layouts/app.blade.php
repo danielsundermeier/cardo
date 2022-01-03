@@ -26,6 +26,7 @@
                 <a class="navbar-brand" href="/home">Cardo</a>
             </div>
             <ul class="col">
+                <a href="{{ route('diet.plans.index') }}"><li>Ernährungspläne</li></a>
                 <a href="/course"><li>Kurse</li></a>
                 <a href="/client"><li>Kunden</li></a>
                 <a href="/supplier"><li>Lieferanten</li></a>
@@ -76,6 +77,14 @@
             </nav>
 
             <div id="content" class="container-fluid mt-3" style="height: 100vh;">
+
+                @if(View::hasSection('headline'))
+                    <div class="row align-items-center mb-3">
+                        <h2 class="col my-0">@yield('headline')</h2>
+                        <div id="buttons" class="col-auto d-flex align-items-center justify-content-around">@yield('buttons')</div>
+                    </div>
+                @endif
+
                 @yield('content')
             </div>
 

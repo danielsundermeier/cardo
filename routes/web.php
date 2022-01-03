@@ -58,6 +58,22 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/bookkeeping/expense', 'Receipts\ExpenseController');
     Route::resource('/bookkeeping/invoice', 'Receipts\InvoiceController');
     Route::resource('/bookkeeping/receipt.line', 'Receipts\LineController');
+
+    Route::resource('/diet/days', 'Diet\Diary\DayController', ['as' => 'diet']);
+    Route::resource('/diet/days.meals', 'Diet\Diary\Meals\MealController', ['as' => 'diet']);
+    Route::resource('/diet/days/meals.foods', 'Diet\Diary\Meals\FoodController', ['as' => 'diet.days']);
+
+    Route::resource('/diet/foods', 'Diet\Foods\FoodController', ['as' => 'diet']);
+    Route::resource('/diet/foods.packagings', 'Diet\Foods\PackagingController', ['as' => 'diet']);
+
+    Route::resource('/diet/meals', 'Diet\Meals\MealController', ['as' => 'diet']);
+    Route::resource('/diet/meals.foods', 'Diet\Meals\FoodController', ['as' => 'diet']);
+
+    Route::resource('/diet/plans', 'Diet\Plans\PlanController', ['as' => 'diet']);
+    Route::resource('/diet/plans.days', 'Diet\Plans\DayController', ['as' => 'diet']);
+    Route::resource('/diet/plans.days.meals', 'Diet\Plans\Meals\MealController', ['as' => 'diet']);
+    Route::resource('/diet/plans/meals.foods', 'Diet\Plans\Meals\FoodController', ['as' => 'diet.plans']);
+
     Route::resource('/item', 'Items\ItemController');
     Route::resource('/partner', 'Partners\PartnerController');
     Route::resource('/partner.healthdatas', 'Partners\HealthdataController');

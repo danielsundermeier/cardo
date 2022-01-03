@@ -2,13 +2,13 @@
     <div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
+                <button class="btn btn-primary btn-sm" @click="create"><i class="fas fa-plus-square"></i></button>
             </div>
             <div class="col-auto d-flex">
                 <div class="form-group" style="margin-bottom: 0;">
                     <filter-search v-model="filter.searchtext" @input="fetch()"></filter-search>
                 </div>
-                <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show"><i class="fas fa-filter"></i></button>
+                <button class="btn btn-secondary btn-sm ml-1" @click="filter.show = !filter.show"><i class="fas fa-filter"></i></button>
             </div>
         </div>
 
@@ -17,8 +17,18 @@
 
                 <div class="col-12 col-md-3">
                     <div class="form-group">
+                        <label for="filter-year">Jahr</label>
+                        <select class="form-control form-control-sm" id="filter-year" v-model="filter.year" @change="search">
+                            <option :value="null">Alle</option>
+                            <option :value="year" v-for="year in years">{{ year }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
                         <label for="filter-paid">Bezahlt</label>
-                        <select class="form-control" id="filter-paid" v-model="filter.is_paid" @change="search">
+                        <select class="form-control form-control-sm" id="filter-paid" v-model="filter.is_paid" @change="search">
                             <option :value="null">Alle</option>
                             <option :value="1">Bezahlt</option>
                             <option :value="0">Nicht Bezahlt</option>
@@ -116,9 +126,18 @@
         },
 
         data () {
+
+            var years = [],
+                current_year = (new Date()).getFullYear();
+
+            for (var year = 2020; year <= (current_year + 1); year++) {
+                years.push(year);
+            }
+
             return {
                 action: 0,
                 items: [],
+                years: years,
                 isLoading: true,
                 paginate: {
                     nextPageUrl: null,
@@ -127,6 +146,7 @@
                 },
                 filter: {
                     is_paid: null,
+                    year: current_year,
                     page: 1,
                     searchtext: '',
                     show: false,

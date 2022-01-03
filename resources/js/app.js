@@ -53,6 +53,16 @@ Vue.component('courses-participant-table', require('./components/courses/partici
 Vue.component('courses-participation-table', require('./components/courses/participation/table.vue').default);
 Vue.component('courses-date-table', require('./components/courses/date/table.vue').default);
 Vue.component('courses-date-participation-table', require('./components/courses/date/participation/table.vue').default);
+
+Vue.component('diet-diary-table', require('./components/diet/diary/table.vue').default);
+Vue.component('diet-diary-meal-index', require('./components/diet/diary/meal/index.vue').default);
+Vue.component('diet-food-table', require('./components/diet/food/table.vue').default);
+Vue.component('diet-food-packaging-table', require('./components/diet/food/packaging/table.vue').default);
+Vue.component('diet-meal-table', require('./components/diet/meal/table.vue').default);
+Vue.component('diet-meal-food-table', require('./components/diet/meal/food/table.vue').default);
+Vue.component('diet-plan-table', require('./components/diet/plan/table.vue').default);
+Vue.component('diet-plan-day-show', require('./components/diet/plan/day/show.vue').default);
+
 Vue.component('item-table', require('./components/item/table.vue').default);
 Vue.component('partner-table', require('./components/partner/table.vue').default);
 Vue.component('partner-healthdata-table', require('./components/partner/healthdata/table.vue').default);

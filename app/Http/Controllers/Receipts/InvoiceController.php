@@ -31,6 +31,7 @@ class InvoiceController extends Controller
                 ->partner($request->input('partner_id'))
                 ->isPaid($request->input('is_paid'))
                 ->search($request->input('searchtext'))
+                ->year($request->input('year'))
                 ->orderBy('number', 'DESC')
                 ->paginate();
         }
