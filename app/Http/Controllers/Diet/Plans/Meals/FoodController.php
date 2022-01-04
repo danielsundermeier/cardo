@@ -46,14 +46,14 @@ class FoodController extends Controller
     public function store(Request $request, Meal $meal)
     {
         $attributes = $request->validate([
-            'food_id' => 'required|exists:food,id',
+            'food_id' => 'required|exists:diet_food,id',
         ]);
 
         $meal->loadCount('foods');
 
         return $meal->foods()->create([
-            'user_id' => $meal->user_id,
-            'food_id' => $attributes['food_id'],
+            'partner_id' => $meal->partner_id,
+            'diet_food_id' => $attributes['food_id'],
             'order_by' => $meal->foods_count,
             'amount' => 1,
         ])->load([

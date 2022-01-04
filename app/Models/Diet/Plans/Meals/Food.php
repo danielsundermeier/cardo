@@ -30,7 +30,7 @@ class Food extends Model
     ];
 
     protected $fillable = [
-        'user_id',
+        'partner_id',
         'diet_food_id',
         'diet_plans_meal_id',
         'amount',
