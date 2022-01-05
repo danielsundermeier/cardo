@@ -18,6 +18,7 @@ class Meal extends Model
 
     protected $appends = [
         'foods_path',
+        'foods_from_meal_path',
     ];
 
     protected $casts = [
@@ -123,6 +124,13 @@ class Meal extends Model
     {
         return \App\Models\Diet\Plans\Meals\Food::indexPath([
             'diet_plans_meal_id' => $this->id,
+        ]);
+    }
+
+    public function getFoodsFromMealPathAttribute(): string
+    {
+        return route('diet.plans.meals.foods-from-meal.store', [
+            'meal' => $this->id,
         ]);
     }
 }

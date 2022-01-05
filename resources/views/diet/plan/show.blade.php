@@ -4,6 +4,6 @@
 
 @section('content')
 
-<diet-plan-day-show index-path="{{ $model->days_path }}" :model="{{ json_encode($model) }}" :foods="{{ $foods }}"></diet-plan-day-show>
+<diet-plan-day-show index-path="{{ $model->days_path }}" :meals="{{ json_encode($meals) }}" :model="{{ json_encode($model) }}" :foods="{{ $foods }}"></diet-plan-day-show>
 
 @endsection

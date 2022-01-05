@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Diet\Plans;
 
 use App\Http\Controllers\Controller;
+use App\Models\Diet\Meals\Meal;
 use App\Models\Diet\Plans\Plan;
 use App\Models\Partners\Partner;
 use Illuminate\Http\Request;
@@ -64,7 +65,8 @@ class PlanController extends Controller
     {
         return view($this->baseViewPath . '.show')
             ->with('model', $plan)
-            ->with('foods', \App\Models\Diet\Foods\Food::orderBy('name', 'ASC')->get());
+            ->with('foods', \App\Models\Diet\Foods\Food::orderBy('name', 'ASC')->get())
+            ->with('meals', Meal::with(['foods'])->orderBy('name', 'ASC')->get());
     }
 
     /**

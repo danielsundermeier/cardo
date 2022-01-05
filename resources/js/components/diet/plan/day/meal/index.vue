@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="row flex-nowrap align-items-stretch overflow-auto">
-            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="(item, index) in meals">
-                <show :item="item" :foods="foods" :key="index" @deleted="remove(index)" @updated="updated(index, $event)"></show>
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="(item, index) in model_meals">
+                <show :item="item" :foods="foods" :meals="meals" :key="index" @deleted="remove(index)" @updated="updated(index, $event)"></show>
             </div>
             <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex align-items-center justify-content-center mb-3">
                 <button class="btn btn-primary btn-sm" @click="store()"><i class="fas fa-plus-square"></i></button>
@@ -25,6 +25,10 @@
                 required: true,
                 type: Array,
             },
+            meals: {
+                required: true,
+                type: Array,
+            },
             model: {
                 required: true,
                 type: Object,
@@ -33,7 +37,7 @@
 
         data() {
             return {
-                meals: this.model.meals,
+                model_meals: this.model.meals,
             };
         },
 
@@ -52,10 +56,10 @@
                     });
             },
             remove(index) {
-                this.meals.splice(index, 1);
+                this.model_meals.splice(index, 1);
             },
             updated(index, item) {
-                Vue.set(this.meals, index, item);
+                Vue.set(this.model_meals, index, item);
             },
         },
     };

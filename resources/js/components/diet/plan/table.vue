@@ -61,7 +61,7 @@
             partners: {
                 required: true,
                 type: Array,
-            }
+            },
         },
 
         data () {

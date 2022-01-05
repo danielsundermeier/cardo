@@ -4377,6 +4377,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -4393,6 +4398,10 @@ __webpack_require__.r(__webpack_exports__);
       required: true,
       type: Array
     },
+    meals: {
+      required: true,
+      type: Array
+    },
     model: {
       required: true,
       type: Object
@@ -4403,15 +4412,34 @@ __webpack_require__.r(__webpack_exports__);
       filter: {//
       },
       form: {
-        food_id: null
+        food_id: null,
+        meal_id: null
       }
     };
   },
   computed: {},
   methods: {
+    addMeal: function addMeal() {
+      if (this.form.meal_id == null) {
+        return;
+      }
+
+      var component = this;
+      axios.post(this.model.foods_from_meal_path, component.form).then(function (response) {
+        component.resetForm();
+        response.data.forEach(function (food) {
+          component.created(food);
+        });
+        Vue.successCreate(component.model);
+      })["catch"](function (error) {
+        component.errors = error.response.data.errors;
+        Vue.errorCreate();
+      });
+    },
     resetForm: function resetForm() {
       this.resetErrors();
       this.form.food_id = null;
+      this.form.meal_id = null;
     },
     created: function created(item) {
       this.items.push(item);
@@ -4470,6 +4498,10 @@ __webpack_require__.r(__webpack_exports__);
       required: true,
       type: Array
     },
+    meals: {
+      required: true,
+      type: Array
+    },
     model: {
       required: true,
       type: Object
@@ -4477,7 +4509,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      meals: this.model.meals
+      model_meals: this.model.meals
     };
   },
   methods: {
@@ -4493,10 +4525,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     remove: function remove(index) {
-      this.meals.splice(index, 1);
+      this.model_meals.splice(index, 1);
     },
     updated: function updated(index, item) {
-      Vue.set(this.meals, index, item);
+      Vue.set(this.model_meals, index, item);
     }
   }
 });
@@ -4550,6 +4582,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     foods: {
+      required: true,
+      type: Array
+    },
+    meals: {
       required: true,
       type: Array
     },
@@ -4724,6 +4760,10 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_tables_base_js__WEBPACK_IMPORTED_MODULE_4__["baseMixin"]],
   props: {
     foods: {
+      required: true,
+      type: Array
+    },
+    meals: {
       required: true,
       type: Array
     },
@@ -50433,7 +50473,60 @@ var render = function() {
       {
         key: "no-data",
         fn: function() {
-          return [_vm._v("\n        Mahlzeit hinzufügen (TODO)\n    ")]
+          return [
+            _c("div", { staticClass: "form-group mb-0 mr-1" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.meal_id,
+                      expression: "form.meal_id"
+                    }
+                  ],
+                  staticClass: "form-control form-control-sm",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "meal_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.addMeal()
+                      }
+                    ]
+                  }
+                },
+                [
+                  _c("option", { domProps: { value: null } }, [
+                    _vm._v("Mahlzeit auswählen")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.meals, function(meal, index) {
+                    return _c("option", { domProps: { value: meal.id } }, [
+                      _vm._v(_vm._s(meal.name))
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ]
         },
         proxy: true
       },
@@ -50504,14 +50597,14 @@ var render = function() {
       "div",
       { staticClass: "row flex-nowrap align-items-stretch overflow-auto" },
       [
-        _vm._l(_vm.meals, function(item, index) {
+        _vm._l(_vm.model_meals, function(item, index) {
           return _c(
             "div",
             { staticClass: "col-12 col-md-6 col-lg-4 col-xl-3" },
             [
               _c("show", {
                 key: index,
-                attrs: { item: item, foods: _vm.foods },
+                attrs: { item: item, foods: _vm.foods, meals: _vm.meals },
                 on: {
                   deleted: function($event) {
                     return _vm.remove(index)
@@ -50680,6 +50773,7 @@ var render = function() {
           attrs: {
             model: _vm.item,
             foods: _vm.foods,
+            meals: _vm.meals,
             "index-path": _vm.item.foods_path
           },
           on: {
@@ -50832,7 +50926,9 @@ var render = function() {
           [
             _c("h4", [_vm._v(_vm._s(item.name))]),
             _vm._v(" "),
-            _c("meal-index", { attrs: { model: item, foods: _vm.foods } })
+            _c("meal-index", {
+              attrs: { model: item, foods: _vm.foods, meals: _vm.meals }
+            })
           ],
           1
         )

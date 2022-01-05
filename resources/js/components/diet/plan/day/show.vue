@@ -3,7 +3,7 @@
     <div>
         <div v-for="(item, index) in items">
             <h4>{{ item.name }}</h4>
-            <meal-index :model="item" :foods="foods"></meal-index>
+            <meal-index :model="item" :foods="foods" :meals="meals"></meal-index>
         </div>
         <div>
             <button class="btn btn-primary btn-sm btn-block" @click="create()"><i class="fas fa-plus-square"></i></button>
@@ -35,6 +35,10 @@
 
         props: {
             foods: {
+                required: true,
+                type: Array,
+            },
+            meals: {
                 required: true,
                 type: Array,
             },

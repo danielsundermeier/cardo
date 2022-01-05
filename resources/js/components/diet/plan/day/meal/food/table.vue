@@ -16,7 +16,12 @@
         </template>
 
         <template v-slot:no-data>
-            Mahlzeit hinzufügen (TODO)
+            <div class="form-group mb-0 mr-1">
+                <select class="form-control form-control-sm" v-model="form.meal_id" @change="addMeal()">
+                    <option :value="null">Mahlzeit auswählen</option>
+                    <option :value="meal.id" v-for="(meal, index) in meals">{{ meal.name }}</option>
+                </select>
+            </div>
         </template>
 
         <template v-slot:thead>
@@ -58,6 +63,10 @@
                 required: true,
                 type: Array,
             },
+            meals: {
+                required: true,
+                type: Array,
+            },
             model: {
                 required: true,
                 type: Object,
@@ -72,6 +81,7 @@
                 },
                 form: {
                     food_id: null,
+                    meal_id: null,
                 },
             };
         },
@@ -81,9 +91,28 @@
         },
 
         methods: {
+            addMeal() {
+                if (this.form.meal_id == null) {
+                    return;
+                }
+                var component = this;
+                axios.post(this.model.foods_from_meal_path, component.form)
+                    .then(function (response) {
+                        component.resetForm();
+                        response.data.forEach( function (food) {
+                            component.created(food);
+                        });
+                        Vue.successCreate(component.model);
+                })
+                    .catch(function (error) {
+                        component.errors = error.response.data.errors;
+                        Vue.errorCreate();
+                });
+            },
             resetForm() {
                 this.resetErrors();
                 this.form.food_id = null;
+                this.form.meal_id = null;
             },
             created(item) {
                 this.items.push(item);
