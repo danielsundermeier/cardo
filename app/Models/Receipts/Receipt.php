@@ -101,7 +101,7 @@ class Receipt extends Model
 
     protected function setTextBelow()
     {
-        $this->text_below = 'Zahlungsbedingungen: Zahlung innerhalb von 14 Tagen ab Rechnungseingang ohne Abzüge auf folgendes Konto: Juliette Rolf, IBAN: DE06 4825 0110 0004 8701 43, Sparkasse Lemgo.';
+        $this->text_below = 'Zahlungsbedingungen: Zahlung innerhalb von 14 Tagen ab Rechnungseingang ohne Abzüge auf folgendes Konto: Juliette Rolf, IBAN: DE67 4829 1290 0018 7987 01, Volksbank Bad Salzuflen.';
     }
 
     public function pay(bool $value = true) : self
