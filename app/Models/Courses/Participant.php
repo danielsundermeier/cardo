@@ -20,25 +20,31 @@ class Participant extends Pivot
 
     protected $fillable = [
         'course_id',
+        'has_subscription',
+        'is_active',
         'open_participations_count',
         'participations_count',
         'partner_id',
-        'is_active',
     ];
 
     protected $table = 'course_participant';
 
-    public function cache(bool $is_subscription = false) : self
+    public function cache() : self
     {
         $this->participations_count = $this->participations()->count();
-        if ($is_subscription) {
-            $this->open_participations_count = $this->course->subscription_item->lines()->where('partner_id', $this->partner_id)->whereHas('invoice', function ($query) {
-                return $query->where('date', now()->startOfMonth());
-            })->exists() ? 99 : 0;
+        $this->open_participations_count = 0;
+
+        $this->has_subscription = $this->course->subscription_item->lines()->where('partner_id', $this->partner_id)->whereHas('invoice', function ($query) {
+            return $query->where('date', now()->startOfMonth());
+        })->exists();
+
+        if ($this->has_subscription) {
+            $this->open_participations_count = 99;
+            return $this;
         }
-        else {
-            $this->open_participations_count = $this->course->item->lines()->where('partner_id', $this->partner_id)->sum('quantity') - $this->participations_count;
-        }
+
+        $this->has_subscription = false;
+        $this->open_participations_count = $this->course->item->lines()->where('partner_id', $this->partner_id)->sum('quantity') - $this->participations_count;
 
         return $this;
     }

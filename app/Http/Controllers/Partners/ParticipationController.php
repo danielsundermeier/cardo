@@ -59,7 +59,7 @@ class ParticipationController extends Controller
             'participant_id' => $participant->id,
         ]);
 
-        $participant->cache($participant->course->item->is_subscription)
+        $participant->cache()
             ->save();
 
         return $participation->load([

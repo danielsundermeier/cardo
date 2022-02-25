@@ -2143,6 +2143,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['item', 'uri'],
   data: function data() {
@@ -2626,6 +2636,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5665,6 +5687,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -47309,54 +47341,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
-    _c("td", { staticClass: "align-middle" }, [
-      _c(
-        "a",
-        {
-          attrs: {
-            href: _vm.item.participant.partner.path,
-            "layouts.guest": ""
-          }
-        },
-        [_vm._v(_vm._s(_vm.item.participant.partner.name))]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "td",
-      { staticClass: "align-middle text-right d-none d-sm-table-cell" },
-      [_vm._v(_vm._s(_vm.item.participant.open_participations_count))]
-    ),
-    _vm._v(" "),
-    _c("td", { staticClass: "align-middle text-right" }, [
-      _c(
-        "div",
-        { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { type: "button", title: "10er Karte kaufen" },
-              on: { click: _vm.create }
-            },
-            [_vm._v("+10")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { type: "button", title: "Löschen" },
-              on: { click: _vm.destroy }
-            },
-            [_c("i", { staticClass: "fas fa-fw fa-trash" })]
-          )
-        ]
-      )
-    ])
-  ])
+  return _c(
+    "tr",
+    [
+      _c("td", { staticClass: "align-middle" }, [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: _vm.item.participant.partner.path,
+              "layouts.guest": ""
+            }
+          },
+          [_vm._v(_vm._s(_vm.item.participant.partner.name))]
+        )
+      ]),
+      _vm._v(" "),
+      _vm.item.participant.has_subscription
+        ? [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v("Abo")]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", title: "Löschen" },
+                      on: { click: _vm.destroy }
+                    },
+                    [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                  )
+                ]
+              )
+            ])
+          ]
+        : [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v(_vm._s(_vm.item.participant.open_participations_count))]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", title: "10er Karte kaufen" },
+                      on: { click: _vm.create }
+                    },
+                    [_vm._v("+10")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", title: "Löschen" },
+                      on: { click: _vm.destroy }
+                    },
+                    [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                  )
+                ]
+              )
+            ])
+          ]
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47952,73 +48022,143 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
-    _c("td", { staticClass: "align-middle" }, [
-      _c("a", { attrs: { href: _vm.item.partner.path, "layouts.guest": "" } }, [
-        _vm._v(_vm._s(_vm.item.partner.name))
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "td",
-      { staticClass: "align-middle text-right d-none d-sm-table-cell" },
-      [_vm._v(_vm._s(_vm.item.open_participations_count))]
-    ),
-    _vm._v(" "),
-    _c("td", { staticClass: "align-middle text-right" }, [
-      _c(
-        "div",
-        { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { type: "button", title: "10er Karte kaufen" },
-              on: { click: _vm.create }
-            },
-            [_vm._v("+10")]
-          ),
-          _vm._v(" "),
-          _vm.item.is_active
-            ? _c(
-                "button",
+  return _c(
+    "tr",
+    [
+      _c("td", { staticClass: "align-middle" }, [
+        _c(
+          "a",
+          { attrs: { href: _vm.item.partner.path, "layouts.guest": "" } },
+          [_vm._v(_vm._s(_vm.item.partner.name))]
+        )
+      ]),
+      _vm._v(" "),
+      _vm.item.has_subscription
+        ? [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v("Abo")]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
                 {
-                  staticClass: "btn btn-secondary d-none d-sm-table-cell",
-                  attrs: { type: "button", title: "Deaktivieren" },
-                  on: { click: _vm.deactivate }
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
                 },
-                [_c("i", { staticClass: "fas fa-fw fa-check" })]
+                [
+                  _vm.item.is_active
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-secondary d-none d-sm-table-cell",
+                          attrs: { type: "button", title: "Deaktivieren" },
+                          on: { click: _vm.deactivate }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-check" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.item.is_active
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-secondary d-none d-sm-table-cell",
+                          attrs: { type: "button", title: "Aktivieren" },
+                          on: { click: _vm.activate }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-times" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.item.is_deletable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", title: "Löschen" },
+                          on: { click: _vm.destroy }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                      )
+                    : _vm._e()
+                ]
               )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.item.is_active
-            ? _c(
-                "button",
+            ])
+          ]
+        : [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v(_vm._s(_vm.item.open_participations_count))]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
                 {
-                  staticClass: "btn btn-secondary d-none d-sm-table-cell",
-                  attrs: { type: "button", title: "Aktivieren" },
-                  on: { click: _vm.activate }
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
                 },
-                [_c("i", { staticClass: "fas fa-fw fa-times" })]
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", title: "10er Karte kaufen" },
+                      on: { click: _vm.create }
+                    },
+                    [_vm._v("+10")]
+                  ),
+                  _vm._v(" "),
+                  _vm.item.is_active
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-secondary d-none d-sm-table-cell",
+                          attrs: { type: "button", title: "Deaktivieren" },
+                          on: { click: _vm.deactivate }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-check" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.item.is_active
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-secondary d-none d-sm-table-cell",
+                          attrs: { type: "button", title: "Aktivieren" },
+                          on: { click: _vm.activate }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-times" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.item.is_deletable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", title: "Löschen" },
+                          on: { click: _vm.destroy }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                      )
+                    : _vm._e()
+                ]
               )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.item.is_deletable
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "button", title: "Löschen" },
-                  on: { click: _vm.destroy }
-                },
-                [_c("i", { staticClass: "fas fa-fw fa-trash" })]
-              )
-            : _vm._e()
-        ]
-      )
-    ])
-  ])
+            ])
+          ]
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52129,58 +52269,104 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
-      _vm._v(_vm._s(_vm.item.course.name))
-    ]),
-    _vm._v(" "),
-    _c("td", { staticClass: "align-middle pointer", on: { click: _vm.show } }, [
-      _vm._v(
-        _vm._s(_vm.item.course.day_formatted) +
-          " " +
-          _vm._s(_vm.item.course.time_formatted)
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "td",
-      {
-        staticClass: "align-middle text-right pointer",
-        on: { click: _vm.show }
-      },
-      [_vm._v(_vm._s(_vm.item.open_participations_count))]
-    ),
-    _vm._v(" "),
-    _c("td", { staticClass: "align-middle text-right" }, [
+  return _c(
+    "tr",
+    [
       _c(
-        "div",
-        { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
+        "td",
+        { staticClass: "align-middle pointer", on: { click: _vm.show } },
+        [_vm._v(_vm._s(_vm.item.course.name))]
+      ),
+      _vm._v(" "),
+      _c(
+        "td",
+        { staticClass: "align-middle pointer", on: { click: _vm.show } },
         [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { type: "button", title: "10er Karte kaufen" },
-              on: { click: _vm.create }
-            },
-            [_vm._v("+10")]
-          ),
-          _vm._v(" "),
-          _vm.item.is_deletable
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "button", title: "Löschen" },
-                  on: { click: _vm.destroy }
-                },
-                [_c("i", { staticClass: "fas fa-fw fa-trash" })]
-              )
-            : _vm._e()
+          _vm._v(
+            _vm._s(_vm.item.course.day_formatted) +
+              " " +
+              _vm._s(_vm.item.course.time_formatted)
+          )
         ]
-      )
-    ])
-  ])
+      ),
+      _vm._v(" "),
+      _vm.item.has_subscription
+        ? [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v("Abo")]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _vm.item.is_deletable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", title: "Löschen" },
+                          on: { click: _vm.destroy }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                      )
+                    : _vm._e()
+                ]
+              )
+            ])
+          ]
+        : [
+            _c(
+              "td",
+              {
+                staticClass: "align-middle text-right pointer",
+                on: { click: _vm.show }
+              },
+              [_vm._v(_vm._s(_vm.item.open_participations_count))]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", title: "10er Karte kaufen" },
+                      on: { click: _vm.create }
+                    },
+                    [_vm._v("+10")]
+                  ),
+                  _vm._v(" "),
+                  _vm.item.is_deletable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", title: "Löschen" },
+                          on: { click: _vm.destroy }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                      )
+                    : _vm._e()
+                ]
+              )
+            ])
+          ]
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -49,7 +49,7 @@ class Line extends Model
             return;
         }
 
-        $participant->cache($this->item->is_subscription)
+        $participant->cache()
             ->save();
     }
 

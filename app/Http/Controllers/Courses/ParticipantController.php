@@ -72,7 +72,8 @@ class ParticipantController extends Controller
             'course_id' => $course->id,
             'partner_id' => $attributes['partner_id'],
         ]);
-        $participant->cache($course->item->is_subscription);
+        $participant->cache()
+            ->save();
 
         return $participant->load([
             'partner',

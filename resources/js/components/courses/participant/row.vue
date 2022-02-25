@@ -1,15 +1,27 @@
 <template>
     <tr>
         <td class="align-middle"><a :href="item.partner.path"layouts.guest>{{ item.partner.name }}</a></td>
-        <td class="align-middle text-right d-none d-sm-table-cell">{{ item.open_participations_count }}</td>
-        <td class="align-middle text-right">
-            <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-secondary" title="10er Karte kaufen" @click="create">+10</button>
-                <button type="button" class="btn btn-secondary d-none d-sm-table-cell" title="Deaktivieren" @click="deactivate" v-if="item.is_active"><i class="fas fa-fw fa-check"></i></button>
-                <button type="button" class="btn btn-secondary d-none d-sm-table-cell" title="Aktivieren" @click="activate" v-if="! item.is_active"><i class="fas fa-fw fa-times"></i></button>
-                <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-fw fa-trash"></i></button>
-            </div>
-        </td>
+        <template v-if="item.has_subscription">
+            <td class="align-middle text-right d-none d-sm-table-cell">Abo</td>
+            <td class="align-middle text-right">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-secondary d-none d-sm-table-cell" title="Deaktivieren" @click="deactivate" v-if="item.is_active"><i class="fas fa-fw fa-check"></i></button>
+                    <button type="button" class="btn btn-secondary d-none d-sm-table-cell" title="Aktivieren" @click="activate" v-if="! item.is_active"><i class="fas fa-fw fa-times"></i></button>
+                    <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-fw fa-trash"></i></button>
+                </div>
+            </td>
+        </template>
+        <template v-else>
+            <td class="align-middle text-right d-none d-sm-table-cell">{{ item.open_participations_count }}</td>
+            <td class="align-middle text-right">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-secondary" title="10er Karte kaufen" @click="create">+10</button>
+                    <button type="button" class="btn btn-secondary d-none d-sm-table-cell" title="Deaktivieren" @click="deactivate" v-if="item.is_active"><i class="fas fa-fw fa-check"></i></button>
+                    <button type="button" class="btn btn-secondary d-none d-sm-table-cell" title="Aktivieren" @click="activate" v-if="! item.is_active"><i class="fas fa-fw fa-times"></i></button>
+                    <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-fw fa-trash"></i></button>
+                </div>
+            </td>
+        </template>
     </tr>
 </template>
 

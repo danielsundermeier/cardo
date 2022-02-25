@@ -68,7 +68,7 @@ class ParticipantController extends Controller
             'course_id' => $course->id,
             'partner_id' => $partner->id,
         ]);
-        $participant->cache($course->item->is_subscription);
+        $participant->cache();
 
         return $participant->load([
             'course',
