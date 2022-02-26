@@ -60737,116 +60737,128 @@ var render = function() {
           )
         ])
       ])
-    : _c("tr", [
-        _c(
-          "td",
-          { staticClass: "align-middle pointer", on: { click: _vm.edit } },
-          [
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.item.partner ? _vm.item.partner.name : "-") +
-                "\n        "
-            ),
-            _vm.item.course_date_id
-              ? _c("div", { staticClass: "text-muted" }, [
-                  _c("a", { attrs: { href: _vm.item.date.course.path } }, [
-                    _vm._v(_vm._s(_vm.item.date.course.name))
-                  ]),
-                  _vm._v(" am "),
-                  _c("a", { attrs: { href: _vm.item.date.path } }, [
-                    _vm._v(_vm._s(_vm.item.date.at_formatted))
+    : _c(
+        "tr",
+        { class: { "text-success": _vm.item.running_industry_hours > 0 } },
+        [
+          _c(
+            "td",
+            { staticClass: "align-middle pointer", on: { click: _vm.edit } },
+            [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.item.partner ? _vm.item.partner.name : "-") +
+                  "\n        "
+              ),
+              _vm.item.course_date_id
+                ? _c("div", { staticClass: "text-muted" }, [
+                    _c("a", { attrs: { href: _vm.item.date.course.path } }, [
+                      _vm._v(_vm._s(_vm.item.date.course.name))
+                    ]),
+                    _vm._v(" am "),
+                    _c("a", { attrs: { href: _vm.item.date.path } }, [
+                      _vm._v(_vm._s(_vm.item.date.at_formatted))
+                    ])
                   ])
-                ])
-              : _vm._e()
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            staticClass: "align-middle d-none d-md-table-cell pointer",
-            on: { click: _vm.edit }
-          },
-          [_vm._v(_vm._s(_vm.item.start_at_formatted))]
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            staticClass: "align-middle d-none d-md-table-cell pointer",
-            on: { click: _vm.edit }
-          },
-          [_vm._v(_vm._s(_vm.item.end_at_formatted))]
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            staticClass:
-              "align-middle d-none d-md-table-cell pointer text-right",
-            on: { click: _vm.edit }
-          },
-          [_vm._v(_vm._s(_vm.item.industry_hours_formatted))]
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            staticClass:
-              "align-middle d-none d-md-table-cell pointer text-right",
-            on: { click: _vm.edit }
-          },
-          [_vm._v(_vm._s(_vm.item.break_industry_hours_formatted))]
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          {
-            staticClass: "align-middle pointer text-right",
-            on: { click: _vm.edit }
-          },
-          [_vm._v(_vm._s(_vm.item.effective_industry_hours_formatted))]
-        ),
-        _vm._v(" "),
-        _c(
-          "td",
-          { staticClass: "align-middle d-none d-md-table-cell text-right" },
-          [
-            _c(
-              "div",
-              {
-                staticClass: "btn-group btn-group-sm",
-                attrs: { role: "group" }
-              },
-              [
-                _vm.item.is_editable
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-secondary",
-                        attrs: { type: "button", title: "Bearbeiten" },
-                        on: { click: _vm.edit }
-                      },
-                      [_c("i", { staticClass: "fas fa-edit" })]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.item.is_deletable
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-secondary",
-                        attrs: { type: "button", title: "Löschen" },
-                        on: { click: _vm.destroy }
-                      },
-                      [_c("i", { staticClass: "fas fa-trash" })]
-                    )
-                  : _vm._e()
-              ]
-            )
-          ]
-        )
-      ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              staticClass: "align-middle d-none d-md-table-cell pointer",
+              on: { click: _vm.edit }
+            },
+            [_vm._v(_vm._s(_vm.item.start_at_formatted))]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              staticClass: "align-middle d-none d-md-table-cell pointer",
+              on: { click: _vm.edit }
+            },
+            [_vm._v(_vm._s(_vm.item.end_at_formatted))]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              staticClass:
+                "align-middle d-none d-md-table-cell pointer text-right",
+              on: { click: _vm.edit }
+            },
+            [_vm._v(_vm._s(_vm.item.industry_hours_formatted))]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              staticClass:
+                "align-middle d-none d-md-table-cell pointer text-right",
+              on: { click: _vm.edit }
+            },
+            [_vm._v(_vm._s(_vm.item.break_industry_hours_formatted))]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            {
+              staticClass: "align-middle pointer text-right",
+              on: { click: _vm.edit }
+            },
+            [
+              _vm._v(
+                _vm._s(
+                  _vm.item.running_industry_hours > 0
+                    ? _vm.item.running_industry_hours_formatted
+                    : _vm.item.effective_industry_hours_formatted
+                )
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "td",
+            { staticClass: "align-middle d-none d-md-table-cell text-right" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _vm.item.is_editable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", title: "Bearbeiten" },
+                          on: { click: _vm.edit }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.item.is_deletable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", title: "Löschen" },
+                          on: { click: _vm.destroy }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash" })]
+                      )
+                    : _vm._e()
+                ]
+              )
+            ]
+          )
+        ]
+      )
 }
 var staticRenderFns = []
 render._withStripped = true

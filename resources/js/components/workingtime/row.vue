@@ -27,7 +27,7 @@
             </div>
         </td>
     </tr>
-    <tr v-else>
+    <tr :class="{'text-success': item.running_industry_hours > 0}" v-else>
         <td class="align-middle pointer" @click="edit">
             {{ item.partner ? item.partner.name : '-' }}
             <div class="text-muted" v-if="item.course_date_id"><a :href="item.date.course.path">{{ item.date.course.name }}</a> am <a :href="item.date.path">{{ item.date.at_formatted }}</a></div>
@@ -36,7 +36,7 @@
         <td class="align-middle d-none d-md-table-cell pointer" @click="edit">{{ item.end_at_formatted }}</td>
         <td class="align-middle d-none d-md-table-cell pointer text-right" @click="edit">{{ item.industry_hours_formatted }}</td>
         <td class="align-middle d-none d-md-table-cell pointer text-right" @click="edit">{{ item.break_industry_hours_formatted }}</td>
-        <td class="align-middle pointer text-right" @click="edit">{{ item.effective_industry_hours_formatted }}</td>
+        <td class="align-middle pointer text-right" @click="edit">{{ item.running_industry_hours > 0 ? item.running_industry_hours_formatted : item.effective_industry_hours_formatted }}</td>
         <td class="align-middle d-none d-md-table-cell text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit" v-if="item.is_editable"><i class="fas fa-edit"></i></button>
