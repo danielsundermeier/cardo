@@ -37,6 +37,8 @@ class WorkingTime extends Model
         'date_key',
         'effective_industry_hours',
         'effective_industry_hours_formatted',
+        'running_industry_hours',
+        'running_industry_hours_formatted',
         'end_at_formatted',
         'industry_hours',
         'industry_hours_formatted',

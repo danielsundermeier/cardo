@@ -15,12 +15,12 @@
             </div>
         </td>
     </tr>
-    <tr v-else>
+    <tr :class="{'text-success': item.running_industry_hours > 0}" v-else>
         <td class="align-middle pointer">
             {{ item.start_at_formatted }}
             <div class="text-muted" v-if="item.course_date_id"><a :href="item.date.course.path">{{ item.date.course.name }}</a> am <a :href="item.date.path">{{ item.date.at_formatted }}</a></div>
         </td>
-        <td class="align-middle pointer text-right">{{ item.effective_industry_hours_formatted }}</td>
+        <td class="align-middle pointer text-right">{{ item.running_industry_hours > 0 ? item.running_industry_hours_formatted : item.effective_industry_hours_formatted }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-trash"></i></button>
