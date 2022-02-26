@@ -9630,7 +9630,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -59828,52 +59827,32 @@ var render = function() {
         ])
       ])
     : _c("tr", [
-        _c(
-          "td",
-          { staticClass: "align-middle pointer", on: { click: _vm.edit } },
-          [
-            _vm._v(
-              "\n        " + _vm._s(_vm.item.start_at_formatted) + "\n        "
-            ),
-            _vm.item.course_date_id
-              ? _c("div", { staticClass: "text-muted" }, [
-                  _c("a", { attrs: { href: _vm.item.date.course.path } }, [
-                    _vm._v(_vm._s(_vm.item.date.course.name))
-                  ]),
-                  _vm._v(" am "),
-                  _c("a", { attrs: { href: _vm.item.date.path } }, [
-                    _vm._v(_vm._s(_vm.item.date.at_formatted))
-                  ])
+        _c("td", { staticClass: "align-middle pointer" }, [
+          _vm._v(
+            "\n        " + _vm._s(_vm.item.start_at_formatted) + "\n        "
+          ),
+          _vm.item.course_date_id
+            ? _c("div", { staticClass: "text-muted" }, [
+                _c("a", { attrs: { href: _vm.item.date.course.path } }, [
+                  _vm._v(_vm._s(_vm.item.date.course.name))
+                ]),
+                _vm._v(" am "),
+                _c("a", { attrs: { href: _vm.item.date.path } }, [
+                  _vm._v(_vm._s(_vm.item.date.at_formatted))
                 ])
-              : _vm._e()
-          ]
-        ),
+              ])
+            : _vm._e()
+        ]),
         _vm._v(" "),
-        _c(
-          "td",
-          {
-            staticClass: "align-middle pointer text-right",
-            on: { click: _vm.edit }
-          },
-          [_vm._v(_vm._s(_vm.item.effective_industry_hours_formatted))]
-        ),
+        _c("td", { staticClass: "align-middle pointer text-right" }, [
+          _vm._v(_vm._s(_vm.item.effective_industry_hours_formatted))
+        ]),
         _vm._v(" "),
         _c("td", { staticClass: "align-middle text-right" }, [
           _c(
             "div",
             { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
             [
-              _vm.item.is_editable
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button", title: "Bearbeiten" }
-                    },
-                    [_c("i", { staticClass: "fas fa-edit" })]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _vm.item.is_deletable
                 ? _c(
                     "button",

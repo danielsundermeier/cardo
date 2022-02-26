@@ -16,14 +16,13 @@
         </td>
     </tr>
     <tr v-else>
-        <td class="align-middle pointer" @click="edit">
+        <td class="align-middle pointer">
             {{ item.start_at_formatted }}
             <div class="text-muted" v-if="item.course_date_id"><a :href="item.date.course.path">{{ item.date.course.name }}</a> am <a :href="item.date.path">{{ item.date.at_formatted }}</a></div>
         </td>
-        <td class="align-middle pointer text-right" @click="edit">{{ item.effective_industry_hours_formatted }}</td>
+        <td class="align-middle pointer text-right">{{ item.effective_industry_hours_formatted }}</td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-secondary" title="Bearbeiten" v-if="item.is_editable"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-trash"></i></button>
             </div>
         </td>
