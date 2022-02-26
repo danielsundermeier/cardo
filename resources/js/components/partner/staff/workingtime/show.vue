@@ -8,18 +8,52 @@
         </center>
     </div>
     <div class="mt-3 w-100 px-3" v-else>
-        <div class="row flex-column">
-            <div class="alert alert-secondary" role="alert">
-                Heutige Arbeitszeit: {{ industryHoursSum.format(2, ',', '.') }} h
+        <div class="row flex-column text-center">
+            <div v-if="workingtime == null">
+                <button class="btn btn-success btn-lg mb-3" @click="create()">Arbeitszeit starten</button>
             </div>
-            <button class="btn btn-primary btn-lg mb-3" @click="create('1,00')">+1</button>
-            <button class="btn btn-primary btn-lg mb-3" @click="create('0,50')">+0,5</button>
-            <button class="btn btn-primary btn-lg mb-3" @click="create('0,25')">+0,25</button>
-            <div class="form-group mb-1">
-                <input type="text" class="form-control" :class="'industry_hours_formatted' in errors ? 'is-invalid' : ''" v-model="form.industry_hours_formatted" @keydown.enter="create(0)">
-                <div class="invalid-feedback" v-text="'industry_hours_formatted' in errors ? errors.industry_hours_formatted[0] : ''"></div>
+            <div v-else>
+
+                <p>Arbeitszeit seit: {{ workingtime.start_at_with_time_formatted }} ({{ workingtime.running_industry_hours_formatted }} h)<p>
+
+                <div class="my-3">
+
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="radio" name="duration_break_in_seconds" id="duration_break_in_seconds1" value="0" v-model="form.duration_break_in_seconds">
+                        <label class="form-check-label" for="duration_break_in_seconds1">
+                            Keine Pause
+                        </label>
+                    </div>
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="radio" name="duration_break_in_seconds" id="duration_break_in_seconds2" value="900" v-model="form.duration_break_in_seconds">
+                        <label class="form-check-label" for="duration_break_in_seconds2">
+                            15 Minuten
+                        </label>
+                    </div>
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="radio" name="duration_break_in_seconds" id="duration_break_in_seconds3" value="1800" v-model="form.duration_break_in_seconds">
+                        <label class="form-check-label" for="duration_break_in_seconds3">
+                            30 Minuten
+                        </label>
+                    </div>
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="radio" name="duration_break_in_seconds" id="duration_break_in_seconds4" value="2700" v-model="form.duration_break_in_seconds">
+                        <label class="form-check-label" for="duration_break_in_seconds4">
+                            45 Minuten
+                        </label>
+                    </div>
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="radio" name="duration_break_in_seconds" id="duration_break_in_seconds5" value="3600" v-model="form.duration_break_in_seconds">
+                        <label class="form-check-label" for="duration_break_in_seconds5">
+                            60 Minuten
+                        </label>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-danger btn-lg mb-3" @click="destroy()">Arbeitszeit beenden</button>
+
             </div>
-            <button class="btn btn-primary btn-lg" @click="create(0)"><i class="fas fa-plus-square"></i></button>
         </div>
     </div>
 </template>
@@ -32,6 +66,10 @@
         },
 
         props: {
+            model: {
+                type: Object,
+                required: true,
+            },
             selectedStaffId: {
                 type: Number,
                 required: true,
@@ -47,18 +85,23 @@
                 });
 
             return {
-                uri: '/workingtime',
+                uri: this.model.path + '/workingtime',
                 items: [],
                 isLoading: true,
                 filter: {
-                    staff_id: this.selectedStaffId,
                     date: date.toISOString().split('T')[0],
                 },
                 form: {
-                    staff_id: this.selectedStaffId,
-                    industry_hours_formatted: '1,00',
-                    start_at_formatted: today_formatted,
+                    duration_break_in_seconds: 1800,
                 },
+                duration_breaks_in_seconds: [
+                    0,
+                    900,
+                    1800,
+                    2700,
+                    3600,
+                ],
+                workingtime: null,
                 selected: [],
                 errors: {},
             };
@@ -71,29 +114,30 @@
         },
 
         computed: {
-            industryHoursSum() {
-                var sum = 0;
-                for( var index in this.items ) {
-                    if( this.items.hasOwnProperty( index ) ) {
-                        sum += parseFloat( this.items[index]['industry_hours'] );
-                    }
-                }
-                return sum;
-            },
+
         },
 
         methods: {
-            create(industry_hours_formatted) {
+            create() {
                 var component = this;
-                if (industry_hours_formatted) {
-                    component.form.industry_hours_formatted = industry_hours_formatted;
-                }
-                axios.post(component.uri, component.form)
+                axios.post(component.uri)
                     .then(function (response) {
-                        component.errors = {};
-                        component.items.unshift(response.data);
-                        component.form.industry_hours_formatted = '1,00';
-                        Vue.success('Arbeitszeit gespeichert.');
+                        component.workingtime = response.data;
+                        Vue.success('Arbeitszeit gestartet.');
+                    })
+                    .catch( function (error) {
+                        component.errors = error.response.data.errors;
+                        // Vue.error('Interaktion konnte nicht erstellt werden!');
+                });
+            },
+            destroy() {
+                var component = this;
+                axios.delete(component.uri + '/' + component.workingtime.id, {
+                    data: component.form,
+                })
+                    .then(function (response) {
+                        component.workingtime = null;
+                        Vue.success('Arbeitszeit beendet.');
                     })
                     .catch( function (error) {
                         component.errors = error.response.data.errors;
@@ -107,11 +151,11 @@
                     params: component.filter
                 })
                     .then(function (response) {
-                        component.items = response.data;
+                        component.workingtime = (response.data == '' ? null : response.data);
                         component.isLoading = false;
                     })
                     .catch(function (error) {
-                        Vue.error('Datensätze konnten nicht geladen werden');
+                        Vue.error('Datensatz konnten nicht geladen werden');
                         console.log(error);
                     });
             },

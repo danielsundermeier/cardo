@@ -46,10 +46,13 @@ class Date extends Model
 
         static::created(function($model)
         {
+            $start_at = new Carbon($model->at->format('Y-m-d') . ' ' . $model->course->time->format('H:i:s'));
+            $end_at = (new Carbon($model->at->format('Y-m-d') . ' ' . $model->course->time->format('H:i:s')))->addSeconds($model->course->duration_in_seconds);
+
             $model->workingtime()->create([
-                'duration_in_seconds' => $model->course->duration_in_seconds,
                 'staff_id' => $model->staff_id,
-                'start_at' => $model->at,
+                'start_at' => $start_at,
+                'end_at' => $end_at,
             ]);
 
             return true;

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\WorkingTimes;
 use App\Http\Controllers\Controller;
 use App\Models\Partners\Partner;
 use App\Models\WorkingTimes\WorkingTime;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class WorkingTimeController extends Controller
 {
@@ -58,8 +60,17 @@ class WorkingTimeController extends Controller
         $attributes = $request->validate([
             'staff_id' => 'required|integer|exists:partners,id',
             'industry_hours_formatted' => 'required|formatted_number',
-            'start_at_formatted' => 'required|date_format:"d.m.Y"'
+            'start_at_formatted' => 'required|date_format:"d.m.Y H:i"'
         ]);
+
+        $end_at = Carbon::createFromFormat('d.m.Y H:i', $attributes['start_at_formatted']);
+        $industry_hours = str_replace(',', '.', $attributes['industry_hours_formatted']);
+        $duration_in_seconds = WorkingTime::industryHoursToSeconds($industry_hours);
+        $end_at->addSeconds($duration_in_seconds);
+
+        $attributes['end_at'] = $end_at;
+        $attributes['duration_break_in_seconds'] = 0;
+        Arr::forget($attributes, 'industry_hours_formatted');
 
         return WorkingTime::create($attributes)->load([
             'date.course',
@@ -102,8 +113,9 @@ class WorkingTimeController extends Controller
     {
         $attributes = $request->validate([
             'staff_id' => 'required|integer|exists:partners,id',
-            'industry_hours_formatted' => 'required|formatted_number',
-            'start_at_formatted' => 'required|date_format:"d.m.Y"'
+            'break_industry_hours_formatted' => 'required|formatted_number',
+            'start_at_formatted' => 'required|date_format:"d.m.Y H:i"',
+            'end_at_formatted' => 'nullable|date_format:"d.m.Y H:i"'
         ]);
 
         $workingtime->update($attributes);

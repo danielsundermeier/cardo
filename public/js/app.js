@@ -7228,9 +7228,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
+    model: {
+      type: Object,
+      required: true
+    },
     selectedStaffId: {
       type: Number,
       required: true
@@ -7244,18 +7282,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       year: 'numeric'
     });
     return {
-      uri: '/workingtime',
+      uri: this.model.path + '/workingtime',
       items: [],
       isLoading: true,
       filter: {
-        staff_id: this.selectedStaffId,
         date: date.toISOString().split('T')[0]
       },
       form: {
-        staff_id: this.selectedStaffId,
-        industry_hours_formatted: '1,00',
-        start_at_formatted: today_formatted
+        duration_break_in_seconds: 1800
       },
+      duration_breaks_in_seconds: [0, 900, 1800, 2700, 3600],
+      workingtime: null,
       selected: [],
       errors: {}
     };
@@ -7263,32 +7300,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.fetch();
   },
-  computed: {
-    industryHoursSum: function industryHoursSum() {
-      var sum = 0;
-
-      for (var index in this.items) {
-        if (this.items.hasOwnProperty(index)) {
-          sum += parseFloat(this.items[index]['industry_hours']);
-        }
-      }
-
-      return sum;
-    }
-  },
+  computed: {},
   methods: _defineProperty({
-    create: function create(industry_hours_formatted) {
+    create: function create() {
       var component = this;
-
-      if (industry_hours_formatted) {
-        component.form.industry_hours_formatted = industry_hours_formatted;
-      }
-
-      axios.post(component.uri, component.form).then(function (response) {
-        component.errors = {};
-        component.items.unshift(response.data);
-        component.form.industry_hours_formatted = '1,00';
-        Vue.success('Arbeitszeit gespeichert.');
+      axios.post(component.uri).then(function (response) {
+        component.workingtime = response.data;
+        Vue.success('Arbeitszeit gestartet.');
+      })["catch"](function (error) {
+        component.errors = error.response.data.errors; // Vue.error('Interaktion konnte nicht erstellt werden!');
+      });
+    },
+    destroy: function destroy() {
+      var component = this;
+      axios["delete"](component.uri + '/' + component.workingtime.id, {
+        data: component.form
+      }).then(function (response) {
+        component.workingtime = null;
+        Vue.success('Arbeitszeit beendet.');
       })["catch"](function (error) {
         component.errors = error.response.data.errors; // Vue.error('Interaktion konnte nicht erstellt werden!');
       });
@@ -7299,10 +7328,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get(component.uri, {
         params: component.filter
       }).then(function (response) {
-        component.items = response.data;
+        component.workingtime = response.data == '' ? null : response.data;
         component.isLoading = false;
       })["catch"](function (error) {
-        Vue.error('Datensätze konnten nicht geladen werden');
+        Vue.error('Datensatz konnten nicht geladen werden');
         console.log(error);
       });
     },
@@ -10269,6 +10298,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -10290,8 +10329,9 @@ __webpack_require__.r(__webpack_exports__);
       errors: {},
       form: {
         staff_id: this.item.staff_id,
-        industry_hours_formatted: this.item.industry_hours_formatted,
-        start_at_formatted: this.item.start_at_formatted
+        break_industry_hours_formatted: this.item.break_industry_hours_formatted,
+        start_at_formatted: this.item.start_at_formatted,
+        end_at_formatted: this.item.end_at_formatted
       },
       id: this.item.id,
       isEditing: false
@@ -10461,6 +10501,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10504,8 +10548,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         start_at_formatted: today.toLocaleDateString('de-DE', {
           month: '2-digit',
           day: '2-digit',
-          year: 'numeric'
-        })
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }).replace(',', '')
       },
       selected: [],
       errors: {}
@@ -10532,7 +10578,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             };
           }
 
-          sums[this.items[index]['staff_id']].sum += parseFloat(this.items[index]['industry_hours']);
+          sums[this.items[index]['staff_id']].sum += parseFloat(this.items[index]['effective_industry_hours']);
         }
       }
 
@@ -55073,120 +55119,285 @@ var render = function() {
         1
       )
     : _c("div", { staticClass: "mt-3 w-100 px-3" }, [
-        _c("div", { staticClass: "row flex-column" }, [
-          _c(
-            "div",
-            { staticClass: "alert alert-secondary", attrs: { role: "alert" } },
-            [
-              _vm._v(
-                "\n            Heutige Arbeitszeit: " +
-                  _vm._s(_vm.industryHoursSum.format(2, ",", ".")) +
-                  " h\n        "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-lg mb-3",
-              on: {
-                click: function($event) {
-                  return _vm.create("1,00")
-                }
-              }
-            },
-            [_vm._v("+1")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-lg mb-3",
-              on: {
-                click: function($event) {
-                  return _vm.create("0,50")
-                }
-              }
-            },
-            [_vm._v("+0,5")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-lg mb-3",
-              on: {
-                click: function($event) {
-                  return _vm.create("0,25")
-                }
-              }
-            },
-            [_vm._v("+0,25")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mb-1" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form.industry_hours_formatted,
-                  expression: "form.industry_hours_formatted"
-                }
-              ],
-              staticClass: "form-control",
-              class:
-                "industry_hours_formatted" in _vm.errors ? "is-invalid" : "",
-              attrs: { type: "text" },
-              domProps: { value: _vm.form.industry_hours_formatted },
-              on: {
-                keydown: function($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                  ) {
-                    return null
-                  }
-                  return _vm.create(0)
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(
-                    _vm.form,
-                    "industry_hours_formatted",
-                    $event.target.value
-                  )
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "invalid-feedback",
-              domProps: {
-                textContent: _vm._s(
-                  "industry_hours_formatted" in _vm.errors
-                    ? _vm.errors.industry_hours_formatted[0]
-                    : ""
+        _c("div", { staticClass: "row flex-column text-center" }, [
+          _vm.workingtime == null
+            ? _c("div", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success btn-lg mb-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.create()
+                      }
+                    }
+                  },
+                  [_vm._v("Arbeitszeit starten")]
                 )
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-lg",
-              on: {
-                click: function($event) {
-                  return _vm.create(0)
-                }
-              }
-            },
-            [_c("i", { staticClass: "fas fa-plus-square" })]
-          )
+              ])
+            : _c("div", [
+                _c("p", [
+                  _vm._v(
+                    "Arbeitszeit seit: " +
+                      _vm._s(_vm.workingtime.start_at_with_time_formatted) +
+                      " (" +
+                      _vm._s(_vm.workingtime.running_industry_hours_formatted) +
+                      " h)"
+                  )
+                ]),
+                _c("p"),
+                _c("div", { staticClass: "my-3" }, [
+                  _c("div", { staticClass: "form-check my-3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.duration_break_in_seconds,
+                          expression: "form.duration_break_in_seconds"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "duration_break_in_seconds",
+                        id: "duration_break_in_seconds1",
+                        value: "0"
+                      },
+                      domProps: {
+                        checked: _vm._q(_vm.form.duration_break_in_seconds, "0")
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(
+                            _vm.form,
+                            "duration_break_in_seconds",
+                            "0"
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "duration_break_in_seconds1" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Keine Pause\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check my-3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.duration_break_in_seconds,
+                          expression: "form.duration_break_in_seconds"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "duration_break_in_seconds",
+                        id: "duration_break_in_seconds2",
+                        value: "900"
+                      },
+                      domProps: {
+                        checked: _vm._q(
+                          _vm.form.duration_break_in_seconds,
+                          "900"
+                        )
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(
+                            _vm.form,
+                            "duration_break_in_seconds",
+                            "900"
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "duration_break_in_seconds2" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        15 Minuten\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check my-3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.duration_break_in_seconds,
+                          expression: "form.duration_break_in_seconds"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "duration_break_in_seconds",
+                        id: "duration_break_in_seconds3",
+                        value: "1800"
+                      },
+                      domProps: {
+                        checked: _vm._q(
+                          _vm.form.duration_break_in_seconds,
+                          "1800"
+                        )
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(
+                            _vm.form,
+                            "duration_break_in_seconds",
+                            "1800"
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "duration_break_in_seconds3" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        30 Minuten\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check my-3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.duration_break_in_seconds,
+                          expression: "form.duration_break_in_seconds"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "duration_break_in_seconds",
+                        id: "duration_break_in_seconds4",
+                        value: "2700"
+                      },
+                      domProps: {
+                        checked: _vm._q(
+                          _vm.form.duration_break_in_seconds,
+                          "2700"
+                        )
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(
+                            _vm.form,
+                            "duration_break_in_seconds",
+                            "2700"
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "duration_break_in_seconds4" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        45 Minuten\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check my-3" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.duration_break_in_seconds,
+                          expression: "form.duration_break_in_seconds"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: {
+                        type: "radio",
+                        name: "duration_break_in_seconds",
+                        id: "duration_break_in_seconds5",
+                        value: "3600"
+                      },
+                      domProps: {
+                        checked: _vm._q(
+                          _vm.form.duration_break_in_seconds,
+                          "3600"
+                        )
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(
+                            _vm.form,
+                            "duration_break_in_seconds",
+                            "3600"
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-check-label",
+                        attrs: { for: "duration_break_in_seconds5" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        60 Minuten\n                    "
+                        )
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger btn-lg mb-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.destroy()
+                      }
+                    }
+                  },
+                  [_vm._v("Arbeitszeit beenden")]
+                )
+              ])
         ])
       ])
 }
@@ -59644,7 +59855,7 @@ var render = function() {
             staticClass: "align-middle pointer text-right",
             on: { click: _vm.edit }
           },
-          [_vm._v(_vm._s(_vm.item.industry_hours_formatted))]
+          [_vm._v(_vm._s(_vm.item.effective_industry_hours_formatted))]
         ),
         _vm._v(" "),
         _c("td", { staticClass: "align-middle text-right" }, [
@@ -59657,8 +59868,7 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-secondary",
-                      attrs: { type: "button", title: "Bearbeiten" },
-                      on: { click: _vm.edit }
+                      attrs: { type: "button", title: "Bearbeiten" }
                     },
                     [_c("i", { staticClass: "fas fa-edit" })]
                   )
@@ -59703,71 +59913,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col d-flex align-items-start mb-1 mb-sm-0" }, [
-        _c("div", { staticClass: "form-group mr-1 mb-0" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.industry_hours_formatted,
-                expression: "form.industry_hours_formatted"
-              }
-            ],
-            staticClass: "form-control",
-            class: "industry_hours_formatted" in _vm.errors ? "is-invalid" : "",
-            attrs: { type: "text" },
-            domProps: { value: _vm.form.industry_hours_formatted },
-            on: {
-              keydown: function($event) {
-                if (
-                  !$event.type.indexOf("key") &&
-                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                ) {
-                  return null
-                }
-                return _vm.update($event)
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(
-                  _vm.form,
-                  "industry_hours_formatted",
-                  $event.target.value
-                )
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("div", {
-            staticClass: "invalid-feedback",
-            domProps: {
-              textContent: _vm._s(
-                "industry_hours_formatted" in _vm.errors
-                  ? _vm.errors.industry_hours_formatted[0]
-                  : ""
-              )
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            on: {
-              click: function($event) {
-                return _vm.create(0)
-              }
-            }
-          },
-          [_c("i", { staticClass: "fas fa-plus-square" })]
-        )
-      ])
-    ]),
+    false
+      ? undefined
+      : _vm._e(),
     _vm._v(" "),
     _vm.isLoading
       ? _c(
@@ -59843,7 +59991,7 @@ var staticRenderFns = [
         _c("th", { attrs: { width: "100%" } }, [_vm._v("Datum")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
-          _vm._v("Dauer")
+          _vm._v("Effektiv")
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
@@ -60470,14 +60618,64 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.form.industry_hours_formatted,
-                expression: "form.industry_hours_formatted"
+                value: _vm.form.end_at_formatted,
+                expression: "form.end_at_formatted"
               }
             ],
             staticClass: "form-control",
-            class: "industry_hours_formatted" in _vm.errors ? "is-invalid" : "",
+            class: "end_at_formatted" in _vm.errors ? "is-invalid" : "",
             attrs: { type: "text" },
-            domProps: { value: _vm.form.industry_hours_formatted },
+            domProps: { value: _vm.form.end_at_formatted },
+            on: {
+              keydown: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.update($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "end_at_formatted", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "invalid-feedback",
+            domProps: {
+              textContent: _vm._s(
+                "end_at_formatted" in _vm.errors
+                  ? _vm.errors.end_at_formatted[0]
+                  : ""
+              )
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("td"),
+        _vm._v(" "),
+        _c("td", { staticClass: "align-middle pointer" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.break_industry_hours_formatted,
+                expression: "form.break_industry_hours_formatted"
+              }
+            ],
+            staticClass: "form-control",
+            class:
+              "break_industry_hours_formatted" in _vm.errors
+                ? "is-invalid"
+                : "",
+            attrs: { type: "text" },
+            domProps: { value: _vm.form.break_industry_hours_formatted },
             on: {
               keydown: function($event) {
                 if (
@@ -60494,7 +60692,7 @@ var render = function() {
                 }
                 _vm.$set(
                   _vm.form,
-                  "industry_hours_formatted",
+                  "break_industry_hours_formatted",
                   $event.target.value
                 )
               }
@@ -60505,13 +60703,15 @@ var render = function() {
             staticClass: "invalid-feedback",
             domProps: {
               textContent: _vm._s(
-                "industry_hours_formatted" in _vm.errors
-                  ? _vm.errors.industry_hours_formatted[0]
+                "break_industry_hours_formatted" in _vm.errors
+                  ? _vm.errors.break_industry_hours_formatted[0]
                   : ""
               )
             }
           })
         ]),
+        _vm._v(" "),
+        _c("td"),
         _vm._v(" "),
         _c("td", { staticClass: "align-middle text-right" }, [
           _c(
@@ -60548,11 +60748,7 @@ var render = function() {
     : _c("tr", [
         _c(
           "td",
-          {
-            staticClass: "align-middle pointer",
-            attrs: { colspan: "2" },
-            on: { click: _vm.edit }
-          },
+          { staticClass: "align-middle pointer", on: { click: _vm.edit } },
           [
             _vm._v(
               "\n        " +
@@ -60576,43 +60772,88 @@ var render = function() {
         _c(
           "td",
           {
-            staticClass: "align-middle pointer text-right",
+            staticClass: "align-middle d-none d-md-table-cell pointer",
+            on: { click: _vm.edit }
+          },
+          [_vm._v(_vm._s(_vm.item.start_at_formatted))]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass: "align-middle d-none d-md-table-cell pointer",
+            on: { click: _vm.edit }
+          },
+          [_vm._v(_vm._s(_vm.item.end_at_formatted))]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass:
+              "align-middle d-none d-md-table-cell pointer text-right",
             on: { click: _vm.edit }
           },
           [_vm._v(_vm._s(_vm.item.industry_hours_formatted))]
         ),
         _vm._v(" "),
-        _c("td", { staticClass: "align-middle text-right" }, [
-          _c(
-            "div",
-            { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
-            [
-              _vm.item.is_editable
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button", title: "Bearbeiten" },
-                      on: { click: _vm.edit }
-                    },
-                    [_c("i", { staticClass: "fas fa-edit" })]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.item.is_deletable
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button", title: "Löschen" },
-                      on: { click: _vm.destroy }
-                    },
-                    [_c("i", { staticClass: "fas fa-trash" })]
-                  )
-                : _vm._e()
-            ]
-          )
-        ])
+        _c(
+          "td",
+          {
+            staticClass:
+              "align-middle d-none d-md-table-cell pointer text-right",
+            on: { click: _vm.edit }
+          },
+          [_vm._v(_vm._s(_vm.item.break_industry_hours_formatted))]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          {
+            staticClass: "align-middle pointer text-right",
+            on: { click: _vm.edit }
+          },
+          [_vm._v(_vm._s(_vm.item.effective_industry_hours_formatted))]
+        ),
+        _vm._v(" "),
+        _c(
+          "td",
+          { staticClass: "align-middle d-none d-md-table-cell text-right" },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "btn-group btn-group-sm",
+                attrs: { role: "group" }
+              },
+              [
+                _vm.item.is_editable
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", title: "Bearbeiten" },
+                        on: { click: _vm.edit }
+                      },
+                      [_c("i", { staticClass: "fas fa-edit" })]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.item.is_deletable
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", title: "Löschen" },
+                        on: { click: _vm.destroy }
+                      },
+                      [_c("i", { staticClass: "fas fa-trash" })]
+                    )
+                  : _vm._e()
+              ]
+            )
+          ]
+        )
       ])
 }
 var staticRenderFns = []
@@ -61033,7 +61274,7 @@ var render = function() {
             _vm._l(_vm.dates, function(date, key) {
               return _c("div", { staticClass: "card mt-3" }, [
                 _c("div", { staticClass: "card-header" }, [
-                  _vm._v(_vm._s(date[0].start_at_formatted))
+                  _vm._v(_vm._s(date[0].start_at_date_formatted))
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
@@ -61118,17 +61359,50 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { width: "100%", colspan: "2" } }, [
-          _vm._v("Personal")
-        ]),
+        _c("th", { attrs: { width: "100%" } }, [_vm._v("Personal")]),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "d-none d-md-table-cell", attrs: { width: "150" } },
+          [_vm._v("Start")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "d-none d-md-table-cell", attrs: { width: "150" } },
+          [_vm._v("Ende")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "d-none d-md-table-cell text-right",
+            attrs: { width: "75" }
+          },
+          [_vm._v("Dauer")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "d-none d-md-table-cell text-right",
+            attrs: { width: "75" }
+          },
+          [_vm._v("Pause")]
+        ),
         _vm._v(" "),
         _c("th", { staticClass: "text-right", attrs: { width: "75" } }, [
-          _vm._v("Dauer")
+          _vm._v("Effektiv")
         ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right", attrs: { width: "100" } }, [
-          _vm._v("Aktion")
-        ])
+        _c(
+          "th",
+          {
+            staticClass: "d-none d-md-table-cell text-right",
+            attrs: { width: "100" }
+          },
+          [_vm._v("Aktion")]
+        )
       ])
     ])
   },

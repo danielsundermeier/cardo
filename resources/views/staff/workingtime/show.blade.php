@@ -5,7 +5,7 @@
     <div class="d-flex align-items-center flex-column">
         <h1>Arbeitszeit</h1>
 
-        <partner-staff-workingtime-show :selected-staff-id="{{ $model->id }}"></partner-staff-workingtime-show>
+        <partner-staff-workingtime-show :selected-staff-id="{{ $model->id }}" :model="{{ json_encode($model) }}"></partner-staff-workingtime-show>
     </div>
 
 @endsection

@@ -116,6 +116,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/partner/import/csv/create', 'Partners\Imports\CsvController@create')->name('partner.import.csv.create');
     Route::post('/partner/import/csv', 'Partners\Imports\CsvController@store')->name('partner.import.csv.store');
 
+    Route::post('/staff/{staff}/workingtime', 'Partners\Staffs\WorkingTimeController@store')->name('staff.workingtime.store');
+    Route::delete('/staff/{staff}/workingtime/{time}', 'Partners\Staffs\WorkingTimeController@destroy')->name('staff.workingtime.destroy');
+
+
     Route::put('/task/{task}/complete', 'Tasks\CompleteController@update');
     Route::delete('/task/{task}/complete', 'Tasks\CompleteController@destroy');
 

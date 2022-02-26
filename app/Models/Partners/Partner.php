@@ -9,8 +9,10 @@ use App\Traits\HasComments;
 use App\Traits\HasPath;
 use App\Traits\HasUserFiles;
 use App\Traits\IsDeletable;
+use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
@@ -206,6 +208,11 @@ class Partner extends Model
     public function tasks() : HasMany
     {
         return $this->hasMany(\App\Models\Tasks\Task::class, 'staff_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function scopeStaff(Builder $query, $value = true) : Builder

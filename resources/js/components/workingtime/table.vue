@@ -72,14 +72,18 @@
         </div>
         <template v-else-if="items.length">
             <div class="card mt-3"  v-for="(date, key) in dates">
-                <div class="card-header">{{ date[0].start_at_formatted }}</div>
+                <div class="card-header">{{ date[0].start_at_date_formatted }}</div>
                 <div class="card-body">
                     <table class="table table-hover table-striped table-sm">
                         <thead>
                             <tr>
-                                <th width="100%" colspan="2">Personal</th>
-                                <th class="text-right" width="75">Dauer</th>
-                                <th class="text-right" width="100">Aktion</th>
+                                <th width="100%">Personal</th>
+                                <th class="d-none d-md-table-cell" width="150">Start</th>
+                                <th class="d-none d-md-table-cell" width="150">Ende</th>
+                                <th class="d-none d-md-table-cell text-right" width="75">Dauer</th>
+                                <th class="d-none d-md-table-cell text-right" width="75">Pause</th>
+                                <th class="text-right" width="75">Effektiv</th>
+                                <th class="d-none d-md-table-cell text-right" width="100">Aktion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -162,7 +166,9 @@
                         month: '2-digit',
                         day: '2-digit',
                         year: 'numeric',
-                    }),
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }).replace(',', ''),
                 },
                 selected: [],
                 errors: {},
@@ -192,7 +198,7 @@
                                 sum: 0,
                             };
                         }
-                        sums[this.items[index]['staff_id']].sum += parseFloat( this.items[index]['industry_hours'] );
+                        sums[this.items[index]['staff_id']].sum += parseFloat( this.items[index]['effective_industry_hours'] );
                     }
                 }
                 return sums;
@@ -259,7 +265,7 @@
                 Vue.set(this.items, index, item);
             },
             showPageButton(page) {
-                if (page == 1 || page == this.paginate.lastPage) {
+                if (page == 1 || page == this.paginate.lastPage) {
                     return true;
                 }
 

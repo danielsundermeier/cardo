@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row">
+        <div class="row" v-if="false">
             <div class="col d-flex align-items-start mb-1 mb-sm-0">
                 <div class="form-group mr-1 mb-0">
                     <input type="text" class="form-control" :class="'industry_hours_formatted' in errors ? 'is-invalid' : ''" v-model="form.industry_hours_formatted" @keydown.enter="update">
@@ -23,7 +23,7 @@
                 <thead>
                     <tr>
                         <th width="100%">Datum</th>
-                        <th class="text-right" width="100">Dauer</th>
+                        <th class="text-right" width="100">Effektiv</th>
                         <th class="text-right" width="100">Aktion</th>
                     </tr>
                 </thead>

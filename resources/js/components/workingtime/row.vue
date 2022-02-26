@@ -11,9 +11,15 @@
             <div class="invalid-feedback" v-text="'start_at_formatted' in errors ? errors.start_at_formatted[0] : ''"></div>
         </td>
         <td class="align-middle pointer">
-            <input type="text" class="form-control" :class="'industry_hours_formatted' in errors ? 'is-invalid' : ''" v-model="form.industry_hours_formatted" @keydown.enter="update">
-            <div class="invalid-feedback" v-text="'industry_hours_formatted' in errors ? errors.industry_hours_formatted[0] : ''"></div>
+            <input type="text" class="form-control" :class="'end_at_formatted' in errors ? 'is-invalid' : ''" v-model="form.end_at_formatted" @keydown.enter="update">
+            <div class="invalid-feedback" v-text="'end_at_formatted' in errors ? errors.end_at_formatted[0] : ''"></div>
         </td>
+        <td></td>
+        <td class="align-middle pointer">
+            <input type="text" class="form-control" :class="'break_industry_hours_formatted' in errors ? 'is-invalid' : ''" v-model="form.break_industry_hours_formatted" @keydown.enter="update">
+            <div class="invalid-feedback" v-text="'break_industry_hours_formatted' in errors ? errors.break_industry_hours_formatted[0] : ''"></div>
+        </td>
+        <td></td>
         <td class="align-middle text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary" title="Speichern" @click="update"><i class="fas fa-fw fa-save"></i></button>
@@ -22,12 +28,16 @@
         </td>
     </tr>
     <tr v-else>
-        <td class="align-middle pointer" colspan="2" @click="edit">
-            {{ item.partner ? item.partner.name : '-' }}
+        <td class="align-middle pointer" @click="edit">
+            {{ item.partner ? item.partner.name : '-' }}
             <div class="text-muted" v-if="item.course_date_id"><a :href="item.date.course.path">{{ item.date.course.name }}</a> am <a :href="item.date.path">{{ item.date.at_formatted }}</a></div>
         </td>
-        <td class="align-middle pointer text-right" @click="edit">{{ item.industry_hours_formatted }}</td>
-        <td class="align-middle text-right">
+        <td class="align-middle d-none d-md-table-cell pointer" @click="edit">{{ item.start_at_formatted }}</td>
+        <td class="align-middle d-none d-md-table-cell pointer" @click="edit">{{ item.end_at_formatted }}</td>
+        <td class="align-middle d-none d-md-table-cell pointer text-right" @click="edit">{{ item.industry_hours_formatted }}</td>
+        <td class="align-middle d-none d-md-table-cell pointer text-right" @click="edit">{{ item.break_industry_hours_formatted }}</td>
+        <td class="align-middle pointer text-right" @click="edit">{{ item.effective_industry_hours_formatted }}</td>
+        <td class="align-middle d-none d-md-table-cell text-right">
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-secondary" title="Bearbeiten" @click="edit" v-if="item.is_editable"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy" v-if="item.is_deletable"><i class="fas fa-trash"></i></button>
@@ -63,8 +73,9 @@
                 errors: {},
                 form: {
                     staff_id: this.item.staff_id,
-                    industry_hours_formatted: this.item.industry_hours_formatted,
+                    break_industry_hours_formatted: this.item.break_industry_hours_formatted,
                     start_at_formatted: this.item.start_at_formatted,
+                    end_at_formatted: this.item.end_at_formatted,
                 },
                 id: this.item.id,
                 isEditing: false,
