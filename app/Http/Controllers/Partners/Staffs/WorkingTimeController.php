@@ -63,7 +63,9 @@ class WorkingTimeController extends Controller
             abort(401);
         }
 
-        auth()->login($staff->user);
+        if (! is_null($staff->user)) {
+            auth()->login($staff->user);
+        }
 
         return view($this->baseViewPath . '.show')
             ->with('model', $staff);
