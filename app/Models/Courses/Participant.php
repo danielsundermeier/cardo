@@ -34,9 +34,13 @@ class Participant extends Pivot
         $this->participations_count = $this->participations()->count();
         $this->open_participations_count = 0;
 
-        $this->has_subscription = $this->course->subscription_item->lines()->where('partner_id', $this->partner_id)->whereHas('invoice', function ($query) {
-            return $query->where('date', now()->startOfMonth());
-        })->exists();
+        $this->has_subscription = false;
+
+        if (! is_null($this->course->subscription_item)) {
+            $this->has_subscription = $this->course->subscription_item->lines()->where('partner_id', $this->partner_id)->whereHas('invoice', function ($query) {
+                return $query->where('date', now()->startOfMonth());
+            })->exists();
+        }
 
         if ($this->has_subscription) {
             $this->open_participations_count = 99;
