@@ -44,7 +44,7 @@ class Participant extends Pivot
         }
 
         $this->has_subscription = false;
-        $this->open_participations_count = $this->course->item->lines()->where('partner_id', $this->partner_id)->sum('quantity') - $this->participations_count;
+        $this->open_participations_count = ((is_null($this->course->item) ? 0 : $this->course->item->lines()->where('partner_id', $this->partner_id)->sum('quantity')) - $this->participations_count);
 
         return $this;
     }
