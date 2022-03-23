@@ -25,6 +25,7 @@ class ItemController extends Controller
                     'course',
                     'unit',
                 ])
+                ->search($request->input('searchtext'))
                 ->orderBy('name', 'ASC')
                 ->paginate();
         }

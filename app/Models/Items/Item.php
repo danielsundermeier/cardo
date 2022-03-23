@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class Item extends Model
 {
@@ -110,6 +111,16 @@ class Item extends Model
     public function scopeOrderByName(Builder $query) : Builder
     {
         return $query->orderBy('name', 'ASC');
+    }
+
+    public function scopeSearch(Builder $query, $value) : Builder {
+        if (is_null($value)) {
+            return $query;
+        }
+
+        $value = strtolower($value);
+
+        return $query->where(DB::raw('LOWER(name)'), 'LIKE', '%' . $value . '%');
     }
 
 }
