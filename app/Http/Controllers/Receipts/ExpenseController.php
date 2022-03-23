@@ -101,9 +101,9 @@ class ExpenseController extends Controller
 
         return view($this->baseViewPath . '.edit')
             ->with('model', $expense)
-            ->with('partners', Partner::supplier()->get())
-            ->with('units', Unit::all())
-            ->with('items', Item::all());
+            ->with('partners', Partner::supplier()->orderByName()->get())
+            ->with('units', Unit::orderBy('name', 'ASC')->get())
+            ->with('items', Item::orderByName()->get());;
     }
 
     /**

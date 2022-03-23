@@ -96,9 +96,9 @@ class InvoiceController extends Controller
     {
         return view($this->baseViewPath . '.edit')
             ->with('model', $invoice)
-            ->with('partners', Partner::client()->get())
-            ->with('units', Unit::all())
-            ->with('items', Item::all());
+            ->with('partners', Partner::client()->orderByName()->get())
+            ->with('units', Unit::orderBy('name', 'ASC')->get())
+            ->with('items', Item::orderByName()->get());
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Models\Items;
 use App\Models\Courses\Course;
 use App\Models\Items\Unit;
 use App\Models\Receipts\Line;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -104,4 +105,10 @@ class Item extends Model
     {
         return $this->hasMany(Line::class, 'item_id');
     }
+
+    public function scopeOrderByName(Builder $query) : Builder
+    {
+        return $query->orderBy('name', 'ASC');
+    }
+
 }
