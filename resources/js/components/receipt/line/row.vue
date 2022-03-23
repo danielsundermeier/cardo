@@ -6,7 +6,7 @@
             <div class="invalid-feedback" v-text="'name' in errors ? errors.name[0] : ''"></div>
             <textarea class="form-control" :class="'description' in errors ? 'is-invalid' : ''" v-model="form.description" rows="3"></textarea>
             <div class="invalid-feedback" v-text="'description' in errors ? errors.description[0] : ''"></div>
-            <select class="form-control" :class="'partner_id' in errors ? 'is-invalid' : ''" v-model="form.partner_id" v-show="item.item.course_id">
+            <select class="form-control" :class="'partner_id' in errors ? 'is-invalid' : ''" v-model="form.partner_id" v-show="(item.item.course_id || item.item.is_flatrate)">
                 <option :value="null">Kein Teilnehmer</option>
                 <option :value="partner.id" v-for="partner in partners">{{ partner.name }}</option>
             </select>

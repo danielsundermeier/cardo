@@ -90,6 +90,11 @@
                             <label class="form-check-label" for="is_subscription">Abo</label>
                         </div>
 
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" name="is_flatrate" id="is_flatrate" value="1" {{ $model->is_flatrate ? 'checked="checked"' : '' }}>
+                            <label class="form-check-label" for="is_flatrate">Kursflatrate</label>
+                        </div>
+
                         <div class="form-group">
                             <label for="course_id">Verknüpfter Kurs</label>
                             <select class="form-control {{ ($errors->has('course_id') ? 'is-invalid' : '') }}" id="course_id" name="course_id">

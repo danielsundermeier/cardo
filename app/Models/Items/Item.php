@@ -31,6 +31,7 @@ class Item extends Model
         'unit_price_formatted',
         'tax',
         'is_subscription',
+        'is_flatrate',
         'revenue_account_number',
         'expense_account_number',
     ];

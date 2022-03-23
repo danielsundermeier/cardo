@@ -4,6 +4,7 @@ namespace App\Models\Courses;
 
 use App\Models\Courses\Course;
 use App\Models\Courses\Participation;
+use App\Models\Items\Item;
 use App\Models\Partners\Partner;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,7 @@ class Participant extends Pivot
     protected $fillable = [
         'course_id',
         'has_subscription',
+        'has_flatrate',
         'is_active',
         'open_participations_count',
         'participations_count',
@@ -35,6 +37,19 @@ class Participant extends Pivot
         $this->open_participations_count = 0;
 
         $this->has_subscription = false;
+        $this->has_flatrate = false;
+
+        $flatrate_item = Item::where('is_flatrate', true)->first();
+        if (! is_null($flatrate_item)) {
+            $this->has_flatrate = $flatrate_item->lines()->where('partner_id', $this->partner_id)->whereHas('invoice', function ($query) {
+                return $query->where('date', now()->startOfMonth());
+            })->exists();
+        }
+
+        if ($this->has_flatrate) {
+            $this->open_participations_count = 99;
+            return $this;
+        }
 
         if (! is_null($this->course->subscription_item)) {
             $this->has_subscription = $this->course->subscription_item->lines()->where('partner_id', $this->partner_id)->whereHas('invoice', function ($query) {

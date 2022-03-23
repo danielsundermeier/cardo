@@ -2153,6 +2153,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['item', 'uri'],
   data: function data() {
@@ -2636,6 +2644,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5687,6 +5705,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -47390,16 +47416,9 @@ var render = function() {
     "tr",
     [
       _c("td", { staticClass: "align-middle" }, [
-        _c(
-          "a",
-          {
-            attrs: {
-              href: _vm.item.participant.partner.path,
-              "layouts.guest": ""
-            }
-          },
-          [_vm._v(_vm._s(_vm.item.participant.partner.name))]
-        )
+        _c("a", { attrs: { href: _vm.item.participant.partner.path } }, [
+          _vm._v(_vm._s(_vm.item.participant.partner.name))
+        ])
       ]),
       _vm._v(" "),
       _vm.item.participant.has_subscription
@@ -47408,6 +47427,35 @@ var render = function() {
               "td",
               { staticClass: "align-middle text-right d-none d-sm-table-cell" },
               [_vm._v("Abo")]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", title: "Löschen" },
+                      on: { click: _vm.destroy }
+                    },
+                    [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                  )
+                ]
+              )
+            ])
+          ]
+        : _vm.item.participant.has_flatrate
+        ? [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v("Flatrate")]
             ),
             _vm._v(" "),
             _c("td", { staticClass: "align-middle text-right" }, [
@@ -48071,11 +48119,9 @@ var render = function() {
     "tr",
     [
       _c("td", { staticClass: "align-middle" }, [
-        _c(
-          "a",
-          { attrs: { href: _vm.item.partner.path, "layouts.guest": "" } },
-          [_vm._v(_vm._s(_vm.item.partner.name))]
-        )
+        _c("a", { attrs: { href: _vm.item.partner.path } }, [
+          _vm._v(_vm._s(_vm.item.partner.name))
+        ])
       ]),
       _vm._v(" "),
       _vm.item.has_subscription
@@ -48084,6 +48130,63 @@ var render = function() {
               "td",
               { staticClass: "align-middle text-right d-none d-sm-table-cell" },
               [_vm._v("Abo")]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _vm.item.is_active
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-secondary d-none d-sm-table-cell",
+                          attrs: { type: "button", title: "Deaktivieren" },
+                          on: { click: _vm.deactivate }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-check" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.item.is_active
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-secondary d-none d-sm-table-cell",
+                          attrs: { type: "button", title: "Aktivieren" },
+                          on: { click: _vm.activate }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-times" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.item.is_deletable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", title: "Löschen" },
+                          on: { click: _vm.destroy }
+                        },
+                        [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                      )
+                    : _vm._e()
+                ]
+              )
+            ])
+          ]
+        : _vm.item.has_flatrate
+        ? [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v("Flatrate")]
             ),
             _vm._v(" "),
             _c("td", { staticClass: "align-middle text-right" }, [
@@ -52366,6 +52469,35 @@ var render = function() {
               )
             ])
           ]
+        : _vm.item.has_flatrate
+        ? [
+            _c(
+              "td",
+              { staticClass: "align-middle text-right d-none d-sm-table-cell" },
+              [_vm._v("Flatrate")]
+            ),
+            _vm._v(" "),
+            _c("td", { staticClass: "align-middle text-right" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "btn-group btn-group-sm",
+                  attrs: { role: "group" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", title: "Löschen" },
+                      on: { click: _vm.destroy }
+                    },
+                    [_c("i", { staticClass: "fas fa-fw fa-trash" })]
+                  )
+                ]
+              )
+            ])
+          ]
         : [
             _c(
               "td",
@@ -55912,8 +56044,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.item.item.course_id,
-                  expression: "item.item.course_id"
+                  value: _vm.item.item.course_id || _vm.item.item.is_flatrate,
+                  expression: "(item.item.course_id || item.item.is_flatrate)"
                 }
               ],
               staticClass: "form-control",

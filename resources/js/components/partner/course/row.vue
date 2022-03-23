@@ -10,6 +10,14 @@
                 </div>
             </td>
         </template>
+        <template v-else-if="item.has_flatrate">
+            <td class="align-middle text-right d-none d-sm-table-cell">Flatrate</td>
+            <td class="align-middle text-right">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy"><i class="fas fa-fw fa-trash"></i></button>
+                </div>
+            </td>
+        </template>
         <template v-else>
             <td class="align-middle text-right pointer" @click="show">{{ item.open_participations_count }}</td>
             <td class="align-middle text-right">

@@ -1,8 +1,16 @@
 <template>
     <tr>
-        <td class="align-middle"><a :href="item.participant.partner.path"layouts.guest>{{ item.participant.partner.name }}</a></td>
+        <td class="align-middle"><a :href="item.participant.partner.path">{{ item.participant.partner.name }}</a></td>
         <template v-if="item.participant.has_subscription">
             <td class="align-middle text-right d-none d-sm-table-cell">Abo</td>
+            <td class="align-middle text-right">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy"><i class="fas fa-fw fa-trash"></i></button>
+                </div>
+            </td>
+        </template>
+        <template v-else-if="item.participant.has_flatrate">
+            <td class="align-middle text-right d-none d-sm-table-cell">Flatrate</td>
             <td class="align-middle text-right">
                 <div class="btn-group btn-group-sm" role="group">
                     <button type="button" class="btn btn-secondary" title="Löschen" @click="destroy"><i class="fas fa-fw fa-trash"></i></button>

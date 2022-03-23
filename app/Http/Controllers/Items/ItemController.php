@@ -115,6 +115,7 @@ class ItemController extends Controller
             'course_id' => 'nullable|int|exists:courses,id',
         ]);
 
+        $attributes['is_flatrate'] = $request->has('is_flatrate');
         $attributes['is_subscription'] = $request->has('is_subscription');
 
         $item->update($attributes);
