@@ -9,6 +9,8 @@ class Invoice extends Receipt
 {
     use HasParent;
 
+    const DUE_IN_DAYS = 7;
+
     protected function getBaseRouteAttribute() : string
     {
         return 'invoice';

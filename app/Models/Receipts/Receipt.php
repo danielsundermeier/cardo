@@ -67,7 +67,8 @@ class Receipt extends Model
             $model->setName();
 
             if (! $model->date_due) {
-                $model->date_due = now()->startOfDay();
+                $model->date_due = $model->date;
+                $model->date_due->addDays(Invoice::DUE_IN_DAYS)->startOfDay();
             }
 
             $model->setTextAbove();
@@ -101,7 +102,7 @@ class Receipt extends Model
 
     protected function setTextBelow()
     {
-        $this->text_below = 'Zahlungsbedingungen: Zahlung innerhalb von 7 Tagen ab Rechnungseingang ohne Abzüge auf folgendes Konto: Juliette Rolf, IBAN: DE67 4829 1490 0018 7987 01, Volksbank Bad Salzuflen.';
+        $this->text_below = 'Zahlungsbedingungen: Zahlung innerhalb von ' . Invoice::DUE_IN_DAYS . ' Tagen ab Rechnungseingang ohne Abzüge auf folgendes Konto: Juliette Rolf, IBAN: DE67 4829 1490 0018 7987 01, Volksbank Bad Salzuflen.';
     }
 
     public function pay(bool $value = true) : self

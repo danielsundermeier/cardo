@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::create([
             'address' => $partner->billing_address,
             'partner_id' => $partner->id,
-            'date_due' => now()->add(14, 'days'),
+            'date_due' => now()->add(Invoice::DUE_IN_DAYS, 'days'),
         ]);
 
         if ($request->wantsJson()) {
