@@ -9,10 +9,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col"></div>
-            <a href="/bookkeeping/receipt/{{ $model->id }}/pdf" class="btn btn-secondary mr-1" title="Vorschau"><i class="fas fa-file-pdf"></i></a>
-            <a href="/bookkeeping/receipt/{{ $model->id }}/download" class="btn btn-secondary mr-1" title="Download"><i class="fas fa-download"></i></a>
+            <a href="/bookkeeping/receipt/{{ $model->id }}/pdf" class="btn btn-sm btn-secondary mr-1" title="Vorschau"><i class="fas fa-file-pdf"></i></a>
+            <a href="/bookkeeping/receipt/{{ $model->id }}/download" class="btn btn-sm btn-secondary mr-1" title="Download"><i class="fas fa-download"></i></a>
             <div class="dropdown mr-1">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown">
                     <i class="fas fa-ellipsis-h"></i> Mehr
                 </button>
                 <div class="dropdown-menu">
@@ -20,7 +20,7 @@
                     <button class="dropdown-item pointer" data-toggle="modal" data-target="#confirm-delete">Löschen</button>
                 </div>
             </div>
-            <a href="{{ url('/bookkeeping/invoice') }}" class="btn btn-secondary">Übersicht</a>
+            <a href="{{ url('/bookkeeping/invoice') }}" class="btn btn-sm btn-secondary">Übersicht</a>
         </div>
     </div>
 
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Speichern</button>
+        <button type="submit" class="btn btn-sm btn-primary">Speichern</button>
 
     </form>
     <br />

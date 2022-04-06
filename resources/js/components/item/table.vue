@@ -4,17 +4,17 @@
             <div class="col d-flex align-items-start mb-1 mb-sm-0">
                 <div class="form-group mb-0 mr-1">
                     <div>
-                        <input type="text" class="form-control" :class="'name' in errors ? 'is-invalid' : ''" v-model="form.name" placeholder="Name" @keydown.enter="create">
+                        <input type="text" class="form-control form-control-sm" :class="'name' in errors ? 'is-invalid' : ''" v-model="form.name" placeholder="Name" @keydown.enter="create">
                         <div class="invalid-feedback" v-text="'name' in errors ? errors.name[0] : ''"></div>
                     </div>
                 </div>
-                <button class="btn btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
+                <button class="btn btn-sm btn-primary" @click="create"><i class="fas fa-plus-square"></i></button>
             </div>
             <div class="col-auto d-flex">
                 <div class="form-group" style="margin-bottom: 0;">
                     <filter-search v-model="filter.searchtext" @input="fetch()"></filter-search>
                 </div>
-                <button class="btn btn-secondary ml-1" @click="filter.show = !filter.show" v-if="false"><i class="fas fa-filter"></i></button>
+                <button class="btn btn-sm btn-secondary ml-1" @click="filter.show = !filter.show" v-if="false"><i class="fas fa-filter"></i></button>
             </div>
         </div>
 
@@ -35,7 +35,7 @@
             </center>
         </div>
         <div class="table-responsive mt-3" v-else-if="items.length">
-            <table class="table table-hover table-striped bg-white">
+            <table class="table table-hover table-striped table-sm bg-white">
                 <thead>
                     <tr>
                         <th width="50%">Name</th>

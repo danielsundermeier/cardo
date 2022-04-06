@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @include('receipt.confirm-destroy', ['route' => $model->path])
+
     <div class="d-flex mb-3">
         <h2 class="col mb-0 pl-0"><a class="text-body" href="/bookkeeping/expense">Ausgaben</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
         <div class="d-flex align-items-center">
@@ -9,18 +12,19 @@
                     @csrf
                     @method('DELETE')
 
-                    <button type="submit" class="btn btn-secondary" title="Als nicht Bezahlt markieren">Unbezahlt</button>
+                    <button type="submit" class="btn btn-sm btn-secondary" title="Als nicht Bezahlt markieren">Unbezahlt</button>
                 </form>
             @else
                 <form action="{{ $model->pay_path }}" class="mr-1" method="POST">
                     @csrf
                     @method('PUT')
 
-                    <button type="submit" class="btn btn-success" title="Als Bezahlt markieren">Bezahlt</button>
+                    <button type="submit" class="btn btn-sm btn-success" title="Als Bezahlt markieren">Bezahlt</button>
                 </form>
             @endif
-            <a href="{{ url($model->edit_path) }}" class="btn btn-primary mr-1"><i class="fas fa-edit"></i></a>
-            <a href="{{ url('/bookkeeping/expense') }}" class="btn btn-secondary">Übersicht</a>
+            <a href="{{ url($model->edit_path) }}" class="btn btn-sm btn-primary mr-1"><i class="fas fa-edit"></i></a>
+            <a href="{{ url('/bookkeeping/expense') }}" class="btn btn-sm btn-secondary mr-1">Übersicht</a>
+            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete">Löschen</button>
         </div>
     </div>
 

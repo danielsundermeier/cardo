@@ -48948,7 +48948,9 @@ var render = function() {
       ? _c("div", { staticClass: "table-responsive mt-3" }, [
           _c(
             "table",
-            { staticClass: "table table-hover table-striped bg-white" },
+            {
+              staticClass: "table table-hover table-striped table-sm bg-white"
+            },
             [
               _vm._m(0),
               _vm._v(" "),
@@ -52089,7 +52091,7 @@ var render = function() {
                   expression: "form.name"
                 }
               ],
-              staticClass: "form-control",
+              staticClass: "form-control form-control-sm",
               class: "name" in _vm.errors ? "is-invalid" : "",
               attrs: { type: "text", placeholder: "Name" },
               domProps: { value: _vm.form.name },
@@ -52125,7 +52127,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "button",
-          { staticClass: "btn btn-primary", on: { click: _vm.create } },
+          { staticClass: "btn btn-sm btn-primary", on: { click: _vm.create } },
           [_c("i", { staticClass: "fas fa-plus-square" })]
         )
       ]),
@@ -52184,7 +52186,9 @@ var render = function() {
       ? _c("div", { staticClass: "table-responsive mt-3" }, [
           _c(
             "table",
-            { staticClass: "table table-hover table-striped bg-white" },
+            {
+              staticClass: "table table-hover table-striped table-sm bg-white"
+            },
             [
               _vm._m(0),
               _vm._v(" "),
@@ -55561,7 +55565,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "button",
-          { staticClass: "btn btn-primary", on: { click: _vm.create } },
+          { staticClass: "btn btn-sm btn-primary", on: { click: _vm.create } },
           [_c("i", { staticClass: "fas fa-plus-square" })]
         )
       ]),
@@ -55581,7 +55585,7 @@ var render = function() {
                         expression: "filter.is_active"
                       }
                     ],
-                    staticClass: "form-control",
+                    staticClass: "form-control form-control-sm",
                     on: {
                       change: [
                         function($event) {
@@ -55678,7 +55682,9 @@ var render = function() {
       ? _c("div", { staticClass: "table-responsive mt-3" }, [
           _c(
             "table",
-            { staticClass: "table table-hover table-striped bg-white" },
+            {
+              staticClass: "table table-hover table-striped table-sm bg-white"
+            },
             [
               _c("thead", [
                 _c("tr", [
@@ -57276,7 +57282,9 @@ var render = function() {
       ? _c("div", { staticClass: "table-responsive mt-3" }, [
           _c(
             "table",
-            { staticClass: "table table-hover table-striped bg-white" },
+            {
+              staticClass: "table table-hover table-striped table-sm bg-white"
+            },
             [
               _c("thead", [
                 _c("tr", [

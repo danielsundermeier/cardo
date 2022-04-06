@@ -5,7 +5,7 @@
     <div class="d-flex mb-1">
         <h2 class="col mb-0 pl-0"><a class="text-body" href="/{{ $base_view_path }}">{{ $title }}</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
         <div class="d-flex align-items-center">
-            <a href="{{ route($base_view_path . '.show', [$base_view_path => $model->id]) }}" class="btn btn-secondary ml-1">Übersicht</a>
+            <a href="{{ route($base_view_path . '.show', [$base_view_path => $model->id]) }}" class="btn btn-sm btn-secondary ml-1">Übersicht</a>
         </div>
     </div>
     <form action="{{ route($base_view_path . '.show', [$base_view_path => $model->id]) }}" method="POST">
@@ -54,7 +54,7 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <button type="submit" class="btn btn-primary">Speichern</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Speichern</button>
                     </div>
                 </div>
             </div>

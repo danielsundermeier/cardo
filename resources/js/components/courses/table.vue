@@ -35,7 +35,7 @@
             </center>
         </div>
         <div class="table-responsive mt-3" v-else-if="items.length">
-            <table class="table table-hover table-striped bg-white">
+            <table class="table table-hover table-striped table-sm bg-white">
                 <thead>
                     <tr>
                         <th width="30%">Name</th>

@@ -5,7 +5,7 @@
     <div class="d-flex mb-1">
         <h2 class="col mb-0"><a class="text-body" href="/item">Produkte</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
         <div class="d-flex align-items-center">
-            <a href="{{ $model->path }}" class="btn btn-secondary ml-1">Übersicht</a>
+            <a href="{{ $model->path }}" class="btn btn-sm btn-secondary ml-1">Übersicht</a>
         </div>
     </div>
     <form action="{{ $model->path }}" method="POST">
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Speichern</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Speichern</button>
                     </div>
                 </div>
             </div>
