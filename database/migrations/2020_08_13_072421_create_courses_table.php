@@ -20,8 +20,10 @@ class CreateCoursesTable extends Migration
 
             $table->string('name');
             $table->text('description')->nullable();
+            $table->smallInteger('duration_in_seconds')->default(3600);
             $table->smallInteger('day')->default(0);
             $table->dateTime('time')->nullable();
+            $table->boolean('is_active')->default(true);
 
             $table->timestamps();
 

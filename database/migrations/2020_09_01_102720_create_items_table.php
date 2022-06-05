@@ -24,6 +24,7 @@ class CreateItemsTable extends Migration
             $table->decimal('unit_price', 15, 6)->default(0);
             $table->decimal('tax', 4, 3)->default(0);
 
+            $table->boolean('is_flatrate')->default(false);
             $table->boolean('is_subscription')->default(false);
             $table->unsignedMediumInteger('revenue_account_number')->default(0);
             $table->unsignedMediumInteger('expense_account_number')->default(0);

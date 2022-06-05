@@ -19,6 +19,10 @@ class CreateCourseParticipantTable extends Migration
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('partner_id');
 
+            $table->boolean('is_active')->default(true);
+            $table->boolean('has_flatrate')->default(false);
+            $table->boolean('has_subscription')->default(false);
+
             $table->unsignedMediumInteger('participations_count')->default(0);
             $table->smallInteger('open_participations_count')->default(0);
 
