@@ -71,6 +71,8 @@ class ParticipantController extends Controller
         $participant = Participant::firstOrCreate([
             'course_id' => $course->id,
             'partner_id' => $attributes['partner_id'],
+        ], [
+            'is_active' => true,
         ]);
         $participant->cache()
             ->save();
