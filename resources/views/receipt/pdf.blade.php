@@ -46,13 +46,23 @@
     <!--mpdf
         <htmlpageheader name="page-header">
 
-            <table width="100%" autosize="1">
-                <tr>
-                    <td>
-                        <img src="{{ Storage::disk('public')->url('receipt-top.png') }}" style="width: 210mm" border="0">
-                    </td>
-                </tr>
-            </table>
+            @unless($hat_logo == false)
+                <table width="100%" autosize="1">
+                    <tr>
+                        <td>
+                            <img src="{{ Storage::disk('public')->url('receipt-top.png') }}" style="width: 210mm" border="0">
+                        </td>
+                    </tr>
+                </table>
+            @else
+                <table width="100%" autosize="1">
+                    <tr>
+                        <td style="width: 210mm; height: 63mm">
+
+                        </td>
+                    </tr>
+                </table>
+            @endunless
 
             <table width="100%" autosize="1" style="margin: 0 20mm; margin-top: -10mm;">
                 <tbody>
@@ -98,11 +108,14 @@
         </htmlpageheader>
 
         <htmlpagefooter name="page-footer">
-            <table width="100%" style="border-top: 1px solid #EAEAEA; color: #fff; background-color: #000; margin-left: 0; margin-right: 0; margin-top: 20px; padding: 20px 0; font-size: 8px;">
+            <table width="100%" style="border-top: 1px solid #EAEAEA;  @unless($hat_logo == false) color: #fff; background-color: #000; @endunless margin-left: 0; margin-right: 0; margin-top: 20px; padding: 20px 0; font-size: 8px;">
                 <thead>
                     <tr style="font-weight: 700;">
                         <td align="center" width="22%">Cardo Gesundheit</td>
-                        <td align="center" width="43%" rowspan="5"><img src="{{ Storage::disk('public')->url('receipt-logo.png') }}" width="75" /></td>
+                        <td align="center" width="43%" rowspan="5">
+                             @unless($hat_logo == false)
+                                <img src="{{ Storage::disk('public')->url('receipt-logo.png') }}" width="75" /></td>
+                            @endunless
                         <td align="center" width="22%">Kontakt & Infos:</td>
                     </tr>
                 </thead>

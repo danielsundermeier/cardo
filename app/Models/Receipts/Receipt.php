@@ -2,17 +2,18 @@
 
 namespace App\Models\Receipts;
 
-use App\Models\Items\Item;
-use App\Models\Receipts\Line;
-use App\Traits\HasPath;
-use App\Traits\HasUserFiles;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\DB;
+use App\Traits\HasPath;
 use Parental\HasChildren;
+use App\Models\Items\Item;
+use Illuminate\Support\Arr;
+use App\Traits\HasUserFiles;
+use App\Models\Receipts\Line;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Receipt extends Model
 {
@@ -168,8 +169,10 @@ class Receipt extends Model
 
     }
 
-    public function pdf()
+    public function pdf(array $config = [])
     {
+
+
         $this->load([
             'lines.item',
             'lines.unit',
@@ -179,6 +182,7 @@ class Receipt extends Model
         return \PDF::loadView('receipt.pdf', [
             'receipt' => $this,
             'show_tax' => config('app.show_tax'),
+            'hat_logo' => Arr::get($config, 'hat_logo', true),
         ], [], [
             'margin_top' => 90,
             'margin_left' => 0,

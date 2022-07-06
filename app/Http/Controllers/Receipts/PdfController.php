@@ -85,7 +85,7 @@ class PdfController extends Controller
      */
     public function store(Request $request, Receipt $receipt)
     {
-        return $receipt->pdf()->download($receipt->name . '.pdf');
+        return $receipt->pdf($request->all())->download($receipt->name . '.pdf');
     }
 
     /**
@@ -94,9 +94,9 @@ class PdfController extends Controller
      * @param  \App\Models\Receipts\Receipt  $receipt
      * @return \Illuminate\Http\Response
      */
-    public function show(Receipt $receipt)
+    public function show(Request $request, Receipt $receipt)
     {
-        return $receipt->pdf()->stream();
+        return $receipt->pdf($request->all())->stream();
     }
 
     /**

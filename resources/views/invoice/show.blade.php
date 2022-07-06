@@ -7,6 +7,7 @@
     <div class="d-flex mb-3">
         <h2 class="col mb-0 pl-0"><a class="text-body" href="/bookkeeping/invoice">Rechnungen</a><span class="d-none d-md-inline"> > {{ $model->name }}</span></h2>
         <div class="d-flex align-items-center">
+            <a href="/bookkeeping/receipt/{{ $model->id }}/pdf?hat_logo=0" class="btn btn-sm btn-secondary mr-1">Ohne Logo</a>
             @if ($model->is_paid)
                 <form action="{{ $model->pay_path }}" class="mr-1" method="POST">
                     @csrf
