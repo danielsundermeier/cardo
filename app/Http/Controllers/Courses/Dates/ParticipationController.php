@@ -60,6 +60,8 @@ class ParticipationController extends Controller
         $participant = Participant::firstOrCreate([
             'course_id' => $date->course->id,
             'partner_id' => $attributes['partner_id'],
+        ], [
+            'is_active' => true,
         ]);
 
         $participation = Participation::firstWhere([
@@ -81,6 +83,11 @@ class ParticipationController extends Controller
                 'quantity' => 10,
             ]);
             $invoice->cache();
+        }
+
+        // Aktivate inaktive participant
+        if ($participant->is_active == false) {
+            $participant->is_active = true;
         }
 
         $participant->cache()
