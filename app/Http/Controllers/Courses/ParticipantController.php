@@ -58,6 +58,7 @@ class ParticipantController extends Controller
             'create_invoice' => 'nullable|boolean',
         ]);
 
+        // Create an invoice for the participant if requested.
         if (Arr::get($attributes, 'create_invoice', false)) {
             $partner = Partner::find($attributes['partner_id']);
             $attributes['address'] = $partner->billing_address;
@@ -74,6 +75,12 @@ class ParticipantController extends Controller
         ], [
             'is_active' => true,
         ]);
+
+        // Aktivate inaktive participant
+        if ($participant->is_active == false) {
+            $participant->is_active = true;
+        }
+
         $participant->cache()
             ->save();
 
