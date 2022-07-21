@@ -50,7 +50,7 @@
                 <table width="100%" autosize="1">
                     <tr>
                         <td>
-                            <img src="{{ Storage::disk('public')->url('receipt-top.png') }}" style="width: 210mm" border="0">
+                            <img src="{{ Storage::disk('public')->url('receipt-top-2.png') }}" style="width: 210mm" border="0">
                         </td>
                     </tr>
                 </table>
@@ -108,40 +108,15 @@
         </htmlpageheader>
 
         <htmlpagefooter name="page-footer">
-            <table width="100%" style="border-top: 1px solid #EAEAEA;  @unless($hat_logo == false) color: #fff; background-color: #000; @endunless margin-left: 0; margin-right: 0; margin-top: 20px; padding: 20px 0; font-size: 8px;">
-                <thead>
-                    <tr style="font-weight: 700;">
-                        <td align="center" width="22%">Cardo Gesundheit</td>
-                        <td align="center" width="43%" rowspan="5">
-                             @unless($hat_logo == false)
-                                <img src="{{ Storage::disk('public')->url('receipt-logo.png') }}" width="75" /></td>
-                            @endunless
-                        <td align="center" width="22%">Kontakt & Infos:</td>
-                    </tr>
-                </thead>
-                <tbody>
+            @unless($hat_logo == false)
+                <table width="100%" autosize="1">
                     <tr>
-                        <td align="center">Juliette Rolf</td>
-
-                        <td align="center">01515/2175674</td>
+                        <td>
+                            <img src="{{ Storage::disk('public')->url('receipt-bottom-2.png') }}" style="width: 210mm" border="0">
+                        </td>
                     </tr>
-                    <tr>
-                        <td align="center">Westorfer Straße 11</td>
-
-                        <td align="center">+49 5264 6575181</td>
-                    </tr>
-                    <tr>
-                        <td align="center">32689 Kalletal</td>
-
-                        <td align="center">info@cardo-gesundheit.de</td>
-                    </tr>
-                    <tr>
-                        <td align="center">329/5084/3453</td>
-
-                        <td align="center">www.cardo-gesundheit.de</td>
-                    </tr>
-                </tbody>
-            </table>
+                </table>
+            @endunless
         </htmlpagefooter>
         <sethtmlpagefooter name="page-footer" value="on" />
 
