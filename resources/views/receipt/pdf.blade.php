@@ -70,7 +70,7 @@
                         <td width="70%" style="vertical-align: top;" autosize="1">
                             <table width="100%" autosize="1">
                                 <tr>
-                                    <td style="font-size: 9px; margin-bottom: 10px;">Cardo Gesundheit | Westorfer Straße 11 | 32689 Kalletal</td>
+                                    <td style="font-size: 9px; margin-bottom: 10px;">Health & You  | Westorfer Straße 11 | 32689 Kalletal</td>
                                 </tr>
                                 <tr>
                                     <td style="line-height: 1.5; margin-top: 10px;">{!! nl2br(e($receipt->address)) !!}</td>
