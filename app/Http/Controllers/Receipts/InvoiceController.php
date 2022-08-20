@@ -118,7 +118,7 @@ class InvoiceController extends Controller
         ]);
 
         $attributes['date'] = Carbon::createFromFormat('d.m.Y', $attributes['date_formatted'])->startOfDay();
-        $attributes['date_due'] = Carbon::createFromFormat('d.m.Y', $attributes['date_formatted'])->startOfDay()->addDays(14);
+        $attributes['date_due'] = Carbon::createFromFormat('d.m.Y', $attributes['date_formatted'])->startOfDay()->addDays(Invoice::DUE_IN_DAYS);
 
         $invoice->update($attributes);
         $invoice->cache();

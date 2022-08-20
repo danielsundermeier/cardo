@@ -73,7 +73,6 @@ class Receipt extends Model
             }
 
             $model->setTextAbove();
-            $model->setTextBelow();
 
             return true;
         });
@@ -99,11 +98,6 @@ class Receipt extends Model
     protected function setTextAbove()
     {
         $this->text_above = 'Vielen Dank für Ihr Vertrauen. Wir stellen Ihnen hiermit folgende Leistungen in Rechnung:';
-    }
-
-    protected function setTextBelow()
-    {
-        $this->text_below = 'Zahlungsbedingungen: Zahlung innerhalb von ' . Invoice::DUE_IN_DAYS . ' Tagen ab Rechnungseingang ohne Abzüge auf folgendes Konto: Juliette Rolf, IBAN: DE67 4829 1490 0018 7987 01, Volksbank Bad Salzuflen.';
     }
 
     public function pay(bool $value = true) : self
@@ -172,7 +166,6 @@ class Receipt extends Model
     public function pdf(array $config = [])
     {
 
-
         $this->load([
             'lines.item',
             'lines.unit',
@@ -218,6 +211,15 @@ class Receipt extends Model
     public function getTaxAttribute()
     {
         return $this->tax;
+    }
+
+    public function getDueInDaysAttribute(): int
+    {
+        if (is_null($this->date) || is_null($this->date_due)) {
+            return Invoice::DUE_IN_DAYS;
+        }
+
+        return $this->date_due->diffInDays($this->date);
     }
 
     public function partner() : BelongsTo

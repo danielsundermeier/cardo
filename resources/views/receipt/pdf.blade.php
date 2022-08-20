@@ -213,9 +213,8 @@
             <p>{!! $receipt->text !!}</p>
         @endif
 
-        @if($receipt->text_below)
-            <p>{!! $receipt->text_below !!}</p>
-        @endif
+        <p>Zahlungsbedingungen: Zahlung innerhalb von {{ $receipt->due_in_days }} Tagen ab Rechnungseingang ohne Abzüge auf folgendes Konto: Juliette Rolf, IBAN: DE67 4829 1490 0018 7987 01, Volksbank Bad Salzuflen.</p>
+
     </div>
 </body>
 </html>
